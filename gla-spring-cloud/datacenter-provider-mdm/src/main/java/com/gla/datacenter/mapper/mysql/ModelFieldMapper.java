@@ -1,0 +1,45 @@
+package com.gla.datacenter.mapper.mysql;
+
+import com.gla.datacenter.domain.ModelField;
+import com.gla.datacenter.domain.ModelFieldExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface ModelFieldMapper {
+    int countByExample(ModelFieldExample example);
+
+    int deleteByExample(ModelFieldExample example);
+
+    int deleteByPrimaryKey(String id);
+
+    int insert(ModelField record);
+
+    int insertSelective(ModelField record);
+
+    List<ModelField> selectByExample(ModelFieldExample example);
+
+    ModelField selectByPrimaryKey(String id);
+
+    int updateByExampleSelective(@Param("record") ModelField record, @Param("example") ModelFieldExample example);
+
+    int updateByExample(@Param("record") ModelField record, @Param("example") ModelFieldExample example);
+
+    int updateByPrimaryKeySelective(ModelField record);
+
+    int updateByPrimaryKey(ModelField record);
+
+    void insertFieldByList(@Param("list") List<ModelField> modelFields, @Param("id") String id);
+
+    List<ModelField> getFieldListByModelId(String modelId);
+
+    String[] getTableNameByModelId(@Param("id") String id);
+
+    void deleteFieldByModelId(String id);
+
+    void deleteFieldByIds(@Param("collect") List<String> collect);
+
+    int countFieldByFieldId(@Param("fieldId") String fieldId);
+}

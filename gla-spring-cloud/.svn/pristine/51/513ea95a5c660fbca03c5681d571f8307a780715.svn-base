@@ -1,0 +1,17 @@
+server:
+  port: 8008
+#环境切换
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+

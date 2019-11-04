@@ -1,0 +1,82 @@
+#端口和编码
+server:
+  port: 9999
+  session-timeout: 1800
+  tomcat:
+    uri-encoding: utf-8
+
+#数据库配置
+spring:
+  application:
+    name: metadata-manager
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.26.112:3306/metadata_db?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123@gla.net.cn
+    initialSize: 3
+    minIdle: 3
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 3600000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: true
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+
+#视图层控制
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+  static-path-pattern: /static/**
+
+#thymeleaf start
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+    #开发时关闭缓存,不然没法看到实时页面
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.limp.framework.boss.domain,com.gla.datacenter.domain    # 所有Entity别名类所在包
+  mapper-locations: classpath:com/limp/framework/boss/persistence/oracle/*.xml,classpath:com/limp/framework/boss/persistence/mysql/*.xml,classpath:com/gla/datacenter/persistence/mysql/*.xml             # mapper映射文件
+
+#详细参数可以参照类：ThymeleafProperties
+#thymeleaf end
+redis:
+  shiro:
+    host: 192.168.26.113
+    port: 6379
+    password: datacenter
+  # 连接超时时间（毫秒）
+    timeout: 18000
+    pool:
+    # 连接池中的最大空闲连接
+      max-idle: 8
+    # 连接池中的最小空闲连接
+      min-idle: 10
+    # 连接池最大连接数（使用负值表示没有限制）
+      max-active: 100
+    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+
+
+
+
+

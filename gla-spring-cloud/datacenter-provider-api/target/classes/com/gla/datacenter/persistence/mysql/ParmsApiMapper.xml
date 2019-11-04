@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.ParmsApiMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.ParmsApi" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="API_ID" property="apiId" jdbcType="VARCHAR" />
+    <result column="REAL_PARMS" property="realParms" jdbcType="VARCHAR" />
+    <result column="SHAM_PARMS" property="shamParms" jdbcType="VARCHAR" />
+    <result column="DEFAULT_VALUE" property="defaultValue" jdbcType="VARCHAR" />
+    <result column="DESRIPTION" property="desription" jdbcType="VARCHAR" />
+    <result column="LENGTH" property="length" jdbcType="INTEGER" />
+    <result column="TYPE" property="type" jdbcType="TINYINT" />
+    <result column="REQUIRED" property="required" jdbcType="TINYINT" />
+    <result column="IS_HEADER" property="isHeader" jdbcType="TINYINT" />
+    <result column="PARMS_NO" property="parmsNo" jdbcType="INTEGER" />
+    <result column="PWD_TYPE" property="pwdType" jdbcType="TINYINT" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="INTEGER" />
+    <result column="RC4" property="rc4" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, API_ID, REAL_PARMS, SHAM_PARMS, DEFAULT_VALUE, DESRIPTION, LENGTH, TYPE, REQUIRED,
+    IS_HEADER, PARMS_NO, PWD_TYPE, REMARK, IDT, CREATE_ID, UDT, UPDATE_ID, RC1, RC2,
+    RC3, RC4
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.ParmsApiExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_parms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from dc_parms_api
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_parms_api
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.ParmsApiExample" >
+    delete from dc_parms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.ParmsApi" >
+    insert into dc_parms_api (ID, API_ID, REAL_PARMS,
+    SHAM_PARMS, DEFAULT_VALUE, DESRIPTION,
+    LENGTH, TYPE, REQUIRED,
+    IS_HEADER, PARMS_NO, PWD_TYPE,
+    REMARK, IDT, CREATE_ID,
+    UDT, UPDATE_ID, RC1,
+    RC2, RC3, RC4)
+    values (#{id,jdbcType=VARCHAR}, #{apiId,jdbcType=VARCHAR}, #{realParms,jdbcType=VARCHAR},
+    #{shamParms,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, #{desription,jdbcType=VARCHAR},
+    #{length,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{required,jdbcType=TINYINT},
+    #{isHeader,jdbcType=TINYINT}, #{parmsNo,jdbcType=INTEGER}, #{pwdType,jdbcType=TINYINT},
+    #{remark,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR},
+    #{udt,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR},
+    #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=INTEGER}, #{rc4,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.ParmsApi" >
+    insert into dc_parms_api
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiId != null" >
+        API_ID,
+      </if>
+      <if test="realParms != null" >
+        REAL_PARMS,
+      </if>
+      <if test="shamParms != null" >
+        SHAM_PARMS,
+      </if>
+      <if test="defaultValue != null" >
+        DEFAULT_VALUE,
+      </if>
+      <if test="desription != null" >
+        DESRIPTION,
+      </if>
+      <if test="length != null" >
+        LENGTH,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="required != null" >
+        REQUIRED,
+      </if>
+      <if test="isHeader != null" >
+        IS_HEADER,
+      </if>
+      <if test="parmsNo != null" >
+        PARMS_NO,
+      </if>
+      <if test="pwdType != null" >
+        PWD_TYPE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="apiId != null" >
+        #{apiId,jdbcType=VARCHAR},
+      </if>
+      <if test="realParms != null" >
+        #{realParms,jdbcType=VARCHAR},
+      </if>
+      <if test="shamParms != null" >
+        #{shamParms,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null" >
+        #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="desription != null" >
+        #{desription,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="required != null" >
+        #{required,jdbcType=TINYINT},
+      </if>
+      <if test="isHeader != null" >
+        #{isHeader,jdbcType=TINYINT},
+      </if>
+      <if test="parmsNo != null" >
+        #{parmsNo,jdbcType=INTEGER},
+      </if>
+      <if test="pwdType != null" >
+        #{pwdType,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=INTEGER},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.ParmsApiExample" resultType="java.lang.Integer" >
+    select count(*) from dc_parms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_parms_api
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiId != null" >
+        API_ID = #{record.apiId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realParms != null" >
+        REAL_PARMS = #{record.realParms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shamParms != null" >
+        SHAM_PARMS = #{record.shamParms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultValue != null" >
+        DEFAULT_VALUE = #{record.defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.desription != null" >
+        DESRIPTION = #{record.desription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null" >
+        LENGTH = #{record.length,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.required != null" >
+        REQUIRED = #{record.required,jdbcType=TINYINT},
+      </if>
+      <if test="record.isHeader != null" >
+        IS_HEADER = #{record.isHeader,jdbcType=TINYINT},
+      </if>
+      <if test="record.parmsNo != null" >
+        PARMS_NO = #{record.parmsNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.pwdType != null" >
+        PWD_TYPE = #{record.pwdType,jdbcType=TINYINT},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createId != null" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateId != null" >
+        UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_parms_api
+    set ID = #{record.id,jdbcType=VARCHAR},
+    API_ID = #{record.apiId,jdbcType=VARCHAR},
+    REAL_PARMS = #{record.realParms,jdbcType=VARCHAR},
+    SHAM_PARMS = #{record.shamParms,jdbcType=VARCHAR},
+    DEFAULT_VALUE = #{record.defaultValue,jdbcType=VARCHAR},
+    DESRIPTION = #{record.desription,jdbcType=VARCHAR},
+    LENGTH = #{record.length,jdbcType=INTEGER},
+    TYPE = #{record.type,jdbcType=TINYINT},
+    REQUIRED = #{record.required,jdbcType=TINYINT},
+    IS_HEADER = #{record.isHeader,jdbcType=TINYINT},
+    PARMS_NO = #{record.parmsNo,jdbcType=INTEGER},
+    PWD_TYPE = #{record.pwdType,jdbcType=TINYINT},
+    REMARK = #{record.remark,jdbcType=VARCHAR},
+    IDT = #{record.idt,jdbcType=TIMESTAMP},
+    CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+    UDT = #{record.udt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+    RC1 = #{record.rc1,jdbcType=VARCHAR},
+    RC2 = #{record.rc2,jdbcType=VARCHAR},
+    RC3 = #{record.rc3,jdbcType=INTEGER},
+    RC4 = #{record.rc4,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.ParmsApi" >
+    update dc_parms_api
+    <set >
+      <if test="apiId != null" >
+        API_ID = #{apiId,jdbcType=VARCHAR},
+      </if>
+      <if test="realParms != null" >
+        REAL_PARMS = #{realParms,jdbcType=VARCHAR},
+      </if>
+      <if test="shamParms != null" >
+        SHAM_PARMS = #{shamParms,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null" >
+        DEFAULT_VALUE = #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="desription != null" >
+        DESRIPTION = #{desription,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        LENGTH = #{length,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="required != null" >
+        REQUIRED = #{required,jdbcType=TINYINT},
+      </if>
+      <if test="isHeader != null" >
+        IS_HEADER = #{isHeader,jdbcType=TINYINT},
+      </if>
+      <if test="parmsNo != null" >
+        PARMS_NO = #{parmsNo,jdbcType=INTEGER},
+      </if>
+      <if test="pwdType != null" >
+        PWD_TYPE = #{pwdType,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=INTEGER},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.ParmsApi" >
+    update dc_parms_api
+    set API_ID = #{apiId,jdbcType=VARCHAR},
+    REAL_PARMS = #{realParms,jdbcType=VARCHAR},
+    SHAM_PARMS = #{shamParms,jdbcType=VARCHAR},
+    DEFAULT_VALUE = #{defaultValue,jdbcType=VARCHAR},
+    DESRIPTION = #{desription,jdbcType=VARCHAR},
+    LENGTH = #{length,jdbcType=INTEGER},
+    TYPE = #{type,jdbcType=TINYINT},
+    REQUIRED = #{required,jdbcType=TINYINT},
+    IS_HEADER = #{isHeader,jdbcType=TINYINT},
+    PARMS_NO = #{parmsNo,jdbcType=INTEGER},
+    PWD_TYPE = #{pwdType,jdbcType=TINYINT},
+    REMARK = #{remark,jdbcType=VARCHAR},
+    IDT = #{idt,jdbcType=TIMESTAMP},
+    CREATE_ID = #{createId,jdbcType=VARCHAR},
+    UDT = #{udt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+    RC1 = #{rc1,jdbcType=VARCHAR},
+    RC2 = #{rc2,jdbcType=VARCHAR},
+    RC3 = #{rc3,jdbcType=INTEGER},
+    RC4 = #{rc4,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--  自定义sql开始  -->
+  <select id="getShamParms" resultMap="BaseResultMap">
+    select * from DC_PARMS_API t where t.API_ID = #{apiId} ORDER by parms_no asc
+  </select>
+
+  <!-- 获取参数名称 -->
+  <select id="getRequiredParmsList" resultType="java.lang.String">
+    select SHAM_PARMS shamParms from DC_PARMS_API where API_ID = #{apiId}
+  </select>
+</mapper>

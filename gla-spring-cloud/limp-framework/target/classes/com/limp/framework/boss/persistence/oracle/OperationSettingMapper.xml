@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.OperationSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.OperationSetting" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="POJO_KEY" property="pojoKey" jdbcType="VARCHAR" />
+    <result column="BUSSINESS_NAME" property="bussinessName" jdbcType="VARCHAR" />
+    <result column="URL_TEMPLATE" property="urlTemplate" jdbcType="VARCHAR" />
+    <result column="FIELD_TEMPLATE" property="fieldTemplate" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="CONTENT_TEMPLATE" property="contentTemplate" jdbcType="VARCHAR" />
+    <result column="CREATE_ACCOUNT" property="createAccount" jdbcType="VARCHAR" />
+    <result column="UPDATE_ACCOUNT" property="updateAccount" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, POJO_KEY, BUSSINESS_NAME, URL_TEMPLATE, FIELD_TEMPLATE, LOG_TYPE, STATE, IDT, 
+    UDT, CONTENT_TEMPLATE, CREATE_ACCOUNT, UPDATE_ACCOUNT, RC1, RC2, RC3, RC4, RC5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.OperationSettingExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_operation_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.OperationSettingExample" >
+    delete from lp_operation_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.OperationSetting" >
+    insert into lp_operation_setting (ID, POJO_KEY, BUSSINESS_NAME, 
+      URL_TEMPLATE, FIELD_TEMPLATE, LOG_TYPE, 
+      STATE, IDT, UDT, 
+      CONTENT_TEMPLATE, CREATE_ACCOUNT, UPDATE_ACCOUNT, 
+      RC1, RC2, RC3, RC4, 
+      RC5)
+    values (#{id,jdbcType=VARCHAR}, #{pojoKey,jdbcType=VARCHAR}, #{bussinessName,jdbcType=VARCHAR}, 
+      #{urlTemplate,jdbcType=VARCHAR}, #{fieldTemplate,jdbcType=VARCHAR}, #{logType,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{idt,jdbcType=TIMESTAMP}, #{udt,jdbcType=TIMESTAMP}, 
+      #{contentTemplate,jdbcType=VARCHAR}, #{createAccount,jdbcType=VARCHAR}, #{updateAccount,jdbcType=VARCHAR}, 
+      #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR}, #{rc4,jdbcType=INTEGER}, 
+      #{rc5,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.OperationSetting" >
+    insert into lp_operation_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="pojoKey != null" >
+        POJO_KEY,
+      </if>
+      <if test="bussinessName != null" >
+        BUSSINESS_NAME,
+      </if>
+      <if test="urlTemplate != null" >
+        URL_TEMPLATE,
+      </if>
+      <if test="fieldTemplate != null" >
+        FIELD_TEMPLATE,
+      </if>
+      <if test="logType != null" >
+        LOG_TYPE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="contentTemplate != null" >
+        CONTENT_TEMPLATE,
+      </if>
+      <if test="createAccount != null" >
+        CREATE_ACCOUNT,
+      </if>
+      <if test="updateAccount != null" >
+        UPDATE_ACCOUNT,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pojoKey != null" >
+        #{pojoKey,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessName != null" >
+        #{bussinessName,jdbcType=VARCHAR},
+      </if>
+      <if test="urlTemplate != null" >
+        #{urlTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldTemplate != null" >
+        #{fieldTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentTemplate != null" >
+        #{contentTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="createAccount != null" >
+        #{createAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="updateAccount != null" >
+        #{updateAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.OperationSettingExample" resultType="java.lang.Integer" >
+    select count(*) from lp_operation_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_operation_setting
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pojoKey != null" >
+        POJO_KEY = #{record.pojoKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinessName != null" >
+        BUSSINESS_NAME = #{record.bussinessName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urlTemplate != null" >
+        URL_TEMPLATE = #{record.urlTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fieldTemplate != null" >
+        FIELD_TEMPLATE = #{record.fieldTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logType != null" >
+        LOG_TYPE = #{record.logType,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contentTemplate != null" >
+        CONTENT_TEMPLATE = #{record.contentTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createAccount != null" >
+        CREATE_ACCOUNT = #{record.createAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateAccount != null" >
+        UPDATE_ACCOUNT = #{record.updateAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_operation_setting
+    set ID = #{record.id,jdbcType=VARCHAR},
+      POJO_KEY = #{record.pojoKey,jdbcType=VARCHAR},
+      BUSSINESS_NAME = #{record.bussinessName,jdbcType=VARCHAR},
+      URL_TEMPLATE = #{record.urlTemplate,jdbcType=VARCHAR},
+      FIELD_TEMPLATE = #{record.fieldTemplate,jdbcType=VARCHAR},
+      LOG_TYPE = #{record.logType,jdbcType=INTEGER},
+      STATE = #{record.state,jdbcType=INTEGER},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      CONTENT_TEMPLATE = #{record.contentTemplate,jdbcType=VARCHAR},
+      CREATE_ACCOUNT = #{record.createAccount,jdbcType=VARCHAR},
+      UPDATE_ACCOUNT = #{record.updateAccount,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+  <!--                                自定义sql开始                              -->
+  <!--  批量删除行为审计日志设置  -->
+  <update id="deleteOperationSetting" parameterType="java.lang.String">
+    update lp_operation_setting t set t.state = -1,t.udt = #{date} where t.id in
+    <foreach item = 'item' index = 'index' collection = 'ids' open = '(' separator = ',' close = ')'>
+      #{item}
+    </foreach>
+
+  </update>
+</mapper>

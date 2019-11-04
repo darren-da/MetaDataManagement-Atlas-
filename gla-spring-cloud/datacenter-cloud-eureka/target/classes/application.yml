@@ -1,0 +1,29 @@
+server: 
+  port: 7001
+ #192.168.26.13
+eureka:
+  server:
+  #:【1】todo仅开发环境使用eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+   # eviction-interval-timer-in-ms: 5000
+    #【2】todo仅开发环境使用 缓存问题-关闭
+   # use-read-only-response-cache: false
+     #【2】todo仅开发环境使用 自我保护关闭
+    #enable-self-preservation: false
+
+  instance:
+    hostname: localhost #eureka服务端的实例名称
+  client:
+    #【3】todo仅开发环境使用 拉取注册频率
+   # registry-fetch-interval-seconds: 5
+    register-with-eureka: false     #false表示不向注册中心注册自己。
+    fetch-registry: false     #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    service-url: 
+       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ #,http://192.168.26.13:7002/eureka/,http://192.168.26.13:7003/eureka/,http://192.168.26.13:7001/eureka/
+          #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
+      #defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+
+
+ 
+
+ 

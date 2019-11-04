@@ -1,0 +1,387 @@
+package com.gla.datacenter.service.impl;
+
+import com.gla.datacenter.domain.OrderInfo;
+import com.gla.datacenter.domain.UserInfo;
+import com.gla.datacenter.intercepter.ApplicationContextHolder;
+import com.gla.datacenter.mapper.mysql.AnalysisDataMapper;
+import com.gla.datacenter.mapper.mysql.AnalysisMapper;
+import com.gla.datacenter.service.AnalysisService;
+import com.gla.datacenter.service.ResourceCateManagerClientService;
+import com.gla.datacenter.service.UserInfoClientService;
+import com.limp.framework.core.bean.Pager;
+import com.limp.framework.core.bean.Result;
+import com.limp.framework.core.bean.ResultCode;
+import com.limp.framework.core.constant.ResultMsg;
+import com.limp.framework.utils.DateUtils;
+import com.limp.framework.utils.StrUtils;
+import com.limp.framework.utils.ThreadPoolUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.internal.Function;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
+@Service
+public class AnalysisServiceImpl implements AnalysisService {
+
+    private Logger log= LoggerFactory.getLogger(AnalysisServiceImpl.class);
+
+
+    /**
+     * 数据分析Mapper
+     */
+    @Autowired
+    AnalysisMapper analysisMapper;
+
+    @Autowired
+    AnalysisDataMapper analysisDataMapper;
+
+    @Autowired
+    private ResourceCateManagerClientService resourceCateManagerClientService;
+
+    @Autowired
+    private UserInfoClientService userInfoClientService;
+
+    /**
+     * 統計查詢 通用方法
+     * @param method 方法的名称
+     * @param params 参数
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> selectListMapByMethod(String method, Map<String, Object> params) {
+
+        if(StrUtils.isBlank(method)){
+          return  null;
+      }
+        List<Map<String, Object>> listMap= analysisMapper.selectListMapByMethod(method,params);
+        return listMap;
+    }
+
+    @Override
+    public String selectApiScore() {
+        String userId = ApplicationContextHolder.currentUser().getId();
+        Map<String, Object> map = new HashMap<>();
+        try{
+            map = analysisMapper.selectApiScore(userId);
+            if(map != null && !map.isEmpty()){
+                return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,map,null).getJson();
+            }
+        }catch(Exception e){
+            return Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,map,null).getJson();
+    }
+
+    @Override
+    public String getConsumerApiUseNumByWeek() {
+        String userId = ApplicationContextHolder.currentUser().getId();
+        //身份判断暂不写
+        List<Map<String, Integer>> list = new ArrayList<>();
+        try{
+            list = analysisMapper.getConsumerApiUseNumByWeek(userId);
+        }catch(Exception e){
+            Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,list,null).getJson();
+    }
+
+    @Override
+    public String getConsumerApiApplyNumByWeek() {
+        String userId = ApplicationContextHolder.currentUser().getId();
+        //身份判断暂不写
+        List<Map<String, Integer>> list = new ArrayList<>();
+        try{
+            list = analysisMapper.getConsumerApiApplyNumByWeek(userId);
+        }catch(Exception e){
+            Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,list,null).getJson();
+    }
+
+    @Override
+    public String getProviderCenterBusinessStatistics() {
+        String userId = ApplicationContextHolder.currentUser().getId();
+        Map<String, Integer> map = new HashMap<>();
+        try{
+            List<Map<String, Integer>> list = new ArrayList<>();
+            list = analysisDataMapper.getProviderCenterBusinessStatistics(userId);
+            if(list != null && !list.isEmpty()){
+                if(list.size() != 1){
+                    map.put("countRc5",list.get(0).get("rc5"));
+                    Number rc5 = list.get(0).get("rc5");
+                    Number rc51 = list.get(1).get("rc5");
+                    Number apiNum = list.get(0).get("apiNum");
+                    Number apiNum1 = list.get(1).get("apiNum");
+                    Number countRc4 = list.get(0).get("rc4");
+                    Number countRc41 = list.get(1).get("rc4");
+                    map.put("addRc5",rc5.intValue() - rc51.intValue());
+                    map.put("countApi",list.get(0).get("apiNum"));
+                    map.put("addApi",apiNum.intValue() - apiNum1.intValue());
+                    map.put("countRc4",list.get(0).get("rc4"));
+                    map.put("addRc4",countRc4.intValue() - countRc41.intValue());
+                }else{
+                    map.put("countRc5",list.get(0).get("rc5"));
+                    map.put("addRc5",list.get(0).get("rc5"));
+                    map.put("countApi",list.get(0).get("apiNum"));
+                    map.put("addApi",list.get(0).get("apiNum"));
+                    map.put("countRc4",list.get(0).get("rc4"));
+                    map.put("addRc4",list.get(0).get("rc4"));
+                }
+            }
+        }catch(Exception e){
+            return Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,map,null).getJson();
+    }
+
+    @Override
+    public String getProviderApiAccessCountByDate(String dateType) {
+        Map<String, Integer> countMap = new HashMap<>();
+        String userId = ApplicationContextHolder.currentUser().getId();
+        Map<String, Object> paramMap = new HashMap<>();
+        try {
+            paramMap.put("userId",userId);
+            paramMap.put("dateType",dateType);
+            if("month".equals(dateType)){
+                Calendar date = Calendar.getInstance();
+                date.setTime(new Date());
+                date.add(Calendar.MONTH, -1);
+                Date time = date.getTime();
+                int dayByMonth = DateUtils.getDayByMonth(time);
+                paramMap.put("maxDay",dayByMonth);
+            }
+            countMap = analysisDataMapper.getProviderApiAccessCountByDate(paramMap);
+        } catch (Exception e) {
+            return Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,countMap,null).getJson();
+    }
+
+    @Override
+    public String getProviderApiAccessEchartsByDate(String dateType) {
+
+        List<Map<String, Integer>> echartsList = new ArrayList<>();
+        Map<String, Object> paramMap = new HashMap<>();
+        String userId = ApplicationContextHolder.currentUser().getId();
+        try {
+            paramMap.put("userId",userId);
+            paramMap.put("dateType",dateType);
+            if("month".equals(dateType)){
+                Calendar date = Calendar.getInstance();
+                date.setTime(new Date());
+                date.add(Calendar.MONTH, -1);
+                Date time = date.getTime();
+                int dayByMonth = DateUtils.getDayByMonth(time);
+                paramMap.put("maxDay",dayByMonth);
+            }
+            echartsList = analysisDataMapper.getProviderApiAccessEchartsByDate(paramMap);
+        } catch (Exception e) {
+            return Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,echartsList,null).getJson();
+    }
+
+    @Override
+    public String getProviderDayAccessData(OrderInfo orderInfo, Pager pager) {
+
+        List<OrderInfo> list = new ArrayList<>();
+        Map<String, Object> paramMap = new HashMap<>();
+        String userId = ApplicationContextHolder.currentUser().getId();
+        paramMap.put("userId",userId);
+        if(orderInfo.getIdt() != null){
+            paramMap.put("idt",orderInfo.getIdt());
+        }
+        int count = 0;
+        try {
+            count = analysisDataMapper.getProviderDayAccessData(paramMap).size();
+        } catch (Exception e) {
+            Result.Error().getJson();
+        }
+        if (orderInfo.getPage() > 0) {
+            paramMap.put("page",(orderInfo.getPage() -1) * (orderInfo.getRows() != 0 ? orderInfo.getRows() : 10));
+        }else{
+            paramMap.put("page",0);
+        }
+        if(orderInfo.getRows() != 0){
+            paramMap.put("rows",orderInfo.getRows());
+        }else{
+            paramMap.put("rows",10);
+        }
+        list = analysisDataMapper.getProviderDayAccessData(paramMap);
+        pager.setPagerInfo(list,count);
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,pager,null).getJson();
+    }
+
+    @Override
+    public String getProviderHistoryAccessData(OrderInfo orderInfo, Pager pager) {
+        long startTime = System.currentTimeMillis();
+        List<OrderInfo> list = new ArrayList<>();
+        Map<String, Object> paramMap = new HashMap<>();
+        String userId = ApplicationContextHolder.currentUser().getId();
+        paramMap.put("userId",userId);
+        if(orderInfo.getIdt() != null){
+            paramMap.put("idt",orderInfo.getIdt());
+        }
+        int count = 0;
+        try {
+            count = analysisDataMapper.getProviderHistoryAccessCount(paramMap);
+        } catch (Exception e) {
+            Result.Error().getJson();
+        }
+        if (orderInfo.getPage() > 0) {
+            paramMap.put("page",(orderInfo.getPage() -1) * (orderInfo.getRows() != 0 ? orderInfo.getRows() : 10));
+        }else{
+            paramMap.put("page",0);
+        }
+        if(orderInfo.getRows() != 0){
+            paramMap.put("rows",orderInfo.getRows());
+        }else{
+            paramMap.put("rows",10);
+        }
+        list = analysisDataMapper.getProviderHistoryAccessData(paramMap);
+        pager.setPagerInfo(list,count);
+        long endTime = System.currentTimeMillis();
+        System.err.println("请求耗时:" + (startTime - endTime));
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,pager,null).getJson();
+    }
+
+    @Override
+    public String getFoundationalLibraryCatalog() {
+
+        String result = "";
+        try {
+            result = resourceCateManagerClientService.getFoundationalLibraryCatalog();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.Error().getJson();
+        }
+        return result;
+    }
+
+    @Override
+    public String getThreeLibraryCatalog() {
+
+        String result = "";
+        try {
+            result = resourceCateManagerClientService.getThreeLibraryCatalog();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.Error().getJson();
+        }
+        return result;
+    }
+
+    @Override
+    public String countApiAndApp() {
+
+
+        Map<String, Object> map = new HashMap<>();
+        try {
+            map = analysisDataMapper.getApiAndAppCountAndCalls();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> numMap = new HashMap<>();
+        Integer num = 0;
+        try {
+            num = resourceCateManagerClientService.getResourceCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        map.put("resourceCount",num);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.putAll(numMap);
+        resultMap.putAll(map);
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,resultMap,null).getJson();
+        /*Map<String, Object> resultMap = new HashMap<>();
+        List<CompletableFuture<Map<String,Object>>> listFuture = new ArrayList<>();
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        CompletableFuture<Map<String, Object>> future = CompletableFuture.supplyAsync(() -> {
+            Map<String, Object> map = new HashMap<>();
+            map = analysisDataMapper.getApiAndAppCountAndCalls();
+            return map;
+        }, ThreadPoolUtils.getInstance().createExecutor());
+
+        CompletableFuture<Map<String, Object>> future1 = CompletableFuture.supplyAsync(() -> {
+            Map<String, Object> map = new HashMap<>();
+            //获取应用目录总数
+            Integer num = 0;
+            try {
+                num = resourceCateManagerClientService.getResourceCount();
+            } catch (Exception e) {
+                e.printStackTrace();
+                map.put("resourceCount",0);
+                return map;
+            }
+            map.put("resourceCount",num);
+            return map;
+        }, ThreadPoolUtils.getInstance().createExecutor());
+        listFuture.add(future);
+        listFuture.add(future1);
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(listFuture.toArray(new CompletableFuture[listFuture.size()]));
+        //汇总返回结果
+        CompletableFuture<List<Map<String, Object>>> finalResults = allFutures.thenApply(v -> {
+            return listFuture.stream().map(accountFindingFuture -> accountFindingFuture.join())
+                    .collect(Collectors.toList());
+        });
+        try {
+            resultList = finalResults.get();
+            if(resultList != null && !resultList.isEmpty()){
+                resultMap.putAll(resultList.get(0));
+                resultMap.putAll(resultList.get(1));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,resultMap,null).getJson();*/
+    }
+
+    @Override
+    public String countUserByPortal() {
+
+        List<UserInfo> userByPortal = new ArrayList<>();
+        //统计用户
+        try {
+            userByPortal = userInfoClientService.getUserByPortal();
+            if(userByPortal == null){
+                throw new Exception();
+            }
+            //List<String> collect = ;
+            //根据用户集合查询用户pcodes
+            if(userByPortal.size() > 0){
+                List<String> collect = userByPortal.stream().map(u -> u.getUnitcode()).distinct().collect(Collectors.toList());
+                //collect = collect.stream().distinct().collect(Collectors.toList());
+                String[] codes = collect.toArray(new String[collect.size()]);
+                Map<String, Object> pcodeMap = resourceCateManagerClientService.getResourcePcodesByCode(codes);
+
+                for(UserInfo ui : userByPortal){
+                    if(pcodeMap.isEmpty()){
+                        break;
+                    }
+                    if(pcodeMap.containsKey(ui.getUnitcode())){
+                        if(pcodeMap.get(ui.getUnitcode()) != null){
+                            String pcodes = pcodeMap.get(ui.getUnitcode()).toString();
+                            String baseImage = pcodeMap.get(ui.getUnitcode() + "image").toString();
+                            ui.setRc1(pcodes);
+                            ui.setRc5(baseImage);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,userByPortal,null).getJson();
+    }
+}

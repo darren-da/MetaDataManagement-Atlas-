@@ -1,0 +1,382 @@
+package com.gla.datacenter.consumer.controller;
+
+import com.gla.datacenter.domain.CatalogUserMap;
+import com.gla.datacenter.domain.RcsResourceCate;
+import com.gla.datacenter.model.ResourceCatalogRequestModel;
+import com.gla.datacenter.service.ResourceCateManagerClientService;
+import com.limp.framework.core.annotation.Access;
+import com.limp.framework.utils.TextUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * @Author: zhangbo
+ * @Date: 2019/2/28 17:03
+ * @Description:
+ */
+@CrossOrigin
+@RestController
+public class ResourceCateManagerControllerFeign {
+
+    @Autowired
+    private ResourceCateManagerClientService resourceCateManagerClientService;
+
+    /**
+     *
+     * 功能描述: 获取资源目录分页数据
+     *
+     * @param:
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/2/28 17:09
+     */
+    @GetMapping(value = "/resource/provider/catalog")
+    @Access(login = true)
+    public String getResourceCatalogPages(RcsResourceCate rcsResourceCate, String code){
+
+        return resourceCateManagerClientService.getResourceCatalogPages(rcsResourceCate, code);
+    }
+
+    /**
+     *
+     * 功能描述: 获取资源目录消费者分页列表
+     *
+     * @param: 
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/25 16:09
+     */
+    /*@Access(login = true)
+    @GetMapping(value = "/resource/consumer/catalog")
+    public String getResourceCatalogConsumerPages(RcsResourceCate rcsResourceCate){
+        return resourceCateManagerClientService.getResourceCatalogConsumerPages(rcsResourceCate,rcsResourceCate.getCode());
+    }*/
+
+    /**
+     *
+     * 功能描述: 消费者高级条件查询
+     *
+     * @param: 
+     * @param resourceCatalogRequestModel
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/26 11:19
+     */
+    @Access(login = true)
+    @GetMapping(value = "/resource/consumer/search")
+    public String searchResourceCatalogConsumerPages(ResourceCatalogRequestModel resourceCatalogRequestModel){
+        return resourceCateManagerClientService.searchResourceCatalogConsumerPages(resourceCatalogRequestModel);
+    }
+
+    /**
+     *
+     * 功能描述: 消费者统计类、项、目、细目各多少个
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/25 16:10
+     */
+    @Access(login = true)
+    @GetMapping(value = "/resource/consumer/count")
+    public String countResourceCatalogByConsumer(){
+        return resourceCateManagerClientService.countResourceCatalogByConsumer();
+    }
+
+    /**
+     *
+     * 功能描述: 获取三大类接口
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/26 9:49
+     */
+    @Access(login = true)
+    @GetMapping(value = "/resource/class")
+    public String getResourceClass(@RequestParam("lv") int lv){
+        return resourceCateManagerClientService.getResourceClass(lv);
+    }
+
+    /**
+     *
+     * 功能描述: (项、目、细目、全部)条件获取资源目录分页数据
+     *
+     * @param:
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/2/28 17:14
+     */
+    @GetMapping(value = "/resource/catalog/lv")
+    @Access(login = true)
+    public String getResourceCataLogByLvPages(RcsResourceCate rcsResourceCate, @RequestParam("isDraft") boolean isDraft){
+        rcsResourceCate = (rcsResourceCate == null ? new RcsResourceCate() : rcsResourceCate);
+        return resourceCateManagerClientService.getResourceCataLogByLvPages(rcsResourceCate,isDraft);
+    }
+
+    /**
+     *
+     * 功能描述: 保存资源目录
+     *
+     * @param: 
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/8 10:41
+     */
+    @Access(login = true)
+    @PostMapping(value = "/resource/save")
+    public String saveResource(@RequestBody RcsResourceCate rcsResourceCate){
+        return resourceCateManagerClientService.saveResource(rcsResourceCate);
+    }
+
+    /**
+     *
+     * 功能描述: 资源目录提交审核
+     *
+     * @param: 
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/13 16:15
+     */
+    @Access(login = true)
+    @PostMapping(value = "/resource/audit")
+    public String submitAuditResource(){
+        return resourceCateManagerClientService.submitAuditResource();
+    }
+
+    /**
+     *
+     * 功能描述: 对资源目录修改的操作进行撤销
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/8 12:40
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/revoke/{flag}/{id}")
+    public String revokeResource(@PathVariable("flag") boolean flag,@PathVariable("id") String id){
+        return resourceCateManagerClientService.revokeResource(flag,id);
+    }
+
+    /**
+     *
+     * 功能描述: 更新资源目录保存为草稿
+     *
+     * @param: 
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/11 13:45
+     */
+    @Access(login = true)
+    @PutMapping(value = "/resource/update")
+    public String updateResourceCate(@RequestBody RcsResourceCate rcsResourceCate){
+        return resourceCateManagerClientService.updateResourceCate(rcsResourceCate);
+    }
+
+    /**
+     *
+     * 功能描述: 根据所选目录获取所有上级关系
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/11 9:16
+     */
+    @Access(login = true)
+    @GetMapping(value = "/resource/elder/{id}")
+    public String getAllElderById(@PathVariable("id") String id){
+        return resourceCateManagerClientService.getAllElderById(id);
+    }
+
+    /**
+     *
+     * 功能描述: 获取资源目录草稿
+     *
+     * @param:
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/2/28 13:50
+     */
+    @RequestMapping(value = "/resource/provider/draft")
+    @Access(login = true)
+    public String getResourceDraftPages(RcsResourceCate rcsResourceCate, String code){
+        return resourceCateManagerClientService.getResourceDraftPages(rcsResourceCate,code);
+    }
+
+    /**
+     *
+     * 功能描述: 查看资源目录-目录信息
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/2/28 10:07
+     */
+    @RequestMapping(value = "/resource/find/{id}")
+    @Access(login = true)
+    public String findCatalogInfor(@PathVariable("id") String id){
+        return resourceCateManagerClientService.findCatalogInfor(id);
+    }
+
+    /**
+     *
+     * 功能描述: 资源目录详情-选择部门查询
+     *
+     * @param:
+     * @param rcsResourceCate
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/2/28 11:43
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/dept")
+    public String findDeptResourceInfo(RcsResourceCate rcsResourceCate){
+        return resourceCateManagerClientService.findDeptResourceInfo(rcsResourceCate);
+    }
+
+    /**
+     *
+     * 功能描述: 删除资源目录
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/6 10:17
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/delete/{flag}/{id}")
+    public String deleteResourceCata(@PathVariable("flag") boolean flag, @PathVariable("id") String id){
+        return resourceCateManagerClientService.deleteResourceCata(flag,id);
+    }
+
+    /**
+     *
+     * 功能描述: 资源目录上线下线
+     *
+     * @param: 
+     * @param id
+     * @param statu
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/6 10:47
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/line/{id}/{statu}")
+    public String onlineOffline(@PathVariable("id") String id, @PathVariable("statu") int statu){
+        return resourceCateManagerClientService.onlineOffline(id,statu);
+    }
+
+    /**
+     *
+     * 功能描述: 资源目录审核通过
+     *
+     * @param: 
+     * @param code
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/1 14:47
+     */
+    @RequestMapping(value = "/resource/approved/{code}")
+    @Access(login = true)
+    public String resourceApproved(@PathVariable("code") String code){
+        return resourceCateManagerClientService.resourceApproved(code);
+    }
+
+    /**
+     *
+     * 功能描述: 导出资源目录模板
+     *
+     * @param:
+     * @param request
+     * @param response
+     * @return: java.lang.Object
+     * @author: zhangbo
+     * @date: 2019/3/4 15:58
+     */
+    //@Access(login = true)
+    @RequestMapping(value = "/resource/template/export")
+    public Object downloadTemplate(HttpServletRequest request, HttpServletResponse response){
+        ResponseEntity<byte[]> entity = resourceCateManagerClientService.downloadTemplate();
+        return entity;
+    }
+
+    /**
+     *
+     * 功能描述: 下载资源目录
+     *
+     * @param:
+     * @param request
+     * @return: java.lang.Object
+     * @author: zhangbo
+     * @date: 2019/3/4 18:41
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/export")
+    public Object downloadResource(HttpServletRequest request, @RequestParam("code") String code){
+        ResponseEntity<byte[]> entity = resourceCateManagerClientService.downloadResource(code);
+        return entity;
+    }
+
+    /**
+     *
+     * 功能描述: 根据redis的key获取错误数据源，并且下载Excel
+     *
+     * @param:
+     * @return: java.lang.Object
+     * @author: zhangbo
+     * @date: 2019/3/13 14:23
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/export/error")
+    public Object downloadErrorResource(@RequestParam("key") String key){
+        ResponseEntity<byte[]> entity = resourceCateManagerClientService.downloadErrorResource(key);
+        return entity;
+    }
+
+    /**
+     *
+     * 功能描述: 上传资源目录信息
+     *
+     * @param: 
+     * @param request
+     * @param file
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/3/5 11:37
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/resource/import")
+    public String importResource(HttpServletRequest request, MultipartFile file){
+        return resourceCateManagerClientService.importResource(file);
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        /**
+         * 第一种方式：使用WebDataBinder注册一个自定义的编辑器，编辑器是日期类型
+         * 使用自定义的日期编辑器，日期格式：yyyy-MM-dd,第二个参数为是否为空  true代表可以为空
+         */
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"), true));
+    }
+
+}

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.DeptMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.Dept" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="AREACODE" property="areacode" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="FATHERAREA" property="fatherarea" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="INTEGER" />
+    <result column="RC4" property="rc4" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="INTEGER" />
+    <result column="RC6" property="rc6" jdbcType="VARCHAR" />
+    <result column="LV" property="lv" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, CODE, AREACODE, PARENT_ID, FATHERAREA, STATE, RC1, RC2, RC3, RC4, RC5, 
+    RC6, LV
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.DeptExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_dept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lp_dept
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_dept
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.DeptExample" >
+    delete from lp_dept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.Dept" >
+    insert into lp_dept (ID, NAME, CODE, 
+      AREACODE, PARENT_ID, FATHERAREA, 
+      STATE, RC1, RC2, RC3, 
+      RC4, RC5, RC6, LV
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{areacode,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{fatherarea,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=INTEGER}, 
+      #{rc4,jdbcType=INTEGER}, #{rc5,jdbcType=INTEGER}, #{rc6,jdbcType=VARCHAR}, #{lv,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.Dept" >
+    insert into lp_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="areacode != null" >
+        AREACODE,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="fatherarea != null" >
+        FATHERAREA,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+      <if test="lv != null" >
+        LV,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherarea != null" >
+        #{fatherarea,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=INTEGER},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=INTEGER},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        #{lv,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.DeptExample" resultType="java.lang.Integer" >
+    select count(*) from lp_dept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_dept
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areacode != null" >
+        AREACODE = #{record.areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatherarea != null" >
+        FATHERAREA = #{record.fatherarea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lv != null" >
+        LV = #{record.lv,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_dept
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      AREACODE = #{record.areacode,jdbcType=VARCHAR},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      FATHERAREA = #{record.fatherarea,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=INTEGER},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=INTEGER},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=INTEGER},
+      RC6 = #{record.rc6,jdbcType=VARCHAR},
+      LV = #{record.lv,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.Dept" >
+    update lp_dept
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        AREACODE = #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherarea != null" >
+        FATHERAREA = #{fatherarea,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=INTEGER},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        RC5 = #{rc5,jdbcType=INTEGER},
+      </if>
+      <if test="rc6 != null" >
+        RC6 = #{rc6,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        LV = #{lv,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.Dept" >
+    update lp_dept
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      AREACODE = #{areacode,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      FATHERAREA = #{fatherarea,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=INTEGER},
+      RC4 = #{rc4,jdbcType=INTEGER},
+      RC5 = #{rc5,jdbcType=INTEGER},
+      RC6 = #{rc6,jdbcType=VARCHAR},
+      LV = #{lv,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

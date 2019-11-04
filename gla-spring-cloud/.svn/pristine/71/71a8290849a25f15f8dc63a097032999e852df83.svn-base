@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>角色列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">角色管理</a>
+        <a>
+          <cite>角色列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="roleTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-inline">
+						<input type="text" id="user_serach_name" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+					</div>
+					<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+				</div>
+			</div>
+
+			<!--测试区域-->
+			<div class="weadmin-block table-tools">
+				<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>
+				<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+				<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+			</div>
+			<table class="layui-form layui-table" id="roleTable">
+
+			</table>
+
+			<!--测试区域-->
+		</div>
+		<!--*********************魔板部分**begin************************-->
+		<script type="text/template" id="tkAddRole" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="addFilter">
+
+
+					<div class="layui-form-item">
+						<label for="lp_name" class="layui-form-label">
+							<span class="lp-red">*</span>角色名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="name" lay-verify="required|name"  autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_rc3" class="layui-form-label">
+							角色类型
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="rc3" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_keyword" class="layui-form-label">
+							角色编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="keyword"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+
+
+
+
+					<div class="layui-form-item">
+						<label for="lp_state" class="layui-form-label">状态</label>
+						<div class="layui-input-inline">
+
+							<select name="state" >
+								<option value="1">正常</option>
+								<option value="-1">删除</option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_remarks" class="layui-form-label">
+							描述
+						</label>
+						<div class="layui-input-inline">
+							<textarea id="lp_remarks" name="remarks"placeholder="请输入内容" class="layui-textarea"></textarea>
+							<!--<input type="text"  autocomplete="off" class="layui-input">-->
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<!--修改魔板-->
+		<script type="text/template" id="tkUpdateRole" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="updateFilter">
+
+					<div class="layui-form-item">
+						<label for="lp_name" class="layui-form-label">
+							<span class="lp-red">*</span>角色名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="name" lay-verify="required|name"  autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_rc3" class="layui-form-label">
+							角色类型
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="rc3" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_keyword" class="layui-form-label">
+							角色编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="keyword"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							描述
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="remarks"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_state" class="layui-form-label">状态</label>
+						<div class="layui-input-inline">
+
+							<select name="state" >
+								<option value="1">正常</option>
+								<option value="-1">删除</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<input type="hidden"  name="id"  class="layui-input">
+
+						<label for="lp_repassword" class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="updateFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+		<script type="text/template" id="setRolePermsWin" >
+			<div>
+				<div class="zTreeDemoBackground  left">
+					<ul id="treeAuthRole" class="ztree"></ul>
+				</div>
+				<input type="hidden" name="id" id="roleId" />
+			</div>
+		</script>
+
+		<!--*********************魔板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_role.js}"></script>
+
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

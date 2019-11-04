@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>日志配置列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">日志配置列表</a>
+        <a>
+          <cite>日志配置列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="settingTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-form layui-col-md12 we-search">
+						<div class="layui-inline">
+							<input type="text" id="bussinessName" placeholder="业务名称" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-inline">
+							<select id="logTypes">
+								<option value="">日志类型</option>
+								<option value="1">新增</option>
+								<option value="2">删除</option>
+								<option value="3">修改</option>
+							</select>
+						</div>
+
+						<!--<lable class="layui-form-label">登陆状态</lable>-->
+						<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="weadmin-block table-tools">
+				<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>
+				<!--<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>删除</button>-->
+				<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+				<!--<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span> -->
+			</div>
+
+			<table class="layui-form layui-table" id="settingTable">
+
+			</table>
+		</div>
+
+		<script type="text/template" id="tkAddSetting">
+			<div class="weadmin-body">
+
+				<form class="layui-form lpform-2clo" lay-filter="addFilter">
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							<span class="lp-red">*</span>业务名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="bussinessName"   lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							对象名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="pojoKey"  lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label">
+							日志类型
+						</label>
+						<div class="layui-input-inline">
+							<select id="logType" name="logType">
+								<option value="">&nbsp;-----&nbsp;</option>
+								<option value="1">新增</option>
+								<option value="2">删除</option>
+								<option value="3">修改</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							监控字段
+						</label>
+						<div class="layui-input-block" style="margin-left: 88px">
+							<textarea class="layui-textarea" placeholder="请输入内容" name = "fieldTemplate" id="fieldTemplate">
+
+							</textarea>
+						</div>
+					</div>
+					<div class="layui-form-item" style="float: right;">
+						<input type="hidden" name="id" />
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+
+			</div>
+
+		</script>
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_operation_setting.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

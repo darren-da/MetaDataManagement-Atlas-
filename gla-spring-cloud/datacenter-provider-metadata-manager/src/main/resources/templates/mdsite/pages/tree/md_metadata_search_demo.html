@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<meta charset="UTF-8">
+	<title>元数据列表</title>
+	<!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">元数据管理</a>
+        <a>
+          <cite>元数据查询</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="areaTableMain">
+
+			<div style="padding: 20px; background-color: #F2F2F2;">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md11">
+						<div class="layui-card">
+							<div class="layui-card-header">元数据维护关系</div>
+							<div class="layui-card-body">
+								<div class="layui-row table-search">
+
+									<div class="layui-form layui-col-md12 we-search">
+										<div class="layui-inline">
+											<input type="text" id="perms_serach_name" placeholder="请输入匹配名称" autocomplete="off" class="layui-input">
+										</div>
+										<div class="layui-inline">
+											<input type="text" id="perms_type_name" placeholder="类型（字符串、日期）" autocomplete="off" class="layui-input">
+										</div>
+										<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+									</div>
+								</div>
+								<!--测试区域-->
+								<table class="layui-form layui-table" id="areaTable1">
+									<thead>
+										<tr><th style="text-align:left;white-space: nowrap;cursor:pointer">ID</th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">元数据名称</th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">元数据编码&nbsp;<span class="layui-table-sort layui-inline lphide" value="code" lay-sort="asc"><i class="layui-edge layui-table-sort-asc" value="code ASC"></i><i class="layui-edge layui-table-sort-desc" value="code DESC"></i></span></th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">评分</th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">类型</th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">介绍</th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">元数据关联</th>
+											<th style="text-align:left;white-space: nowrap;cursor:pointer">操作</th>
+										</tr>
+									</thead>
+									<tbody id="test">
+								      <tr>
+									<td style="text-align:left;">1</td><td style="text-align:left;">test</td><td style="text-align:left;">test</td>
+									<td style="text-align:left;"></td><td style="text-align:left;"></td><td style="text-align:left;">/数据库/DSB/表/用户表/这些都是测试字段</td><td style="text-align:left;"><span data-value="4f22471a583441bb9c38cd300516fb78"><a title="详情" class="update" data-value="test" href="javascript:;"> <i class="layui-icon">详情</i> </a></span></td></tr><tr>
+									</tbody><tfoot></tfoot></table>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!--*********************模板部分**begin************************-->
+		<script type="text/template" id="tkDomain">
+			<div class="weadmin-body">
+				<form class="layui-form lpform-2clo" lay-filter="addFilter">
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							<span class="lp-red">*</span>元数据名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="name"   lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							上级名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="parentName"  readonly="readonly"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label">
+							元数据编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="code" autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label" >
+							更新周期
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="updateCycle" autocomplete="off" class="layui-input">
+						</div>
+
+
+						<div class="layui-input-inline" style="display: none">
+							<!--readonly="readonly"-->
+							<input type="text"  name="pid"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label">
+							元数据介绍
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="intro" autocomplete="off" class="layui-input">
+						</div>
+						<label  class="layui-form-label">
+							层级
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="lv"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label" title="类型(如数据库、表、目录等  待定)">
+							类型
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="type" autocomplete="off" class="layui-input">
+						</div>
+						<label  class="layui-form-label">
+							排序号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="orderNum"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label" >
+							图标样式
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="icon" autocomplete="off" class="layui-input">
+						</div>
+						<label  class="layui-form-label">
+							元数据提供方
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="provider"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label" >
+							关键词
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="keyWord" autocomplete="off" class="layui-input">
+						</div>
+						<label  class="layui-form-label">
+							链接地址
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="url"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+
+				</form>
+			</div>
+		</script>
+
+		<!--*********************模板部分**end************************-->
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/scripts/mdsite/service/md_metadata_search_demo.js}"></script>
+
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+	</body>
+
+
+
+</html>

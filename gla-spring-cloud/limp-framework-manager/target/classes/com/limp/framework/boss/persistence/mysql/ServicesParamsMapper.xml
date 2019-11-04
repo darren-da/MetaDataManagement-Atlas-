@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.ServicesParamsMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.ServicesParams" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SERVICEID" property="serviceid" jdbcType="VARCHAR" />
+    <result column="PARAM_NAME" property="paramName" jdbcType="VARCHAR" />
+    <result column="PARAM_SORT" property="paramSort" jdbcType="DECIMAL" />
+    <result column="PARAM_KEY" property="paramKey" jdbcType="VARCHAR" />
+    <result column="PARAM_TYPE" property="paramType" jdbcType="VARCHAR" />
+    <result column="PARAM_FORMATTER" property="paramFormatter" jdbcType="VARCHAR" />
+    <result column="PARAM_STATE" property="paramState" jdbcType="DECIMAL" />
+    <result column="PARAM_MUST" property="paramMust" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SERVICEID, PARAM_NAME, PARAM_SORT, PARAM_KEY, PARAM_TYPE, PARAM_FORMATTER, PARAM_STATE, 
+    PARAM_MUST
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.ServicesParamsExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_service_params
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lp_service_params
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_service_params
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.ServicesParamsExample" >
+    delete from lp_service_params
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.ServicesParams" >
+    insert into lp_service_params (ID, SERVICEID, PARAM_NAME, 
+      PARAM_SORT, PARAM_KEY, PARAM_TYPE, 
+      PARAM_FORMATTER, PARAM_STATE, PARAM_MUST
+      )
+    values (#{id,jdbcType=VARCHAR}, #{serviceid,jdbcType=VARCHAR}, #{paramName,jdbcType=VARCHAR}, 
+      #{paramSort,jdbcType=DECIMAL}, #{paramKey,jdbcType=VARCHAR}, #{paramType,jdbcType=VARCHAR}, 
+      #{paramFormatter,jdbcType=VARCHAR}, #{paramState,jdbcType=DECIMAL}, #{paramMust,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.ServicesParams" >
+    insert into lp_service_params
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="serviceid != null" >
+        SERVICEID,
+      </if>
+      <if test="paramName != null" >
+        PARAM_NAME,
+      </if>
+      <if test="paramSort != null" >
+        PARAM_SORT,
+      </if>
+      <if test="paramKey != null" >
+        PARAM_KEY,
+      </if>
+      <if test="paramType != null" >
+        PARAM_TYPE,
+      </if>
+      <if test="paramFormatter != null" >
+        PARAM_FORMATTER,
+      </if>
+      <if test="paramState != null" >
+        PARAM_STATE,
+      </if>
+      <if test="paramMust != null" >
+        PARAM_MUST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceid != null" >
+        #{serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="paramName != null" >
+        #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramSort != null" >
+        #{paramSort,jdbcType=DECIMAL},
+      </if>
+      <if test="paramKey != null" >
+        #{paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="paramType != null" >
+        #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="paramFormatter != null" >
+        #{paramFormatter,jdbcType=VARCHAR},
+      </if>
+      <if test="paramState != null" >
+        #{paramState,jdbcType=DECIMAL},
+      </if>
+      <if test="paramMust != null" >
+        #{paramMust,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.ServicesParamsExample" resultType="java.lang.Integer" >
+    select count(*) from lp_service_params
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_service_params
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceid != null" >
+        SERVICEID = #{record.serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramName != null" >
+        PARAM_NAME = #{record.paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramSort != null" >
+        PARAM_SORT = #{record.paramSort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paramKey != null" >
+        PARAM_KEY = #{record.paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramType != null" >
+        PARAM_TYPE = #{record.paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramFormatter != null" >
+        PARAM_FORMATTER = #{record.paramFormatter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramState != null" >
+        PARAM_STATE = #{record.paramState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paramMust != null" >
+        PARAM_MUST = #{record.paramMust,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_service_params
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SERVICEID = #{record.serviceid,jdbcType=VARCHAR},
+      PARAM_NAME = #{record.paramName,jdbcType=VARCHAR},
+      PARAM_SORT = #{record.paramSort,jdbcType=DECIMAL},
+      PARAM_KEY = #{record.paramKey,jdbcType=VARCHAR},
+      PARAM_TYPE = #{record.paramType,jdbcType=VARCHAR},
+      PARAM_FORMATTER = #{record.paramFormatter,jdbcType=VARCHAR},
+      PARAM_STATE = #{record.paramState,jdbcType=DECIMAL},
+      PARAM_MUST = #{record.paramMust,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limp.framework.boss.domain.ServicesParams" >
+    update lp_service_params
+    <set >
+      <if test="serviceid != null" >
+        SERVICEID = #{serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="paramName != null" >
+        PARAM_NAME = #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramSort != null" >
+        PARAM_SORT = #{paramSort,jdbcType=DECIMAL},
+      </if>
+      <if test="paramKey != null" >
+        PARAM_KEY = #{paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="paramType != null" >
+        PARAM_TYPE = #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="paramFormatter != null" >
+        PARAM_FORMATTER = #{paramFormatter,jdbcType=VARCHAR},
+      </if>
+      <if test="paramState != null" >
+        PARAM_STATE = #{paramState,jdbcType=DECIMAL},
+      </if>
+      <if test="paramMust != null" >
+        PARAM_MUST = #{paramMust,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limp.framework.boss.domain.ServicesParams" >
+    update lp_service_params
+    set SERVICEID = #{serviceid,jdbcType=VARCHAR},
+      PARAM_NAME = #{paramName,jdbcType=VARCHAR},
+      PARAM_SORT = #{paramSort,jdbcType=DECIMAL},
+      PARAM_KEY = #{paramKey,jdbcType=VARCHAR},
+      PARAM_TYPE = #{paramType,jdbcType=VARCHAR},
+      PARAM_FORMATTER = #{paramFormatter,jdbcType=VARCHAR},
+      PARAM_STATE = #{paramState,jdbcType=DECIMAL},
+      PARAM_MUST = #{paramMust,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

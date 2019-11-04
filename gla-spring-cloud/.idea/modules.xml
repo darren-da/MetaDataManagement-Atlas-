@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/datacenter-auth-jwt-core/datacenter-auth-jwt-core.iml" filepath="$PROJECT_DIR$/datacenter-auth-jwt-core/datacenter-auth-jwt-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-auth-server-jwt/datacenter-auth-server-jwt.iml" filepath="$PROJECT_DIR$/datacenter-auth-server-jwt/datacenter-auth-server-jwt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-cloud-api/datacenter-cloud-api.iml" filepath="$PROJECT_DIR$/datacenter-cloud-api/datacenter-cloud-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-cloud-consumer/datacenter-cloud-consumer.iml" filepath="$PROJECT_DIR$/datacenter-cloud-consumer/datacenter-cloud-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-cloud-core/datacenter-cloud-core.iml" filepath="$PROJECT_DIR$/datacenter-cloud-core/datacenter-cloud-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-cloud-eureka/datacenter-cloud-eureka.iml" filepath="$PROJECT_DIR$/datacenter-cloud-eureka/datacenter-cloud-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-cloud-gateway/datacenter-cloud-gateway.iml" filepath="$PROJECT_DIR$/datacenter-cloud-gateway/datacenter-cloud-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-cloud-zuul-gateway/datacenter-cloud-zuul-gateway.iml" filepath="$PROJECT_DIR$/datacenter-cloud-zuul-gateway/datacenter-cloud-zuul-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-config-server/datacenter-config-server.iml" filepath="$PROJECT_DIR$/datacenter-config-server/datacenter-config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-plug-cache/datacenter-plug-cache.iml" filepath="$PROJECT_DIR$/datacenter-plug-cache/datacenter-plug-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-plug-dynamic-call-api/datacenter-plug-dynamic-call-api.iml" filepath="$PROJECT_DIR$/datacenter-plug-dynamic-call-api/datacenter-plug-dynamic-call-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-analysis/datacenter-provider-analysis.iml" filepath="$PROJECT_DIR$/datacenter-provider-analysis/datacenter-provider-analysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-api/datacenter-provider-api.iml" filepath="$PROJECT_DIR$/datacenter-provider-api/datacenter-provider-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-api-manager/datacenter-provider-api-manager.iml" filepath="$PROJECT_DIR$/datacenter-provider-api-manager/datacenter-provider-api-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-core/datacenter-provider-core.iml" filepath="$PROJECT_DIR$/datacenter-provider-core/datacenter-provider-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-mdm/datacenter-provider-mdm.iml" filepath="$PROJECT_DIR$/datacenter-provider-mdm/datacenter-provider-mdm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-message/datacenter-provider-message.iml" filepath="$PROJECT_DIR$/datacenter-provider-message/datacenter-provider-message.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-metadata/datacenter-provider-metadata.iml" filepath="$PROJECT_DIR$/datacenter-provider-metadata/datacenter-provider-metadata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-metadata-manager/datacenter-provider-metadata-manager.iml" filepath="$PROJECT_DIR$/datacenter-provider-metadata-manager/datacenter-provider-metadata-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-order/datacenter-provider-order.iml" filepath="$PROJECT_DIR$/datacenter-provider-order/datacenter-provider-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-provider-resource-catalog/datacenter-provider-resource-catalog.iml" filepath="$PROJECT_DIR$/datacenter-provider-resource-catalog/datacenter-provider-resource-catalog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datacenter-sys-provider/datacenter-sys-provider.iml" filepath="$PROJECT_DIR$/datacenter-sys-provider/datacenter-sys-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/gla-spring-cloud.iml" filepath="$PROJECT_DIR$/.idea/gla-spring-cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/limp-framework/limp-framework.iml" filepath="$PROJECT_DIR$/limp-framework/limp-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/limp-framework-core/limp-framework-core.iml" filepath="$PROJECT_DIR$/limp-framework-core/limp-framework-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/limp-framework-manager/limp-framework-manager.iml" filepath="$PROJECT_DIR$/limp-framework-manager/limp-framework-manager.iml" />
+    </modules>
+  </component>
+</project>

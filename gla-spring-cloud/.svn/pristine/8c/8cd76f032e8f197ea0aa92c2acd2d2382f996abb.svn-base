@@ -1,0 +1,100 @@
+package com.gla.datacenter.mapper.mysql;
+
+import com.gla.datacenter.domain.RcsResourceCate;
+import com.gla.datacenter.domain.RcsResourceCateExample;
+import com.limp.framework.core.bean.Pager;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
+
+@Mapper
+public interface RcsResourceCateMapper {
+    int countByExample(RcsResourceCateExample example);
+
+    int deleteByExample(RcsResourceCateExample example);
+
+    int deleteByPrimaryKey(String id);
+
+    int insert(RcsResourceCate record);
+
+    int insertSelective(RcsResourceCate record);
+
+    List<RcsResourceCate> selectByExampleWithBLOBs(RcsResourceCateExample example);
+
+    List<RcsResourceCate> selectByExample(RcsResourceCateExample example);
+
+    RcsResourceCate selectByPrimaryKey(String id);
+
+    int updateByExampleSelective(@Param("record") RcsResourceCate record, @Param("example") RcsResourceCateExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") RcsResourceCate record, @Param("example") RcsResourceCateExample example);
+
+    int updateByExample(@Param("record") RcsResourceCate record, @Param("example") RcsResourceCateExample example);
+
+    int updateByPrimaryKeySelective(RcsResourceCate record);
+
+    int updateByPrimaryKeyWithBLOBs(RcsResourceCate record);
+
+    int updateByPrimaryKey(RcsResourceCate record);
+
+    List<RcsResourceCate> getResourceDraftPages(@Param("paramMap") Map<String, Object> paramMap, @Param("page") Pager pager);
+
+    List<Map<String,Object>> getResourceDeptByDeptCode(@Param("code") String[] deptIds);
+
+    List<RcsResourceCate> getResourceApprovedByCode(@Param("code") String[] codeStr);
+
+    int updateApprovedStatu(@Param("addCode") List<String> addCode, @Param("type") String type);
+
+    List<RcsResourceCate> getResourceListById(@Param("ids") String[] ids);
+
+    void insertBatch(@Param("resources") List<RcsResourceCate> resources, @Param("userId") String userId, @Param("deptCode") String deptCode);
+
+    List<RcsResourceCate> getResourceAllById(String code);
+
+    List<String> getResourceAlowByCode(String code);
+
+    int updateResourceAlow(@Param("ids") List<String> ids, @Param("userId") String userId);
+
+    void updateResourceStateById(@Param("ids") String[] ids, @Param("userId") String userId, @Param("state") int state);
+
+    RcsResourceCate getResourceUseingByCode(String code);
+
+    List<RcsResourceCate> getResourceCataLogByLvPages(@Param("paramMap") Map<String, Object> paramMap, @Param("page") Pager pager, @Param("isDraft") boolean isDraft);
+
+    RcsResourceCate getDraftOrAuditByCode(String code);
+
+    List<RcsResourceCate> getResourceByStatu(@Param("state") int state, @Param("userId") String userId);
+
+    List<RcsResourceCate> getGrandsonResourceByCodeAndLv(@Param("code") String code, @Param("lv") Integer lv);
+
+    List<RcsResourceCate> getResourceDraftAllByPCode(String code);
+
+    List<RcsResourceCate> getResourceAllByCode(@Param("codes") String[] codes);
+
+    List<RcsResourceCate> getResourceUseingByCodes(@Param("codeList") List<String> codeList);
+
+    int getResourcePageByCode(@Param("userId") String userId, @Param("code") String code, @Param("pcode") String pcode, @Param("rows") int rows,@Param("type") String type);
+
+    String getResourceMaxCodeByPcode(@Param("pcode") String pcode, @Param("length") int length);
+
+    List<String> getResourceStringArrayByState(@Param("state") int state, @Param("userId") String userId);
+
+    Map<String,Object> countResourceCatalogByConsumer(String deptCode);
+
+    List<RcsResourceCate> getResourceCatalogConsumerPages(@Param("paramMap") Map<String, Object> paramMap, @Param("page") Pager pagerCopy);
+
+    List<RcsResourceCate> searchResourceCatalogConsumerPages(@Param("paramMap") Map<String, Object> paramMap, @Param("page") Pager pagerCopy);
+
+    List<RcsResourceCate> getResourceCatagoryByLv(int lv);
+
+    List<RcsResourceCate> getResourcePageListByResourceCode(@Param("rcs") RcsResourceCate rcsResourceCate, @Param("page") Pager pager, @Param("code") List<String> codes);
+
+    Integer getFoundationalLibraryCatalog(@Param("code") String code);
+
+    List<Map<String, Object>> getFoundationalLibraryCode(@Param("pcode") String pcode);
+
+    List<RcsResourceCate> getResourceBLOBsByCodes(@Param("codes") List<String> codes);
+
+}

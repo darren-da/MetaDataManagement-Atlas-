@@ -1,0 +1,748 @@
+package com.gla.datacenter.service.impl;
+
+
+import com.gla.datacenter.core.constant.ConstantGla;
+import com.gla.datacenter.domain.*;
+import com.gla.datacenter.intercepter.ApplicationContextHolder;
+import com.gla.datacenter.mapper.mysql.RoleMapper;
+import com.gla.datacenter.mapper.mysql.UserInfoMapper;
+import com.gla.datacenter.mapper.mysql.UserRoleMapMapper;
+import com.gla.datacenter.service.MessageClientService;
+import com.gla.datacenter.service.PlugCacheClientService;
+import com.gla.datacenter.service.UserInfoService;
+import com.limp.framework.auth.AuthUtils;
+import com.limp.framework.core.bean.Pager;
+import com.limp.framework.core.bean.Result;
+import com.limp.framework.core.bean.ResultCode;
+import com.limp.framework.core.constant.Constant;
+import com.limp.framework.core.constant.ResultMsg;
+import com.limp.framework.utils.StrUtils;
+import com.limp.framework.utils.TextUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.List;
+
+/**
+ * @Description: 用户管理
+ * @Author: zhengshien
+ * @Modified By:
+ * @Date: 2018/11/16 11:50
+ */
+@Service
+public class UserInfoServiceImpl implements UserInfoService {
+
+    private Logger log = LoggerFactory.getLogger(UserInfoServiceImpl.class);
+
+    /**
+     * 引入用户Mapper
+     */
+    @Autowired
+    UserInfoMapper userInfoMapper;
+    /**
+     * 引入角色Mapper
+     */
+    @Autowired
+    RoleMapper roleMapper;
+    /**
+     * 引入用户与角色Mapper（中间表）
+     */
+    @Autowired
+    UserRoleMapMapper userRoleMapMapper;
+    /**
+     * 调用缓存服务
+     */
+    @Autowired
+    private PlugCacheClientService cacheClientService;
+    /**
+     * 调用消息服务
+     */
+    @Autowired
+    private MessageClientService messageClientService;
+
+    /**
+     * 功能描述: 新增用户
+     *
+     * @param entry 用户实体
+     * @param:
+     * @return: com.gla.datacenter.domain.UserInfo
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:18
+     */
+    @Override
+    public UserInfo saveUser(UserInfo entry) {
+        //生成id
+        String uuid = StrUtils.randomUUID();
+        //给用户id赋值
+        if (StrUtils.isBlank(entry.getId())) {
+            entry.setId(uuid);
+        }
+        UserInfo user = new UserInfo();
+        user.setEmail(entry.getEmail());
+        user.setState(Constant.NUMBER_1);
+        List<UserInfo> users = getList(user);
+        if (users.size() != 0) {
+            log.info("/***该邮箱已被注册！邮箱：{0}**/", entry.getEmail());
+            return null;
+        }
+
+        //根据用户角色名称为用户添加角色
+        if (!StrUtils.isBlank(entry.getRoleList())) {
+            List<String> roleList = entry.getRoleList();
+            for (String role : roleList) {
+                String roleid = roleMapper.selectByKeyWord(role);
+                UserRoleMap userRoleMap = new UserRoleMap();
+                userRoleMap.setUrmUserid(entry.getId());
+                userRoleMap.setUrmRoleid(roleid);
+                userRoleMapMapper.insert(userRoleMap);
+            }
+        }
+
+        log.debug(TextUtils.format("/***新增用户,id:{0}/***", entry.getId()));
+        try {
+            //生成一位随机英文字母
+            String str = "";
+            for (int i = 0; i < 1; i++) {
+                str = str + (char) (Math.random() * 26 + 'A');
+            }
+            //生成三位随机数
+            int number = (int) ((Math.random() * 9 + 1) * 100);
+            //自动生成的用户账号
+            entry.setAccount(str + number);
+            //如果用户名为空，默认使用账号作为用户名
+            if (StrUtils.isBlank(entry.getName())) {
+                entry.setName(str + number);
+            }
+            //设置默认密码
+            entry.setPassword(AuthUtils.encodeMD5("123456", ""));
+            //设置默认状态为启用
+            entry.setState(Constant.NUMBER_1);
+            //设置创建日期
+            entry.setCreatedate(new Date());
+            //初始化apikey，默认为id+account，再用MD5加密
+            entry.setRc4(ConstantGla.APIKEY_PRE+AuthUtils.encodeMD5(uuid + str + number, ""));
+            //保存
+            userInfoMapper.insertSelective(entry);
+            //查询此新增对象并返回
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(uuid);
+            List<UserInfo> list = getList(userInfo);
+            UserInfo userInfo1 = list.get(0);
+            return userInfo1;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 功能描述: 根据id查询用户信息
+     *
+     * @param id 用户id
+     * @param:
+     * @return: com.gla.datacenter.domain.UserInfo
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:17
+     */
+    @Override
+    public UserInfo get(String id) {
+        if (StrUtils.isBlank(id)) {
+            return null;
+        }
+        log.debug(TextUtils.format("/**根据用户Id{0},获取实体类信息**/", id));
+        return userInfoMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 功能描述: 根据用户id获取角色列表
+     *
+     * @param userId 用户id
+     * @param:
+     * @return: java.util.List<java.lang.String>
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:17
+     */
+    private List<String> getUserRoleIDS(String userId) {
+        //获取用户的角色ID
+        UserRoleMapExample userRoleMapExample = new UserRoleMapExample();
+        UserRoleMapExample.Criteria criteria = userRoleMapExample.createCriteria();
+        criteria.andUrmUseridEqualTo(userId);
+        List<UserRoleMap> userRoleMaps = userRoleMapMapper.selectByExample(userRoleMapExample);
+
+        //将用户角色id放在roleIdList集合
+        List<String> roleIdList = new ArrayList<String>();
+        for (UserRoleMap userRoleMap : userRoleMaps) {
+            roleIdList.add(userRoleMap.getUrmRoleid());
+        }
+        return roleIdList;
+    }
+
+    @Override
+    public Boolean updatePassword(UserInfo userInfo) {
+        //用户id为空时，是用户密码找回的修改密码功能
+        if (StrUtils.isBlank(userInfo.getId())) {
+            try {
+                List<UserInfo> list = getList(userInfo);
+                UserInfo user = list.get(0);
+                userInfo.setPassword(AuthUtils.encodeMD5(userInfo.getPassword(), ""));
+                userInfo.setId(user.getId());
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                return false;
+            }
+        }
+
+        log.debug(TextUtils.format("/***用户{0},修改密码**/", userInfo.getId()));
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo) == 1 ? true : false;  //To change body of implemented methods use File | Settings | File Templates.
+
+    }
+
+    @Override
+    public UserInfo getAdminInfo() {
+        UserInfo userInfo = null;
+        try {
+            userInfo = userInfoMapper.getAdminInfo();
+        } catch (Exception e) {
+            log.error("查询管理者信息失败!");
+        }
+
+        return userInfo;
+    }
+
+    @Override
+    public List<UserInfo> getUserByPortal() {
+
+        List<UserInfo> userList = new ArrayList<>();
+        UserInfo userInfo = new UserInfo();
+        try {
+            userInfo.setState(1);
+            userList = getList(userInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            userList = null;
+        }
+
+        return userList;
+    }
+
+    /**
+     * 功能描述: 修改用户信息
+     *
+     * @param entry 用户实体
+     * @param:
+     * @return: boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:16
+     */
+    @Override
+    public boolean update(UserInfo entry) {
+        //用户id为空时，是用户密码找回的修改密码功能
+//        if (StrUtils.isBlank(entry.getId())) {
+//            try {
+//                List<UserInfo> list = getList(entry);
+//                UserInfo user = list.get(0);
+//                AuthUtils.encodeMD5(user.getPassword(), "");
+//                entry.setId(user.getId());
+//            } catch (Exception e) {
+//                log.error(e.getMessage());
+//                return false;
+//            }
+//        }
+        //如果含有角色列表，则将角色更新到角色表中
+        if (!StrUtils.isBlank(entry.getRoleList())) {
+            //传过来的roleList集合
+            List<String> roleIdsList = entry.getRoleList();
+            //新建工具集合
+            List<String> roleIds = new ArrayList();
+            for (String keyword : roleIdsList) {
+                //根据传过来的角色code查询role表，获取keyword对应的id
+                roleIds.add(roleMapper.selectByKeyWord(keyword));
+            }
+            //根据userid查询用户角色中间表，获取userid对应的roleid
+            List<String> roleIdList = getUserRoleIDS(entry.getId());
+
+            //循环授权的角色ID，如果没有则新增
+            for (String roleId : roleIds) {
+                if (!roleIdList.contains(roleId)) {
+                    UserRoleMap userRoleMap = new UserRoleMap();
+                    userRoleMap.setUrmUserid(entry.getId());
+                    userRoleMap.setUrmRoleid(roleId);
+                    userRoleMapMapper.insertSelective(userRoleMap);
+                }
+            }
+            //循环用户角色中间表，如果里面角色未在新的中间表则删除该角色
+            for (String roleId : roleIdList) {
+                if (!roleIds.contains(roleId)) {
+                    UserRoleMapExample roleMapExample = new UserRoleMapExample();
+                    roleMapExample.createCriteria().andUrmUseridEqualTo(entry.getId()).andUrmRoleidEqualTo(roleId);
+                    userRoleMapMapper.deleteByExample(roleMapExample);
+                }
+            }
+        }
+
+        //通用Update操作
+        if (StrUtils.isBlank(entry.getId())) {
+            log.info("/***用户id为空！**/");
+            return false;
+        }
+        log.debug(TextUtils.format("/***根据用户Id{0},更新实体类信息**/", entry.getId()));
+        return userInfoMapper.updateByPrimaryKeySelective(entry) == 1 ? true : false;  //To change body of implemented methods use File | Settings | File Templates.
+
+    }
+
+    /**
+     * 功能描述: 启用/禁用 用户
+     *
+     * @param id    用户id
+     * @param state 用户状态
+     * @param:
+     * @return: boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:15
+     */
+    @Override
+    public boolean updateUserInfoState(String id, String state) {
+        if (StrUtils.isBlank(id)) {
+            log.info("/***id为空！**/");
+            return false;
+        }
+        String[] ids = id.split(",");
+        /*UserInfo userInfo = get(id);
+        userInfo.setState(Integer.parseInt(state));*/
+        log.debug(TextUtils.format("/***根据用户Id{0},修改用户状态（启用、禁用）**/", id));
+        return userInfoMapper.updateBatchState(ids,state) >= 1 ? true : false;
+
+    }
+
+    /**
+     * 功能描述: 根据id删除用户（可多选）
+     *
+     * @param id 用户id
+     * @param:
+     * @return: boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:15
+     */
+    @Override
+    public boolean delete(String id) {
+        log.debug(TextUtils.format("/***根据用户Id{0},删除实体类信息**/", id));
+        //逻辑删除
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setState(Integer.parseInt(Constant.STRING_DEL_STATE));
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo) == 1 ? true : false;
+    }
+
+    /**
+     * 功能描述: 查询用户列表（不分页）
+     *
+     * @param userInfo 用户实体（携带查询条件）
+     * @param:
+     * @return: java.util.List<com.gla.datacenter.domain.UserInfo>
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:14
+     */
+    @Override
+    public List<UserInfo> getList(UserInfo userInfo) {
+        //初始化Example
+        UserInfoExample userExample = new UserInfoExample();
+
+        //创建查询条件
+        UserInfoExample.Criteria userCriteria = userExample.createCriteria();
+
+        //如果用户状态不为空，则更具用户状态查询用户列表
+        if (!StrUtils.isBlank(userInfo.getState())) {
+            userCriteria.andStateEqualTo(userInfo.getState());
+        }
+
+        //根据id精确查询
+        if (!StrUtils.isBlank(userInfo.getId())) {
+            userCriteria.andIdEqualTo(userInfo.getId());
+        }
+
+        //根据账号精确查询
+        if (!StrUtils.isBlank(userInfo.getAccount())) {
+            userCriteria.andAccountEqualTo(userInfo.getAccount());
+        }
+        //根据邮箱查询
+        if (!StrUtils.isBlank(userInfo.getEmail())) {
+            userCriteria.andEmailEqualTo(userInfo.getEmail());
+        }
+
+        if (!StrUtils.isBlank(userInfo.getCreatedate())) {
+            userCriteria.andCreatedateLessThan(userInfo.getCreatedate());
+        }
+
+        //按时间倒序排列
+        if (!StrUtils.isBlank(userInfo.getLpsort())) {
+            userExample.setOrderByClause(userInfo.getLpsort());
+        } else {
+            userExample.setOrderByClause("CREATEDATE DESC ");
+        }
+
+        //如排序字段不为空，则根据此字段排序【demo：USR_CREATEDATE DESC】
+        // 【注意：某个实体类可增加lpSort字段，可与前台插件字段排序结合】
+        if (!StrUtils.isBlank(userInfo.getLpsort())) {
+            userExample.setOrderByClause(userInfo.getLpsort());
+        }
+        //根据条件查询符合条件的用户列表
+        List<UserInfo> users = userInfoMapper.selectByExample(userExample);
+        List<UserInfo> usersBak = new ArrayList<>();
+        for (UserInfo user : users) {
+            //关联部门表查询用户所属单位，并存入查询结果集中返回
+            user.setDeptName(userInfoMapper.selectDeptName(user.getId()));
+            //关联角色表查询查询用户所属角色名，并存入结果集中返回
+            user.setRoleList(userInfoMapper.selectRoleNameList(user.getId()));
+            usersBak.add(user);
+        }
+        return usersBak;
+    }
+
+
+    /**
+     * 功能描述: 获取用户列表（分页）
+     *
+     * @param userInfo 用户实体（携带查询条件）
+     * @param pager    分页参数
+     * @param:
+     * @return: com.limp.framework.core.bean.Pager<com.gla.datacenter.domain.UserInfo>
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:09
+     */
+    @Override
+    public Pager<UserInfo> getPageList(UserInfo userInfo, Pager pager) {
+
+        log.debug(TextUtils.format("/***根据条件,查询用户列表【分页方法】**/"));
+        //初始化Example
+        UserInfoExample userExample = new UserInfoExample();
+        //设置分页对象
+        userExample.setPage(pager);
+        //创建查询条件
+        UserInfoExample.Criteria userCriteria = userExample.createCriteria();
+
+        //只显示用户状态为1或2的用户
+        userCriteria.andStateEqualToOneOrTwo();
+
+        //扩展：可设置相等、大于、小于、between ，like等匹配条件，此外可以自定义
+        if (!StrUtils.isBlank(userInfo.getRc3())) {
+            userCriteria.andRc3EqualTo(userInfo.getRc3());
+        }
+
+        if (!StrUtils.isBlank(userInfo.getUnitcode())) {
+            userCriteria.andUnitcodeEqualTo(userInfo.getUnitcode());
+        }
+
+        //根据账号：模糊查询
+        if (!StrUtils.isBlank(userInfo.getAccount())) {
+            userCriteria.andAccountLike("%" + userInfo.getAccount() + "%");
+        }
+
+        if (!StrUtils.isBlank(userInfo.getCreatedate())) {
+            userCriteria.andCreatedateLessThan(userInfo.getCreatedate());
+        }
+        //注意系统用户不可被检索出来 ,只可以查询utype为 1的datacenter业务用户
+        userCriteria.andUtypeEqualTo(Constant.NUMBER_1);
+
+        //按时间倒序排列
+        if (!StrUtils.isBlank(userInfo.getLpsort())) {
+            userExample.setOrderByClause(userInfo.getLpsort());
+        } else {
+            userExample.setOrderByClause("CREATEDATE DESC ");
+        }
+
+        //如排序字段不为空，则根据此字段排序【demo：USR_CREATEDATE DESC】
+        // 【注意：某个实体类可增加lpSort字段，可与前台插件字段排序结合】
+        if (!StrUtils.isBlank(userInfo.getLpsort())) {
+            userExample.setOrderByClause(userInfo.getLpsort());
+        }
+        List<UserInfo> users = userInfoMapper.selectByExample(userExample);
+        List<UserInfo> usersBak = new ArrayList<>();
+        for (UserInfo user : users) {
+            user.setDeptName(userInfoMapper.selectDeptName(user.getId()));
+            user.setRoleList(userInfoMapper.selectRoleNameList(user.getId()));
+            usersBak.add(user);
+        }
+
+        pager.setPagerInfo(usersBak, userInfoMapper.countByExample(userExample));
+
+        return pager;
+    }
+
+    @Override
+    public String getPageUserList(UserInfo userInfo,Pager pager){
+        List<String> roleList = userInfo.getRoleList();
+        if(roleList == null || roleList.isEmpty()){
+            return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,null,null).getJson();
+        }
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("roleList",roleList);
+        if(StringUtils.isNotBlank(userInfo.getAccount())){
+            paramMap.put("account",userInfo.getAccount());
+        }
+        if(StringUtils.isNotBlank(userInfo.getRc2())){
+            paramMap.put("rc2",userInfo.getRc2());
+        }
+        //接收account或者单位名称模糊查询
+        if(StringUtils.isNotBlank(userInfo.getRc5())){
+            paramMap.put("rc5",userInfo.getRc5());
+        }
+        int count = 0;
+        List<UserInfo> list = new ArrayList<>();
+        try{
+            count = userInfoMapper.getPageUserList(paramMap).size();
+        }catch(Exception e){
+            return Result.Error().getJson();
+        }
+        if (userInfo.getPage() > 0) {
+            paramMap.put("page",(userInfo.getPage() -1) * (userInfo.getRows() != 0 ? userInfo.getRows() : 10));
+        }else{
+            paramMap.put("page",0);
+        }
+        if(userInfo.getRows() != 0){
+            paramMap.put("rows",userInfo.getRows());
+        }else{
+            paramMap.put("rows",10);
+        }
+        list = userInfoMapper.getPageUserList(paramMap);
+        pager.setPagerInfo(list,count);
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,pager,null).getJson();
+    }
+
+    @Override
+    public String countRoleUserNum() {
+        Map<String, Integer> map = new HashMap<>();
+        //判断当前用户是否为管理员
+        try{
+            map = userInfoMapper.countRoleUserNum();
+        }catch(Exception e){
+            return  Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(),ResultMsg.SUCCESS,map,null).getJson();
+    }
+
+    /**
+     * 功能描述: 获取验证码
+     *
+     * @param account   用户账号
+     * @param userEmail 用户邮箱
+     * @param:
+     * @return: boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:08
+     */
+    @Override
+    public boolean getCode(String account, String userEmail) {
+        //校验参数是否为空
+        if (StrUtils.isBlank(account) || StrUtils.isBlank(userEmail)) {
+            log.info("/***账号或邮箱为空！**/");
+            return false;
+        }
+        UserInfo user = null;
+        try {
+            //根据用户账号查询用户信息
+            UserInfoExample userInfoExample = new UserInfoExample();
+            userInfoExample.createCriteria().andAccountEqualTo(account);
+            List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
+            user = userInfos.get(0);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+        //校验用户邮箱是否为绑定邮箱
+        if (!(user.getEmail()).equals(userEmail)) {
+            log.info("/***非用户绑定邮箱{0}**/", user.getEmail());
+            return false;
+        }
+        //生成验证码
+        try {
+            //生成六位随机数
+            int number = (int) ((Math.random() * 9 + 1) * 100000);
+            //将验证码存入缓存
+            cacheClientService.setCache(ConstantGla.YZM_FINDPWD_PRE + account, number + "", Long.parseLong("300"));
+            String param = String.valueOf(number) + ",5";
+            messageClientService.sendEmail(userEmail, "MODLE_FORGET_PWD", param);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * 功能描述: 密码找回
+     *
+     * @param account   用户账号
+     * @param userEmail 用户邮箱
+     * @param code      验证码
+     * @param:
+     * @return: java.lang.Boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:08
+     */
+    @Override
+    public Boolean findPassword(String account, String userEmail, String code) {
+        //校验参数
+        if (StrUtils.isBlank(account) || StrUtils.isBlank(userEmail)) {
+            log.info("账号或邮箱为空！");
+            return false;
+        }
+
+        UserInfo user = null;
+        try {
+            //根据用户账号查询用户
+            UserInfoExample userInfoExample = new UserInfoExample();
+            userInfoExample.createCriteria().andAccountEqualTo(account);
+            List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
+            user = userInfos.get(0);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+        //校验用户邮箱是否正确
+        if (!(user.getEmail()).equals(userEmail)) {
+            log.info("/***非用户绑定邮箱{0}**/", user.getEmail());
+            return false;
+        }
+
+        //将验证码从缓存中取出
+        String cacheCode = cacheClientService.getCache(ConstantGla.YZM_FINDPWD_PRE + account);
+        if (!StrUtils.isBlank(cacheCode) && code.equals(cacheCode)) {
+            cacheClientService.delCache(ConstantGla.YZM_FINDPWD_PRE + account);
+            return true;
+        } else {
+            log.info("验证码为空或输入有误！");
+            return false;
+        }
+    }
+
+    /**
+     * 功能描述: 新用户修改默认密码
+     *
+     * @param account     用户账号或邮箱
+     * @param oldPassword 原密码
+     * @param newPassword 新密码
+     * @param:
+     * @return: java.lang.Boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:07
+     */
+    @Override
+    public Integer modifyDefaultPWD(String account, String oldPassword, String newPassword) {
+        if (StrUtils.isBlank(account) || StrUtils.isBlank(oldPassword)) {
+            log.info("/***账号或密码为空**/！");
+            return Constant.NUMBER_2;
+        }
+        //根据账号或邮箱查询用户信息
+        UserInfoExample userInfoExample = new UserInfoExample();
+        userInfoExample.createCriteria().andAccountEqualToOrEmailEqualTo(account);
+        UserInfo user = null;
+        try {
+            //如果有此用户，获取用户信息
+            List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
+            user = userInfos.get(0);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return Constant.NUMBER_0;
+        }
+
+        //将用户传过来的原密码进行加密，然后和数据库中的原密码进行校验
+        String password = AuthUtils.encodeMD5(oldPassword, "");
+        if (!(user.getPassword()).equals(password)) {
+            log.info("/***原密码输入错误！**/");
+            return Constant.NUMBER_2;
+        }
+        try {
+            //将用户密码修改为新密码，并进行加密
+            user.setPassword(AuthUtils.encodeMD5(newPassword, ""));
+            userInfoExample.createCriteria().andPasswordEqualTo(newPassword);
+            userInfoMapper.updateByExample(user, userInfoExample);
+            log.info("/***用户修改密码成功**/");
+            return Constant.NUMBER_1;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return Constant.NUMBER_0;
+        }
+    }
+
+    /**
+     * 功能描述: 获取全部生产者信息（写信页面使用）
+     *
+     * @param keyword 关键字
+     * @param:
+     * @return: java.util.List<com.gla.datacenter.domain.UserInfo>
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:03
+     */
+    @Override
+    public List<UserInfo> getProviderList(String keyword) {
+        if (keyword.indexOf(Constant.FLAY_EMAIL) > -1) {
+            return userInfoMapper.selectUserAndRole("", "%" + keyword + "%");
+        } else {
+            return userInfoMapper.selectUserAndRole("%" + keyword + "%", "");
+        }
+    }
+
+    /**
+     * 功能描述: 密码重置（管理员使用）
+     *
+     * @param userid 用户id
+     * @param:
+     * @return: java.lang.Boolean
+     * @auther: zhengshien
+     * @date: 2018/11/16 15:04
+     */
+    @Override
+    public Boolean resetPassword(String userid) {
+        if (StrUtils.isBlank(userid)) {
+            log.info("/***用户id为空**/");
+            return false;
+        }
+        try {
+            String[] userIds = userid.split(",");
+            for(String str : userIds){
+                UserInfo user = get(str);
+                String userEmail = user.getEmail();
+                String param = "123456";
+                user.setPassword(AuthUtils.encodeMD5(param, ""));
+                update(user);
+                messageClientService.sendEmail(userEmail, "MODLE_RESET_PWD", param);
+                log.debug("/***为用户{}重置密码为：123456**/", str);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String getConsumerApikey() {
+        String result = "";
+        String userId = ApplicationContextHolder.currentUser().getId();
+        try{
+            UserInfo userInfo = userInfoMapper.selectByPrimaryKey(userId);
+            if(userInfo != null){
+                if(StringUtils.isBlank(userInfo.getRc4())){
+                    result = ConstantGla.APIKEY_PRE+AuthUtils.encodeMD5(userId + userInfo.getAccount(), "");
+                    userInfo.setRc4(result);
+                    userInfoMapper.updateByPrimaryKeySelective(userInfo);
+                }else{
+                    result = userInfo.getRc4();
+                }
+            }
+        }catch(Exception e){
+            return Result.Error().getJson();
+        }
+        return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,result,null).getJson();
+    }
+
+    @Override
+    public boolean save(UserInfo entry) {
+        return true;
+    }
+}
+

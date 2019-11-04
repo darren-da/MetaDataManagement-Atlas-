@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="sys_header(title,links,scripts)">
+    <!--fragment标签，这个类是JSP的tag：在多个地方出现的元素块用fragment包起来，在需要的地方，可以用th:include或者th:replace进行带入-->
+    <meta charset="utf-8">
+    <title th:replace="${title}">limp-framework title</title>
+
+    <!--全局通用框架样式 begin-->
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!--引入Theme style 样式-->
+    <link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/limpframwork.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/weadmin.css}"/>-->
+
+    <!--[if lt IE 9]>
+  <!--  <script  th:src="@{/systemsite/common/js/html5.min.js}"></script>
+    <script  th:src="@{/systemsite/common/js/respond.min.js}"></script>
+
+    <script type="text/javascript"  th:src="@{/systemsite/plug/js-utils/jquery-3.2.1.min.js}"></script>
+    <script  th:src="@{/systemsite/plug/js-utils/system-site.js}"></script>
+    <script  th:src="@{/systemsite/plug/js-utils/system-plug.js}"></script>-->
+    <![endif]-->
+    <!--全局通用框架样式 end-->
+
+    <!--/* Per-page placeholder for additional links */-->
+    <th:block th:replace="${links}" />
+    <!--/* Per-page placeholder for additional styles */-->
+    <th:block th:replace="${scripts}" />
+
+
+</head>

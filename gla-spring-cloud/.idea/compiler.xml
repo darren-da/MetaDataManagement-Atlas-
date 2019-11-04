@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="datacenter-cloud-zuul-gateway" />
+        <module name="datacenter-provider-order" />
+        <module name="datacenter-plug-cache" />
+        <module name="datacenter-provider-api-manager" />
+        <module name="datacenter-provider-analysis" />
+        <module name="limp-framework-core" />
+        <module name="limp-framework-manager" />
+        <module name="datacenter-auth-jwt-core" />
+        <module name="datacenter-provider-metadata-manager" />
+        <module name="datacenter-provider-metadata" />
+        <module name="datacenter-provider-resource-catalog" />
+        <module name="datacenter-cloud-consumer" />
+        <module name="datacenter-plug-dynamic-call-api" />
+        <module name="datacenter-provider-message" />
+        <module name="datacenter-sys-provider" />
+        <module name="datacenter-provider-mdm" />
+        <module name="datacenter-provider-api" />
+        <module name="datacenter-auth-server-jwt" />
+        <module name="datacenter-provider-core" />
+        <module name="datacenter-cloud-api" />
+        <module name="datacenter-config-server" />
+        <module name="datacenter-cloud-gateway" />
+        <module name="datacenter-cloud-core" />
+        <module name="limp-framework" />
+        <module name="datacenter-cloud-eureka" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="datacenter-auth-jwt-core" target="1.8" />
+      <module name="datacenter-auth-server-jwt" target="1.8" />
+      <module name="datacenter-cloud-api" target="1.8" />
+      <module name="datacenter-cloud-consumer" target="1.8" />
+      <module name="datacenter-cloud-core" target="1.8" />
+      <module name="datacenter-cloud-eureka" target="1.8" />
+      <module name="datacenter-cloud-gateway" target="1.8" />
+      <module name="datacenter-cloud-zuul-gateway" target="1.8" />
+      <module name="datacenter-config-server" target="1.8" />
+      <module name="datacenter-plug-cache" target="1.8" />
+      <module name="datacenter-plug-dynamic-call-api" target="1.8" />
+      <module name="datacenter-provider-analysis" target="1.8" />
+      <module name="datacenter-provider-api" target="1.8" />
+      <module name="datacenter-provider-api-manager" target="1.8" />
+      <module name="datacenter-provider-core" target="1.8" />
+      <module name="datacenter-provider-mdm" target="1.8" />
+      <module name="datacenter-provider-message" target="1.8" />
+      <module name="datacenter-provider-metadata" target="1.8" />
+      <module name="datacenter-provider-metadata-manager" target="1.8" />
+      <module name="datacenter-provider-order" target="1.8" />
+      <module name="datacenter-provider-resource-catalog" target="1.8" />
+      <module name="datacenter-sys-provider" target="1.8" />
+      <module name="gla-spring-cloud" target="1.8" />
+      <module name="limp-framework" target="1.8" />
+      <module name="limp-framework-core" target="1.5" />
+      <module name="limp-framework-manager" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="datacenter-auth-jwt-core" options="-parameters" />
+      <module name="datacenter-auth-server-jwt" options="-parameters" />
+      <module name="datacenter-cloud-api" options="-parameters" />
+      <module name="datacenter-cloud-consumer" options="-parameters" />
+      <module name="datacenter-cloud-core" options="-parameters" />
+      <module name="datacenter-cloud-eureka" options="-parameters" />
+      <module name="datacenter-cloud-gateway" options="-parameters" />
+      <module name="datacenter-cloud-zuul-gateway" options="-parameters" />
+      <module name="datacenter-config-server" options="-parameters" />
+      <module name="datacenter-plug-cache" options="-parameters" />
+      <module name="datacenter-plug-dynamic-call-api" options="-parameters" />
+      <module name="datacenter-provider-analysis" options="-parameters" />
+      <module name="datacenter-provider-api" options="-parameters" />
+      <module name="datacenter-provider-api-manager" options="-parameters" />
+      <module name="datacenter-provider-core" options="-parameters" />
+      <module name="datacenter-provider-mdm" options="-parameters" />
+      <module name="datacenter-provider-message" options="-parameters" />
+      <module name="datacenter-provider-metadata" options="-parameters" />
+      <module name="datacenter-provider-metadata-manager" options="-parameters" />
+      <module name="datacenter-provider-order" options="-parameters" />
+      <module name="datacenter-provider-resource-catalog" options="-parameters" />
+      <module name="datacenter-sys-provider" options="-parameters" />
+      <module name="limp-framework" options="-parameters" />
+      <module name="limp-framework-manager" options="-parameters" />
+    </option>
+  </component>
+</project>

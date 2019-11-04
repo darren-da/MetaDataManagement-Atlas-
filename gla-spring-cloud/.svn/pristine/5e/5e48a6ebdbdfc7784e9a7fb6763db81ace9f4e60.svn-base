@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.FilterInformationApiMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.FilterInformationApi" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="FILTER_VISIT" property="filterVisit" jdbcType="VARCHAR" />
+    <result column="FILTER_NAME" property="filterName" jdbcType="VARCHAR" />
+    <result column="FILTER_DESC" property="filterDesc" jdbcType="VARCHAR" />
+    <result column="FILTER_TYPE" property="filterType" jdbcType="INTEGER" />
+    <result column="LIST_TYPE" property="listType" jdbcType="INTEGER" />
+    <result column="ACCOUNT_VISIT" property="accountVisit" jdbcType="VARCHAR" />
+    <result column="DEPTNAME_VISIT" property="deptnameVisit" jdbcType="VARCHAR" />
+    <result column="DELETE_FLAG" property="deleteFlag" jdbcType="TINYINT" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, FILTER_VISIT, FILTER_NAME, FILTER_DESC, FILTER_TYPE, LIST_TYPE, ACCOUNT_VISIT, 
+    DEPTNAME_VISIT, DELETE_FLAG, IDT, RC1, RC2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.FilterInformationApiExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_filter_information_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_filter_information_api
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_filter_information_api
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.FilterInformationApiExample" >
+    delete from dc_filter_information_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.FilterInformationApi" >
+    insert into dc_filter_information_api (ID, USER_ID, FILTER_VISIT, 
+      FILTER_NAME, FILTER_DESC, FILTER_TYPE, 
+      LIST_TYPE, ACCOUNT_VISIT, DEPTNAME_VISIT, 
+      DELETE_FLAG, IDT, RC1, 
+      RC2)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{filterVisit,jdbcType=VARCHAR}, 
+      #{filterName,jdbcType=VARCHAR}, #{filterDesc,jdbcType=VARCHAR}, #{filterType,jdbcType=INTEGER}, 
+      #{listType,jdbcType=INTEGER}, #{accountVisit,jdbcType=VARCHAR}, #{deptnameVisit,jdbcType=VARCHAR}, 
+      #{deleteFlag,jdbcType=TINYINT}, #{idt,jdbcType=TIMESTAMP}, #{rc1,jdbcType=VARCHAR}, 
+      #{rc2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.FilterInformationApi" >
+    insert into dc_filter_information_api
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="filterVisit != null" >
+        FILTER_VISIT,
+      </if>
+      <if test="filterName != null" >
+        FILTER_NAME,
+      </if>
+      <if test="filterDesc != null" >
+        FILTER_DESC,
+      </if>
+      <if test="filterType != null" >
+        FILTER_TYPE,
+      </if>
+      <if test="listType != null" >
+        LIST_TYPE,
+      </if>
+      <if test="accountVisit != null" >
+        ACCOUNT_VISIT,
+      </if>
+      <if test="deptnameVisit != null" >
+        DEPTNAME_VISIT,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="filterVisit != null" >
+        #{filterVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="filterName != null" >
+        #{filterName,jdbcType=VARCHAR},
+      </if>
+      <if test="filterDesc != null" >
+        #{filterDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="filterType != null" >
+        #{filterType,jdbcType=INTEGER},
+      </if>
+      <if test="listType != null" >
+        #{listType,jdbcType=INTEGER},
+      </if>
+      <if test="accountVisit != null" >
+        #{accountVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="deptnameVisit != null" >
+        #{deptnameVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.FilterInformationApiExample" resultType="java.lang.Integer" >
+    select count(*) from dc_filter_information_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_filter_information_api
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filterVisit != null" >
+        FILTER_VISIT = #{record.filterVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filterName != null" >
+        FILTER_NAME = #{record.filterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filterDesc != null" >
+        FILTER_DESC = #{record.filterDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filterType != null" >
+        FILTER_TYPE = #{record.filterType,jdbcType=INTEGER},
+      </if>
+      <if test="record.listType != null" >
+        LIST_TYPE = #{record.listType,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountVisit != null" >
+        ACCOUNT_VISIT = #{record.accountVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptnameVisit != null" >
+        DEPTNAME_VISIT = #{record.deptnameVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteFlag != null" >
+        DELETE_FLAG = #{record.deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_filter_information_api
+    set ID = #{record.id,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      FILTER_VISIT = #{record.filterVisit,jdbcType=VARCHAR},
+      FILTER_NAME = #{record.filterName,jdbcType=VARCHAR},
+      FILTER_DESC = #{record.filterDesc,jdbcType=VARCHAR},
+      FILTER_TYPE = #{record.filterType,jdbcType=INTEGER},
+      LIST_TYPE = #{record.listType,jdbcType=INTEGER},
+      ACCOUNT_VISIT = #{record.accountVisit,jdbcType=VARCHAR},
+      DEPTNAME_VISIT = #{record.deptnameVisit,jdbcType=VARCHAR},
+      DELETE_FLAG = #{record.deleteFlag,jdbcType=TINYINT},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.FilterInformationApi" >
+    update dc_filter_information_api
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="filterVisit != null" >
+        FILTER_VISIT = #{filterVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="filterName != null" >
+        FILTER_NAME = #{filterName,jdbcType=VARCHAR},
+      </if>
+      <if test="filterDesc != null" >
+        FILTER_DESC = #{filterDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="filterType != null" >
+        FILTER_TYPE = #{filterType,jdbcType=INTEGER},
+      </if>
+      <if test="listType != null" >
+        LIST_TYPE = #{listType,jdbcType=INTEGER},
+      </if>
+      <if test="accountVisit != null" >
+        ACCOUNT_VISIT = #{accountVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="deptnameVisit != null" >
+        DEPTNAME_VISIT = #{deptnameVisit,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG = #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.FilterInformationApi" >
+    update dc_filter_information_api
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      FILTER_VISIT = #{filterVisit,jdbcType=VARCHAR},
+      FILTER_NAME = #{filterName,jdbcType=VARCHAR},
+      FILTER_DESC = #{filterDesc,jdbcType=VARCHAR},
+      FILTER_TYPE = #{filterType,jdbcType=INTEGER},
+      LIST_TYPE = #{listType,jdbcType=INTEGER},
+      ACCOUNT_VISIT = #{accountVisit,jdbcType=VARCHAR},
+      DEPTNAME_VISIT = #{deptnameVisit,jdbcType=VARCHAR},
+      DELETE_FLAG = #{deleteFlag,jdbcType=TINYINT},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--              自定义sql开始                 -->
+  <update id="deleteApiFilter" parameterType="java.lang.String">
+    update dc_filter_information_api t set t.delete_flag = 1 where t.id in
+    <foreach item = 'item' index = 'index' collection = 'ids' open = '(' separator = ',' close = ')'>
+      #{item}
+    </foreach>
+  </update>
+
+  <select id="getFilterCount" resultType="java.util.Map">
+    select sum(CASE WHEN LIST_TYPE = 1 THEN 1 ELSE 0 END ) AS black,sum(CASE WHEN LIST_TYPE = 2 THEN 1 ELSE 0 END) AS white from dc_filter_information_api where delete_flag = 0 and FILTER_TYPE = 1 and user_id = #{userId}
+  </select>
+
+  <select id="getFilterPageList" resultType="com.gla.datacenter.model.ApiFilterResponseModel">
+    SELECT f.id,f.delete_flag,f.idt,f.FILTER_NAME,f.FILTER_DESC,f.FILTER_TYPE,f.LIST_TYPE,u.EMAIL,u.ACCOUNT ACCOUNT_VISIT,u.rc2 as company,d.name DEPTNAME_VISIT FROM dc_filter_information_api f
+      LEFT JOIN lp_users u ON f.FILTER_VISIT = u.id LEFT JOIN lp_dept d on u.UNITCODE = d.CODE where 1=1 and f.delete_flag = 0 AND f.FILTER_TYPE = 1
+    <trim prefix="AND (" suffix=")" suffixOverrides="OR">
+      <if test="personType.contains('black')">
+        f.LIST_TYPE = 1 OR
+      </if>
+      <if test="personType.contains('white')">
+        f.LIST_TYPE = 2 OR
+      </if>
+    </trim>
+    <if test="account != null and account != ''">
+      AND u.account like CONCAT ('%',#{account},'%')
+    </if>
+    <if test="id != null and id != ''">
+      AND f.id = #{id}
+    </if>
+    <if test="orgName != null and orgName != ''">
+      AND d.name like CONCAT ('%',#{orgName},'%')
+    </if>
+    <if test="rc2 != null and rc2 != ''">
+      AND (d.name like CONCAT ('%',#{rc2},'%') OR u.account like CONCAT ('%',#{rc2},'%'))
+    </if>
+    <if test="idt != null">
+      AND f.idt &lt; #{idt}
+    </if>
+    and USER_ID = #{userId}
+    ORDER by f.IDT DESC
+    <if test="page != null and rows != null">
+      limit #{page},#{rows}
+    </if>
+  </select>
+
+  <select id="checkListType" resultType="java.lang.String">
+    select id from dc_filter_information_api where FILTER_TYPE = 1 and LIST_TYPE = #{listType} and id in
+    <foreach item="ids" collection="ids" index="index" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+  </select>
+
+</mapper>

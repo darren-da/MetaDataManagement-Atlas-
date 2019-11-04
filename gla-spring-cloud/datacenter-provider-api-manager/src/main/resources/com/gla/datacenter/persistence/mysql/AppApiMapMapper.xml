@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gla.datacenter.mapper.mysql.AppApiMapMapper">
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.AppApiMap">
+    <result column="APPID" jdbcType="VARCHAR" property="appid" />
+    <result column="APIID" jdbcType="VARCHAR" property="apiid" />
+    <result column="RC1" jdbcType="VARCHAR" property="rc1" />
+    <result column="RC2" jdbcType="VARCHAR" property="rc2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    APPID, APIID, RC1, RC2
+  </sql>
+  <select id="selectByExample" parameterType="com.gla.datacenter.domain.AppApiMapExample" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_app_api_map
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.AppApiMapExample">
+    delete from dc_app_api_map
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.AppApiMap">
+    insert into dc_app_api_map (APPID, APIID, RC1, 
+      RC2)
+    values (#{appid,jdbcType=VARCHAR}, #{apiid,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR}, 
+      #{rc2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.AppApiMap">
+    insert into dc_app_api_map
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appid != null">
+        APPID,
+      </if>
+      <if test="apiid != null">
+        APIID,
+      </if>
+      <if test="rc1 != null">
+        RC1,
+      </if>
+      <if test="rc2 != null">
+        RC2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="apiid != null">
+        #{apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null">
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null">
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.AppApiMapExample" resultType="java.lang.Integer">
+    select count(*) from dc_app_api_map
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dc_app_api_map
+    <set>
+      <if test="record.appid != null">
+        APPID = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiid != null">
+        APIID = #{record.apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null">
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null">
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dc_app_api_map
+    set APPID = #{record.appid,jdbcType=VARCHAR},
+      APIID = #{record.apiid,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="MySqlDialectPrefix">
+    <if test="page != null">
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--自定义sql开始-->
+  <insert id="batchInsert">
+    INSERT INTO DC_APP_API_MAP(APPID,APIID) VALUES
+    <foreach collection="apiIds" item="apiIds" separator=",">
+      (#{id},#{apiIds})
+    </foreach>
+  </insert>
+
+  <!--删除app关联的api信息-->
+  <delete id="deleteAppApiMap">
+    DELETE FROM DC_APP_API_MAP WHERE APPID IN
+    <foreach collection="ids" item="ids" open="(" close=")" separator=",">
+      #{ids}
+    </foreach>
+  </delete>
+
+  <!--查询app中的api集合-->
+  <select id="getApiListByAppId" resultType="java.lang.String">
+    SELECT APIID FROM dc_app_api_map WHERE APPID = #{appId}
+  </select>
+</mapper>

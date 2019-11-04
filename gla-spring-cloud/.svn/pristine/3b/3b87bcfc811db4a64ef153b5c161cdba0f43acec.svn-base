@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>博客列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">博客管理</a>
+        <a>
+          <cite>博客列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="blogTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-inline">
+						<input type="text" id="blog_serach_title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+					</div>
+
+					<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+				</div>
+
+			</div>
+
+			<!--测试区域-->
+			<div class="weadmin-block table-tools">
+				<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>
+				<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+			</div>
+			<table class="layui-form layui-table" id="blogTable">
+
+			</table>
+
+			<!--测试区域-->
+		</div>
+
+
+		<!--*********************魔板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_blog.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

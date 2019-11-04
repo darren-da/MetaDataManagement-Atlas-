@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.CommandMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.Command" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="CTYPE" property="ctype" jdbcType="INTEGER" />
+    <result column="INTRO" property="intro" jdbcType="VARCHAR" />
+    <result column="CSQL" property="csql" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="IDT" property="idt" jdbcType="DATE" />
+    <result column="UDT" property="udt" jdbcType="DATE" />
+    <result column="OPTUSER" property="optuser" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, CODE, CTYPE, INTRO, CSQL, STATE, IDT, UDT, OPTUSER, RC1, RC2, RC3, RC4
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.CommandExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_command
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lp_command
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_command
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.CommandExample" >
+    delete from lp_command
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.Command" >
+    insert into lp_command (ID, NAME, CODE, 
+      CTYPE, INTRO, CSQL, 
+      STATE, IDT, UDT, OPTUSER, 
+      RC1, RC2, RC3, RC4
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{ctype,jdbcType=INTEGER}, #{intro,jdbcType=VARCHAR}, #{csql,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{idt,jdbcType=DATE}, #{udt,jdbcType=DATE}, #{optuser,jdbcType=VARCHAR}, 
+      #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR}, #{rc4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.Command" >
+    insert into lp_command
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="ctype != null" >
+        CTYPE,
+      </if>
+      <if test="intro != null" >
+        INTRO,
+      </if>
+      <if test="csql != null" >
+        CSQL,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="optuser != null" >
+        OPTUSER,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="csql != null" >
+        #{csql,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=DATE},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=DATE},
+      </if>
+      <if test="optuser != null" >
+        #{optuser,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.CommandExample" resultType="java.lang.Integer" >
+    select count(*) from lp_command
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_command
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctype != null" >
+        CTYPE = #{record.ctype,jdbcType=INTEGER},
+      </if>
+      <if test="record.intro != null" >
+        INTRO = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csql != null" >
+        CSQL = #{record.csql,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=DATE},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=DATE},
+      </if>
+      <if test="record.optuser != null" >
+        OPTUSER = #{record.optuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_command
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      CTYPE = #{record.ctype,jdbcType=INTEGER},
+      INTRO = #{record.intro,jdbcType=VARCHAR},
+      CSQL = #{record.csql,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=INTEGER},
+      IDT = #{record.idt,jdbcType=DATE},
+      UDT = #{record.udt,jdbcType=DATE},
+      OPTUSER = #{record.optuser,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limp.framework.boss.domain.Command" >
+    update lp_command
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        CTYPE = #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="intro != null" >
+        INTRO = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="csql != null" >
+        CSQL = #{csql,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=DATE},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=DATE},
+      </if>
+      <if test="optuser != null" >
+        OPTUSER = #{optuser,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limp.framework.boss.domain.Command" >
+    update lp_command
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      CTYPE = #{ctype,jdbcType=INTEGER},
+      INTRO = #{intro,jdbcType=VARCHAR},
+      CSQL = #{csql,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      IDT = #{idt,jdbcType=DATE},
+      UDT = #{udt,jdbcType=DATE},
+      OPTUSER = #{optuser,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR},
+      RC4 = #{rc4,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <select id="selectDynamicCommandSql" resultType="java.util.HashMap" parameterType="String">
+    select * from (${sql}) t limit  0,500
+  </select>
+</mapper>

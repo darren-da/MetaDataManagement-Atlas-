@@ -1,0 +1,163 @@
+package com.gla.datacenter.controller;
+
+import com.gla.datacenter.domain.Command;
+import com.gla.datacenter.service.CommandService;
+import com.limp.framework.core.bean.Pager;
+import com.limp.framework.core.bean.Result;
+import com.limp.framework.core.bean.ResultCode;
+import com.limp.framework.core.constant.Constant;
+import com.limp.framework.core.constant.ResultMsg;
+import com.limp.framework.utils.StrUtils;
+import com.limp.framework.utils.TextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @Author: zhangzenghuan
+ * @Date: 2019/6/21 10:23
+ * @Description:
+ */
+@RestController
+@RequestMapping(value = "/mdm")
+public class CommondController {
+
+
+    private Logger loger= LoggerFactory.getLogger(CommondController.class);
+
+    @Autowired
+    CommandService commandService;
+    /**
+     * 设置默认页面显示的条数
+     */
+    public static  final Integer DEFAULT_ROW=10;
+
+    /**
+     * 新增命令
+     * @param command
+     * @return
+     */
+    @RequestMapping(value = "/command/add")
+    public String saveCommand(@RequestBody Command command) {
+        loger.debug("/***新增命令信息**/");
+        Boolean flay= commandService.save(command);
+        if(flay){
+            return Result.Success().getJson();
+        }
+        return Result.Error().getJson();
+    }
+
+    /**
+     * 删除命令
+     * 为了管理员易于操作支持批量操作
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/command/delete/{id}")
+    public String delCommand( @PathVariable("id") String id) {
+        loger.debug(TextUtils.format("/***根据命令id{0}，删除命令记录**/", id));
+        String []ids=id.split(Constant.DHAO);
+        if(id.split(Constant.DHAO).length>DEFAULT_ROW){
+            return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.DEL_ERROR_IDS_TOO_MANY,"","").getJson();
+        }
+        Boolean flay=true;
+        for(String did:ids){
+            if(!commandService.delete(did)){
+                flay=false;
+            };
+        }
+        if(flay){
+            return Result.Success().getJson();
+        }
+        return Result.Error().getJson();
+    }
+    /**
+     * 更新命令信息
+     * @param command command
+     * @return
+     */
+    @RequestMapping(value = "/command/update")
+    public String updateCommand(@RequestBody Command command) {
+        loger.debug(TextUtils.format("/***更新命令信息**/"));
+        Boolean flay= commandService.update(command);
+        if(flay){
+            return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.UPDATE_SUCCESS, "", "").getJson();
+        }
+        return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.UPDATE_ERROR, "", "").getJson();
+    }
+
+    /**
+     * 获取命令信息根据命令id
+     * @param id 查询的id
+     * @return
+     */
+    @RequestMapping(value = "/command/detail/{id}",method= RequestMethod.GET)
+    public String selectCommand(@PathVariable("id") String id) {
+        loger.debug(TextUtils.format("/***根据命令id{0}，获取命令基本信息**/", id));
+        Command command= commandService.get(id);
+        return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,command,"").getJson();
+    }
+    /**
+     * 查询用于列表
+     * @param command
+     * @return
+     */
+
+    @RequestMapping(value = "/commands/list")
+    public String selectCommandList(@RequestBody Command command) {
+        loger.debug(TextUtils.format("/***查询命令,返回命令列表**/"));
+        Pager<Command> pageLogPager= commandService.getPageList(command,command.getPager());
+        return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,pageLogPager,"").getJson();
+    }
+
+
+
+   /* *//**
+     * 预览sql：
+     * @param param ｛sql:"sql语句",其它参数｝
+     * @return
+     *//*
+    @RequestMapping(value ="/api-test",produces = "text/plain;charset=UTF-8")
+    public @ResponseBody String api(@RequestParam Map<String,String> param) {
+        if(StrUtils.isBlank(param.get("sql"))){
+            return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.ERROR,"Sql参数不为空","").getJson();
+        }
+        List<Map<String,Object>> runCommand= commandService.runTestSQL(param.get("sql"),param);
+
+        return  new Result(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,runCommand,"").getJson();
+    }*/
+
+    /**
+     * 查询命令：带模版的情况
+     * @param code
+     * @param param
+     * @return
+     */
+    @RequestMapping(value ="/api/{code}",produces = "text/plain;charset=UTF-8")
+    public @ResponseBody String api(@PathVariable("code") String code,@RequestParam Map<String,String> param) {
+        if(StrUtils.isBlank(code)){
+            return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.ERROR,"code参数不为空","").getJson();
+        }
+        List<Map<String,Object>> runCommand= commandService.runCommand(code,param);
+        return  new Result(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,runCommand,"").getJson();
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        /**
+         * 第一种方式：使用WebDataBinder注册一个自定义的编辑器，编辑器是日期类型
+         * 使用自定义的日期编辑器，日期格式：yyyy-MM-dd,第二个参数为是否为空  true代表可以为空
+         */
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"), true));
+    }
+
+}

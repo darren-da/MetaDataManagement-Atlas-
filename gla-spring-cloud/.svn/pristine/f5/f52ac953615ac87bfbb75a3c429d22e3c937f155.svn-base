@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>表字段属性</title>
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+<body>
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">系统命令</a>
+        <a>
+          <cite>DB快速构建API</cite></a>
+      </span>
+	<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+</div>
+
+<div class="weadmin-body " id="menuTableMain">
+
+	<div style="padding: 20px; background-color: #F2F2F2;">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md2">
+				<div class="layui-card lpcard">
+					<div class="layui-card-header lpcard-head">数据库DB</div>
+					<div class="layui-card-body">
+						<div class="TreeDemoBackground left" style="min-height: 540px; overflow: auto;padding-left: 1px;">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md10">
+				<div class="layui-col-md12" style="margin-bottom: 19px; box-shadow:2px 2px 4px 1px rgba(0,0,9,.2); border: 2px; cursor: pointer;">
+					<div class="layui-card"  >
+						<div class="layui-card-header" id="addAPI" >快速构建API区域</div>
+						<div class="layui-card-body" style="max-height: 200px; overflow-y: auto;margin-bottom: 11px;" >
+							<table class="layui-form layui-table" id="menuTable" >
+							</table>
+
+
+						</div>
+					</div>
+				</div>
+
+				<br>
+				<div class="layui-col-md12">
+					<div class="layui-card" style="min-height: 530px">
+						<div class="layui-card-header"></div>
+						<div class="layui-card-body">
+							<form class="layui-form widthFull900" lay-filter="addFilter">
+								<div class="layui-form-item">
+									<div class="layui-form-item">
+										<label  class="layui-form-label" title="带参数SQL，参数用{变量}替代 ,如{createDate}">
+											SQL语句*
+										</label>
+										<div class="layui-input-inline">
+											<textarea class="model-text-new" id="csql"   name="csql" style="width:100%;border: 1px solid #ccc; border-radius: 4px;color: green; font-size: 18px;" rows="10" cols="20"  autocomplete="off" ></textarea>
+										</div>
+
+									</div>
+									<label  class="layui-form-label">
+										API名称*
+									</label>
+									<div class="layui-input-inline">
+										<div class="layui-input-inline">
+											<input type="text"  id="name" name="name"  autocomplete="off" class="layui-input"></div>
+									</div>
+
+								</div>
+								<div class="layui-form-item">
+									<label  class="layui-form-label">
+										方法名称*
+									</label>
+									<div class="layui-input-inline">
+										<div class="layui-input-inline">
+											<input type="text"  id="code" name="code"  autocomplete="off" class="layui-input"></div>
+									</div>
+
+								</div>
+								<div class="layui-form-item">
+									<label  class="layui-form-label">
+										参数
+									</label>
+									<div class="layui-input-inline">
+										<div class="layui-input-inline">
+											<input type="text"  name="rc1" id="rc1" placeholder="[{key:'参数名称',value:'参数描述'},{key:'参数名称2',value:'参数描述2'}]" autocomplete="off" class="layui-input">
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="layui-form-item">
+									<label  class="layui-form-label">
+										&nbsp;
+									</label>
+									<span class="layui-btn"  onclick="sysCommandDB.checkStatus()">生成SQL</span>
+									<span class="layui-btn"  onclick="sysCommandDB.skimData()">预览结果</span>
+									<span class="layui-btn"  onclick="sysCommandDB.saveDomain()">构建API接口</span>
+									<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+								</div>
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</div>
+<!--*********************魔板部分**begin************************-->
+
+
+
+<!--*********************魔板部分**end************************-->
+
+
+<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+<script  th:src="@{/systemsite/assets/static/js/sys_command_db.js}"></script>
+
+<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+</body>
+</html>

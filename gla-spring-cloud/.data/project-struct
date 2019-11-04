@@ -1,0 +1,69 @@
+limp-framework V2.0技术栈：
+
+
+1.system-site.js
+    方法:post
+    方法:confirm
+    方法:open
+    各个参数的含义以及构建思路
+2、system-plug.js
+    方法：$.fn.LPTable=function(action,paramData,options):
+          支持自定义排序；样式个性化、分页、函数、复选框、单选框、工具栏目、操作按钮、批量操作等等
+          支持前后台交互：（一个表格生成只需要三分钟即可：增删改查，批量操作；通用功能）
+
+    方法：LPshowLoading loading层
+    方法：LPClickDelegate 事件绑定
+
+3、constnat.js css 兼容其他版本
+
+4、后端汇总01：shiro（统一声明版本）,
+         02:redis（统一声明版本）
+         03:swagger2 ,
+         04:fastjson ,
+         05:druid
+         06、 thymeleaf ,
+         07:mybatis
+         08.maven
+         09.logback
+         10.定时任务
+
+前端技术栈01：layui, 02：vue ,03:jquery 04:html+css
+
+插件：
+01、Result：
+    if(flay){
+            return Result.Success().getJson();
+        }
+        return Result.Error().getJson();
+
+--------------------------------------------------------------------
+
+1、swagger类似的API接口文档管理（便于对文档综合管理）
+2、resutful风格
+3、control的view层和json调用层分开
+
+4、统一声明版本
+
+5、支持不同魔板切换
+
+
+
+-----------------目录结构--------------------------
+limp-chinasofti-core：核心包，单独剥离出来可以在不同的架构中使用（去除action层等）
+limp-framework：V2.0框架包，包含action等框架业务
+limp-framework-manager：业务系统实现包，同时包行html等前端文件
+
+
+
+
+-----------------------------开发之前--------------------------
+热部署：
+  java：ctrl+shift+F9(fn) 编译单前class  [ok]
+  html：ctrl+F9(fn)
+  (如上面找不到：compiler.automake.allow.when.app.running)
+
+
+
+#问题 1、application.properties 相关配置文件说明  2、springmvc action 不跳转 ，少引入一个魔板包
+#
+#3、html内容不刷新   4、html魔板结合user.html使用说明   5、boot热部署  https://www.cnblogs.com/moonlightL/p/7891803.html

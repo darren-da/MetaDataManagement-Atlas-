@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.AnalysisDataMapper">
+    <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.AnalysisData">
+        <result column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="USERID" property="userid" jdbcType="VARCHAR"/>
+        <result column="ROLETYPE" property="roletype" jdbcType="VARCHAR"/>
+        <result column="APICOUNTS" property="apicounts" jdbcType="INTEGER"/>
+        <result column="APIINVOKINGS" property="apiinvokings" jdbcType="INTEGER"/>
+        <result column="FAILTIMES" property="failtimes" jdbcType="INTEGER"/>
+        <result column="APIABNORMALS" property="apiabnormals" jdbcType="INTEGER"/>
+        <result column="WAITTIME" property="waittime" jdbcType="INTEGER"/>
+        <result column="SCORE" property="score" jdbcType="INTEGER"/>
+        <result column="IDT" property="idt" jdbcType="TIMESTAMP"/>
+        <result column="BATCH" property="batch" jdbcType="VARCHAR"/>
+        <result column="RC1" property="rc1" jdbcType="VARCHAR"/>
+        <result column="RC2" property="rc2" jdbcType="VARCHAR"/>
+        <result column="RC3" property="rc3" jdbcType="INTEGER"/>
+        <result column="RC4" property="rc4" jdbcType="INTEGER"/>
+        <result column="RC5" property="rc5" jdbcType="INTEGER"/>
+        <result column="RC6" property="rc6" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    ID, USERID, ROLETYPE, APICOUNTS, APIINVOKINGS, FAILTIMES, APIABNORMALS, WAITTIME, 
+    SCORE, IDT, BATCH, RC1, RC2, RC3, RC4, RC5, RC6
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.gla.datacenter.domain.AnalysisDataExample">
+        <include refid="MySqlDialectPrefix"/>
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from dc_analysis_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <include refid="MySqlDialectSuffix"/>
+    </select>
+    <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.AnalysisDataExample">
+        delete from dc_analysis_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.gla.datacenter.domain.AnalysisData">
+    insert into dc_analysis_data (ID, USERID, ROLETYPE, 
+      APICOUNTS, APIINVOKINGS, FAILTIMES, 
+      APIABNORMALS, WAITTIME, SCORE, 
+      IDT, BATCH, RC1, 
+      RC2, RC3, RC4, RC5, 
+      RC6)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{roletype,jdbcType=VARCHAR}, 
+      #{apicounts,jdbcType=INTEGER}, #{apiinvokings,jdbcType=INTEGER}, #{failtimes,jdbcType=INTEGER}, 
+      #{apiabnormals,jdbcType=INTEGER}, #{waittime,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{idt,jdbcType=TIMESTAMP}, #{batch,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR},
+      #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=INTEGER}, #{rc4,jdbcType=INTEGER}, #{rc5,jdbcType=INTEGER}, 
+      #{rc6,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.gla.datacenter.domain.AnalysisData">
+        insert into dc_analysis_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userid != null">
+                USERID,
+            </if>
+            <if test="roletype != null">
+                ROLETYPE,
+            </if>
+            <if test="apicounts != null">
+                APICOUNTS,
+            </if>
+            <if test="apiinvokings != null">
+                APIINVOKINGS,
+            </if>
+            <if test="failtimes != null">
+                FAILTIMES,
+            </if>
+            <if test="apiabnormals != null">
+                APIABNORMALS,
+            </if>
+            <if test="waittime != null">
+                WAITTIME,
+            </if>
+            <if test="score != null">
+                SCORE,
+            </if>
+            <if test="idt != null">
+                IDT,
+            </if>
+            <if test="batch != null">
+                BATCH,
+            </if>
+            <if test="rc1 != null">
+                RC1,
+            </if>
+            <if test="rc2 != null">
+                RC2,
+            </if>
+            <if test="rc3 != null">
+                RC3,
+            </if>
+            <if test="rc4 != null">
+                RC4,
+            </if>
+            <if test="rc5 != null">
+                RC5,
+            </if>
+            <if test="rc6 != null">
+                RC6,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="roletype != null">
+                #{roletype,jdbcType=VARCHAR},
+            </if>
+            <if test="apicounts != null">
+                #{apicounts,jdbcType=INTEGER},
+            </if>
+            <if test="apiinvokings != null">
+                #{apiinvokings,jdbcType=INTEGER},
+            </if>
+            <if test="failtimes != null">
+                #{failtimes,jdbcType=INTEGER},
+            </if>
+            <if test="apiabnormals != null">
+                #{apiabnormals,jdbcType=INTEGER},
+            </if>
+            <if test="waittime != null">
+                #{waittime,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="idt != null">
+                #{idt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="batch != null">
+                #{batch,jdbcType=VARCHAR},
+            </if>
+            <if test="rc1 != null">
+                #{rc1,jdbcType=VARCHAR},
+            </if>
+            <if test="rc2 != null">
+                #{rc2,jdbcType=VARCHAR},
+            </if>
+            <if test="rc3 != null">
+                #{rc3,jdbcType=INTEGER},
+            </if>
+            <if test="rc4 != null">
+                #{rc4,jdbcType=INTEGER},
+            </if>
+            <if test="rc5 != null">
+                #{rc5,jdbcType=INTEGER},
+            </if>
+            <if test="rc6 != null">
+                #{rc6,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.gla.datacenter.domain.AnalysisDataExample"
+            resultType="java.lang.Integer">
+        select count(*) from dc_analysis_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update dc_analysis_data
+        <set>
+            <if test="record.id != null">
+                ID = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userid != null">
+                USERID = #{record.userid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.roletype != null">
+                ROLETYPE = #{record.roletype,jdbcType=VARCHAR},
+            </if>
+            <if test="record.apicounts != null">
+                APICOUNTS = #{record.apicounts,jdbcType=INTEGER},
+            </if>
+            <if test="record.apiinvokings != null">
+                APIINVOKINGS = #{record.apiinvokings,jdbcType=INTEGER},
+            </if>
+            <if test="record.failtimes != null">
+                FAILTIMES = #{record.failtimes,jdbcType=INTEGER},
+            </if>
+            <if test="record.apiabnormals != null">
+                APIABNORMALS = #{record.apiabnormals,jdbcType=INTEGER},
+            </if>
+            <if test="record.waittime != null">
+                WAITTIME = #{record.waittime,jdbcType=INTEGER},
+            </if>
+            <if test="record.score != null">
+                SCORE = #{record.score,jdbcType=INTEGER},
+            </if>
+            <if test="record.idt != null">
+                IDT = #{record.idt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.batch != null">
+                BATCH = #{record.batch,jdbcType=VARCHAR},
+            </if>
+            <if test="record.rc1 != null">
+                RC1 = #{record.rc1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.rc2 != null">
+                RC2 = #{record.rc2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.rc3 != null">
+                RC3 = #{record.rc3,jdbcType=INTEGER},
+            </if>
+            <if test="record.rc4 != null">
+                RC4 = #{record.rc4,jdbcType=INTEGER},
+            </if>
+            <if test="record.rc5 != null">
+                RC5 = #{record.rc5,jdbcType=INTEGER},
+            </if>
+            <if test="record.rc6 != null">
+                RC6 = #{record.rc6,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update dc_analysis_data
+        set ID = #{record.id,jdbcType=VARCHAR},
+        USERID = #{record.userid,jdbcType=VARCHAR},
+        ROLETYPE = #{record.roletype,jdbcType=VARCHAR},
+        APICOUNTS = #{record.apicounts,jdbcType=INTEGER},
+        APIINVOKINGS = #{record.apiinvokings,jdbcType=INTEGER},
+        FAILTIMES = #{record.failtimes,jdbcType=INTEGER},
+        APIABNORMALS = #{record.apiabnormals,jdbcType=INTEGER},
+        WAITTIME = #{record.waittime,jdbcType=INTEGER},
+        SCORE = #{record.score,jdbcType=INTEGER},
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+        BATCH = #{record.batch,jdbcType=VARCHAR},
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+        RC3 = #{record.rc3,jdbcType=INTEGER},
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+        RC5 = #{record.rc5,jdbcType=INTEGER},
+        RC6 = #{record.rc6,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <sql id="MySqlDialectPrefix">
+        <if test="page != null">
+            select row_.* from (
+        </if>
+    </sql>
+    <sql id="MySqlDialectSuffix">
+        <if test="page != null">
+            <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+        </if>
+    </sql>
+
+
+    <select id="countByUserId" resultType="int" parameterType="string">
+      SELECT COUNT(*) FROM `dc_information_api` WHERE PRODUCER_ID = #{userid};
+    </select>
+
+    <select id="getUserRoleIDS" resultType="java.util.Map" parameterType="string">
+      SELECT URM_ROLEID FROM lp_user_role_map WHERE URM_USERID =  #{userid};
+    </select>
+
+    <select id="getIdByKeyword" resultType="string" parameterType="string">
+      SELECT id FROM lp_role WHERE keyword = #{keyword};
+    </select>
+
+    <select id="getApiList" resultType="java.util.Map" parameterType="string">
+      SELECT id FROM `dc_information_api` WHERE PRODUCER_ID = #{userid};
+    </select>
+
+    <select id="getApiInvokings" resultType="int" parameterType="string">
+      SELECT SUM(SERVICE_ID = #{apiid} AND IDT BETWEEN #{beginTime} AND #{endTime}) FROM `lp_order_info` WHERE STATUS = '1' OR '2' AND RC6 = '1';
+    </select>
+
+    <select id="getFailTimes" resultType="int" parameterType="string">
+      SELECT SUM(SERVICE_ID = #{apiid} AND IDT BETWEEN #{beginTime} AND #{endTime}) FROM `lp_order_info` WHERE STATUS = '2' AND RC6 = '1';
+    </select>
+
+    <select id="getApiAbnormals" resultType="int" parameterType="string">
+      SELECT COUNT(1) FROM dc_information_api WHERE PRODUCER_ID = #{userid} AND API_STATUS = '1' AND UDT BETWEEN #{beginTime} AND #{endTime}
+    </select>
+
+    <select id="getWaitTimes" resultType="int" parameterType="string">
+        SELECT IFNULL(SUM(RC8),0)  FROM `lp_order_info` WHERE SERVICE_ID = #{apiid} AND IDT BETWEEN #{beginTime} AND #{endTime} AND STATUS = '1' AND RC6 = '1';
+    </select>
+
+    <select id="getFlows" resultType="int" parameterType="string">
+        SELECT IFNULL(SUM(RC7),0)  FROM `lp_order_info` WHERE SERVICE_ID = #{apiid} AND IDT BETWEEN #{beginTime} AND #{endTime} AND STATUS = '1' AND RC6 = '1';
+    </select>
+
+    <select id="getData" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dc_analysis_data WHERE USERID = #{userid} ORDER BY batch DESC
+    </select>
+
+    <select id="getApiQualityRank" resultType="int" parameterType="string">
+        SELECT DISTINCT
+  		temp.RANK
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+							  WHEN @temp_SCORE = ta.SCORE THEN @rank
+							  WHEN @temp_SCORE := ta.SCORE THEN @index
+							  WHEN @temp_SCORE = 0 OR @temp_SCORE IS NULL THEN @index
+							END) AS rank
+			FROM ( SELECT DISTINCT
+									USERID,
+									SCORE ,
+									BATCH
+						FROM dc_analysis_data
+						WHERE batch BETWEEN #{beginTime} AND #{endTime}
+						ORDER BY SCORE DESC ) AS ta,
+					( SELECT @rank := 1 ,
+									 @rowtotal := NULL ,
+									 @index := 0 ) r ) AS temp
+		WHERE userid = #{userid}  ORDER BY BATCH DESC
+    </select>
+
+
+    <select id="getApiInvokingsRank" resultType="int" parameterType="string">
+        SELECT DISTINCT
+  		temp.RANK
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+							  WHEN @temp_APIINVOKINGS = ta.APIINVOKINGS THEN @rank
+							  WHEN @temp_APIINVOKINGS := ta.APIINVOKINGS THEN @index
+							  WHEN @temp_APIINVOKINGS = 0 OR @temp_APIINVOKINGS IS NULL THEN @index
+							END) AS rank
+			FROM ( SELECT DISTINCT
+									USERID,
+									APIINVOKINGS ,
+									BATCH
+						FROM dc_analysis_data
+						WHERE batch BETWEEN #{beginTime} AND #{endTime}
+						ORDER BY  APIINVOKINGS DESC ) AS ta,
+					( SELECT @rank := 1 ,
+									 @rowtotal := NULL ,
+									 @index := #{i} ) r ) AS temp
+		WHERE userid = #{userid}
+        ORDER BY BATCH DESC
+    </select>
+
+
+    <select id="getApiCountsRank" resultType="int" parameterType="string">
+        SELECT DISTINCT
+ 		temp.RANK
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+										WHEN @temp_APICOUNTS = ta.APICOUNTS THEN @rank
+										WHEN @temp_APICOUNTS := ta.APICOUNTS THEN @index
+										WHEN @temp_APICOUNTS = 0 OR @temp_APICOUNTS IS NULL THEN @index
+									END) AS rank
+			FROM ( SELECT DISTINCT
+									USERID,
+									APICOUNTS,
+									BATCH
+						FROM dc_analysis_data
+						WHERE batch BETWEEN #{beginTime} AND #{endTime}
+						ORDER BY APICOUNTS DESC ) AS ta,
+					( SELECT @rank := 1 ,
+									 @rowtotal := NULL ,
+									 @index := 0 ) r ) AS temp
+		WHERE userid = #{userid} ORDER BY BATCH DESC
+    </select>
+
+
+    <select id="getApiCountsEachMonth" resultType="java.util.Map" parameterType="string">
+       SELECT COUNT(tt.ID) 'count',MONTH(tt.IDT) 'month',YEAR(tt.IDT) 'year',TT.IDT
+	   FROM (
+					SELECT t.ID,t.IDT FROM LP_ORDER_INFO t
+					WHERE t.RC6 = '1' AND t.SERVICE_ID IN (
+						SELECT ID
+						FROM dc_information_api
+						WHERE 1=1
+						AND PRODUCER_ID = #{userid}
+						AND DELETE_FLAG = 0
+						)
+				) tt
+		GROUP BY YEAR(tt.IDT) ,MONTH(tt.IDT)
+		HAVING DATE(tt.IDT) > DATE_FORMAT(DATE_SUB(now(),INTERVAL 11 month),'%Y-%m-01')
+		ORDER BY YEAR(tt.IDT) DESC , MONTH(tt.IDT) DESC;
+	 </select>
+
+    <select id="getFlowsSum" resultType="int" parameterType="string">
+        SELECT IFNULL(SUM(RC3),0) FROM dc_analysis_data WHERE userid = #{userid}
+    </select>
+
+    <select id="getDeals" resultType="int" parameterType="string">
+       SELECT COUNT(1) FROM `dc_message_comment` WHERE ISDEAL IN (1,2,3,4) AND RECEIVERID = #{userid};
+    </select>
+
+    <select id="getNumberOfUsers" resultType="int" parameterType="string">
+       SELECT COUNT(1) FROM dc_api_num_limt WHERE APIID IN (SELECT id FROM `dc_information_api` WHERE PRODUCER_ID = #{userid}) AND AUDIT_STATUS = '1'
+    </select>
+
+    <select id="getNumberOfUsersRank" resultType="integer" parameterType="string">
+       SELECT DISTINCT
+ 		temp.RANK
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+							  WHEN @temp_RC4 = ta.RC4 THEN @rank
+							  WHEN @temp_RC4 := ta.RC4 THEN @index
+							  WHEN @temp_RC4 = 0 OR @temp_RC4 IS NULL THEN @index
+							END) AS rank
+			FROM ( SELECT DISTINCT
+									USERID,
+									RC4 ,
+									BATCH
+						FROM dc_analysis_data
+						WHERE batch BETWEEN #{beginTime} AND #{endTime}
+						ORDER BY RC4 DESC ) AS ta,
+					( SELECT @rank := 1 ,
+									 @rowtotal := NULL ,
+									 @index := 0 ) r ) AS temp WHERE userid = #{userid} ORDER BY BATCH DESC
+    </select>
+
+    <select id="getAllUsers" resultType="int" parameterType="string">
+        SELECT COUNT(U.id) numbersOfUser
+        FROM lp_user_role_map L, lp_users U
+        WHERE L.URM_ROLEID =  ( SELECT id FROM lp_role WHERE KEYWORD =  #{keyword} )
+        AND U.id=L.URM_USERID AND U.STATE = '1'
+    </select>
+
+    <select id="getApiInvokingsSum" resultType="int" parameterType="string">
+        SELECT IFNULL(SUM(APIINVOKINGS),0) FROM dc_analysis_data WHERE userid = #{userid}
+    </select>
+
+    <select id="getProviders" resultType="int" parameterType="string">
+        SELECT COUNT(id) FROM lp_users WHERE ID IN
+        (SELECT urm_userid FROM lp_user_role_map t WHERE urm_roleid = (SELECT id FROM lp_role WHERE keyword = #{keywordProvider})) AND state != '-1'
+    </select>
+
+    <select id="getConsumers" resultType="int" parameterType="string">
+        SELECT COUNT(id) FROM lp_users WHERE ID IN
+        (SELECT urm_userid FROM lp_user_role_map t WHERE urm_roleid = (SELECT id FROM lp_role WHERE keyword = #{keywordConsumer})) AND state != '-1'
+    </select>
+
+    <select id="getTotalNumberOfApis" resultType="int" parameterType="string">
+        SELECT COUNT(id) FROM dc_information_api WHERE delete_flag = '0'
+     </select>
+
+    <select id="getTotalNumberOfApplications" resultType="int" parameterType="string">
+        SELECT COUNT(ID) FROM dc_api_num_limt
+     </select>
+
+     <select id="getTotalFlow" resultType="integer" parameterType="string">
+        SELECT SUM(rc7) FROM lp_order_info WHERE rc6 = '1'
+     </select>
+
+    <select id="getApproves" resultType="int" parameterType="string">
+        SELECT COUNT(id) FROM dc_api_num_limt WHERE AUDIT_STATUS = '1';
+     </select>
+
+    <select id="getRejects" resultType="int" parameterType="string">
+       SELECT COUNT(id) FROM dc_api_num_limt WHERE AUDIT_STATUS = '4';
+     </select>
+
+    <select id="getNumberOfNormalApis" resultType="integer" parameterType="string">
+        SELECT COUNT(id) FROM dc_information_api WHERE API_STATUS = '0' AND (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL) AND DELETE_FLAG = 0 ;
+    </select>
+
+    <select id="getAbnumberOfNormalApis" resultType="int" parameterType="string">
+        SELECT COUNT(id) FROM dc_information_api WHERE (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL) AND API_STATUS = '1' AND DELETE_FLAG = 0 ;
+    </select>
+
+    <select id="getNumberOfExpiredApis" resultType="int" parameterType="string">
+        SELECT COUNT(id) FROM dc_information_api WHERE EXPIRE_TIME &lt; NOW() AND DELETE_FLAG = 0
+    </select>
+
+    <select id="rankOfConsumer" resultType="java.util.Map" parameterType="string">
+        SELECT DISTINCT
+ 		    temp.ACCOUNTS numberOfTimes,temp.rank,d.ACCOUNT ACCOUNT
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+										WHEN @temp_ACCOUNTS = ta.ACCOUNTS THEN @rank
+										WHEN @temp_ACCOUNTS := ta.ACCOUNTS THEN @index
+										WHEN @temp_ACCOUNTS = 0 OR @temp_ACCOUNTS IS NULL THEN @index
+									END) AS rank
+             FROM
+				( SELECT  COUNT(T.id) ACCOUNTS,T.USRID
+					FROM LP_ORDER_INFO T
+					WHERE T.RC6 = '1' AND T.SERVICE_ID is not null
+					AND T.STATUS = '1' OR T.STATUS= '2'
+					GROUP BY T.USRID
+					ORDER BY ACCOUNTS DESC
+                ) AS ta,
+				( SELECT @rank := 1 ,
+					@rowtotal := NULL ,
+					@index := 0 ) r
+				 ) AS temp,
+				 lp_users d
+        WHERE d.ID=temp.USRID
+        ORDER BY ACCOUNTS DESC
+        LIMIT 0,3 ;
+    </select>
+
+
+    <select id="rankOfProvider" resultType="java.util.Map" parameterType="string">
+         SELECT DISTINCT
+           		temp.ACCOUNTS numberOfTimes,temp.rank,temp.NAME ACCOUNT
+         FROM
+         		( SELECT
+         				ta.*,
+         				@index := @index + 1,
+         				@rank := (CASE
+         										WHEN @temp_ACCOUNTS = ta.ACCOUNTS THEN @rank
+         										WHEN @temp_ACCOUNTS := ta.ACCOUNTS THEN @index
+         										WHEN @temp_ACCOUNTS = 0 OR @temp_ACCOUNTS IS NULL THEN @index
+         									END) AS rank
+                  FROM
+         				( SELECT  COUNT(1) ACCOUNTS,U.id,U.NAME
+                          FROM LP_ORDER_INFO T,dc_information_api D,lp_users U
+                          WHERE T.SERVICE_ID is not null
+                          AND T.RC6 = '1'
+         				  AND T.SERVICE_ID = D.id
+         				  AND D.PRODUCER_ID = U.id
+                          AND T.IDT is not null
+                          GROUP BY U.id
+         				  ORDER BY ACCOUNTS DESC
+                         ) AS ta,
+         				( SELECT @rank := 1 ,
+         					@rowtotal := NULL ,
+         					@index := 0 ) r
+         				 ) AS temp
+         ORDER BY ACCOUNTS DESC
+         LIMIT 0,3;
+    </select>
+
+    <select id="rankOfApiCounts" resultType="java.util.Map" parameterType="string">
+        SELECT DISTINCT
+ 		  temp.ACCOUNTS numberOfTimes,temp.rank,d.ACCOUNT ACCOUNT
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+										WHEN @temp_ACCOUNTS = ta.ACCOUNTS THEN @rank
+										WHEN @temp_ACCOUNTS := ta.ACCOUNTS THEN @index
+										WHEN @temp_ACCOUNTS = 0 OR @temp_ACCOUNTS IS NULL THEN @index
+									END) AS rank
+			  FROM
+				( SELECT COUNT(id)ACCOUNTS ,PRODUCER_ID
+					FROM dc_information_api
+					WHERE EXPIRE_FLAG = 0 AND PRODUCER_ID IS NOT NULL AND API_STATUS IS NOT NULL AND DELETE_FLAG &lt;&gt; 1
+					GROUP BY PRODUCER_ID
+					ORDER BY  ACCOUNTS DESC
+         ) AS ta,
+				( SELECT @rank := 1 ,
+					@rowtotal := NULL ,
+					@index := 0 ) r
+				 ) AS temp,
+				 lp_users d
+        WHERE d.ID=temp.PRODUCER_ID
+        ORDER BY ACCOUNTS DESC
+        LIMIT 0,3;
+    </select>
+
+    <select id="logOfBehavior" resultType="java.util.Map" parameterType="string">
+        SELECT USERID,DATE_FORMAT(IDT,'%Y-%m-%d %H:%i:%S') AS IDT,OPT_DETAIL,OPT_PARAMS FROM lp_page_log WHERE userid != #{managerAccount} ORDER BY IDT DESC LIMIT 0,30
+    </select>
+
+    <select id="concurrencyRate" resultType="int" parameterType="string">
+        SELECT COUNT(ID) FROM `lp_page_log` WHERE IDT BETWEEN #{beginTime} AND #{endTime}ORDER BY IDT DESC
+    </select>
+
+    <select id="getProviderCenterBusinessStatistics" resultType="java.util.Map">
+        select IFNULL(APICOUNTS,0) apiNum,IFNULL(RC4,0) rc4,IFNULL(RC5,0) rc5,IDT from dc_analysis_data where ROLETYPE = 1 and USERID = #{userId} order by BATCH desc limit 2
+    </select>
+
+    <select id="loginLog" resultType="java.util.Map" parameterType="string">
+        SELECT DATE_FORMAT(IDT,'%Y-%m-%d %H:%i:%S') AS Time,RC1 IP FROM lp_page_log WHERE USERID = #{account} ORDER BY IDT DESC LIMIT 0,1
+    </select>
+
+
+    <select id="monitorOfProvider" resultType="java.util.Map" >
+        <include refid="MySqlDialectPrefix"/>
+            SELECT U.ACCOUNT account,
+            			 P.Name subordinateUnit,
+            			 U.RC2 companyName,
+            			 SUM(D.PRODUCER_ID = U.id AND D.EXPIRE_TIME &gt; NOW() AND D.API_STATUS = '0' AND D.DELETE_FLAG = 0) numberOfNormalApis,
+            			 SUM(D.PRODUCER_ID = U.id AND D.EXPIRE_TIME &lt; NOW() AND D.DELETE_FLAG = 0) numberOfExpiredApis ,
+            			 A.APIABNORMALS numberOfAbnormalApis,
+            			 A.failtimes numberOfFailuerApis,
+            			 A.waittime responseTime,
+            			 A.score score
+            FROM dc_information_api D,lp_users U,dc_analysis_data A,lp_dept P
+            WHERE A.userid = U.id AND P.CODE = U.UNITCODE AND A.BATCH BETWEEN #{mapParam.beginTime} AND #{mapParam.endTime}
+            GROUP BY A.userid
+        <include refid="MySqlDialectSuffix"/>
+    </select>
+
+    <select id="getDAU" resultType="java.util.Map" parameterType="string">
+            SELECT
+				sum(tt.OPT_PARAMS LIKE '%"roleCode":"ROLE_DATACENTER_PROVIDER"%') 'providerCount',
+				sum(tt.OPT_PARAMS LIKE '%"roleCode":"ROLE_DATACENTER_CONSUMER"%') 'consumerCount',
+	            DAY(tt.IDT) 'day',MONTH(tt.IDT) 'month',YEAR(tt.IDT) 'year',tt.IDT
+	             FROM (
+					SELECT P.OPT_PARAMS,P.ID,P.IDT FROM lp_page_log P WHERE P.OPT_DETAIL = '用户登陆' AND P.USERID != #{managerAccount}
+				) tt
+		    GROUP BY YEAR(tt.IDT) ,MONTH(tt.IDT),DAY(tt.IDT)
+		    HAVING DATE(tt.IDT) BETWEEN DATE_FORMAT(DATE_SUB(#{month},INTERVAL 0 MONTH),'%Y-%m-01') AND #{month}
+		    ORDER BY YEAR(tt.IDT) DESC , MONTH(tt.IDT) DESC,DAY(tt.IDT) DESC;
+    </select>
+
+    <select id="getMAU" resultType="java.util.Map" parameterType="string">
+          SELECT
+				sum(tt.OPT_PARAMS LIKE '%"roleCode":"ROLE_DATACENTER_PROVIDER"%') 'providerCount',
+				sum(tt.OPT_PARAMS LIKE '%"roleCode":"ROLE_DATACENTER_CONSUMER"%') 'consumerCount',
+                MONTH(tt.IDT) 'month',YEAR(tt.IDT) 'year',tt.IDT
+	       FROM (
+					SELECT P.OPT_PARAMS,P.ID,P.IDT FROM lp_page_log P WHERE P.OPT_DETAIL = '用户登陆' AND P.USERID != #{managerAccount}
+				) tt
+		   GROUP BY YEAR(tt.IDT) ,MONTH(tt.IDT)
+		   HAVING DATE(tt.IDT) > DATE_FORMAT(DATE_SUB(now(),INTERVAL 11 month),'%Y-%m-01')
+		   ORDER BY YEAR(tt.IDT) DESC , MONTH(tt.IDT) DESC;
+    </select>
+
+    <select id="getInvokingsAndFlows" resultType="java.util.Map" parameterType="string">
+       SELECT COUNT(tt.ID) 'invokings',SUM(tt.RC7) 'flows',MONTH(tt.IDT) 'month',YEAR(tt.IDT) 'year',tt.IDT
+	   FROM (
+		   SELECT O.ID ,O.RC7,O.IDT from	lp_order_info O WHERE O.RC6 = '1'
+				) tt
+		GROUP BY YEAR(tt.IDT) ,MONTH(tt.IDT)
+		HAVING DATE(tt.IDT) > DATE_FORMAT(DATE_SUB(now(),INTERVAL 11 month),'%Y-%m-01')
+		ORDER BY YEAR(tt.IDT) DESC , MONTH(tt.IDT) DESC;
+    </select>
+
+    <select id="logDynamics" resultType="java.util.Map" parameterType="string">
+        SELECT
+          SUM(P.OPT_DETAIL IN ('用户登陆','修改密码','修改默认密码','新增黑白名单','移除黑白名单','新增API','删除API','修改API','授权API','批量授权API','取消授权','平台调用','申请API','生产者批复申请','新增应用')) total,
+          SUM(P.OPT_DETAIL IN ('用户登陆','修改密码','修改默认密码','新增黑白名单','移除黑白名单')) systemSecurityBehavior,
+          SUM(P.OPT_DETAIL IN ('新增API','删除API','修改API','授权API','批量授权API','取消授权','平台调用','申请API','生产者批复申请','新增应用')) apiOperationalBehavior
+        FROM lp_page_log P
+        WHERE P.USERID != #{managerAccount} ORDER BY P.IDT DESC
+    </select>
+
+    <select id="systemSecurityBehavior" resultType="java.util.Map" parameterType="map">
+        SELECT P.userid account,P.opt_detail operation,P.idt time,P.OPT_PARAMS param
+        FROM lp_page_log P
+        WHERE P.OPT_DETAIL IN (#{mapParam.opts})
+        AND P.USERID != #{mapParam.managerAccount} ORDER BY P.IDT DESC
+        LIMIT #{mapParam.start},#{mapParam.rows}
+    </select>
+
+    <select id="getProviderApiAccessCountByDate" resultType="java.util.Map">
+        select
+        <if test="dateType == 'day'.toString()">
+            count(1) as count from lp_order_info where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 and to_days(idt) = to_days(now());
+        </if>
+        <if test="dateType == 'week'.toString()">
+            SUM(l.count) as count from(
+            SELECT curdate() AS xq UNION ALL SELECT date_sub(curdate(), INTERVAL 1 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 2 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 3 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 4 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 5 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 6 DAY) AS xq) rq LEFT JOIN
+            (select date(idt) as datetime,count(1) as count from lp_order_info where SERVICE_ID
+            in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 GROUP BY date(idt)) l
+            on rq.xq = l.datetime order by rq.xq
+        </if>
+        <if test="dateType == 'month'.toString()">
+            count(1) as count FROM lp_order_info where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 and DATE_SUB(CURDATE(), INTERVAL #{maxDay} DAY) &lt; date(idt)
+        </if>
+    </select>
+
+    <select id="getProviderApiAccessEchartsByDate" resultType="java.util.Map">
+        select
+        <if test="dateType == 'day'.toString()">
+            dayHour as time,IF(count IS NULL, 0, count) count
+            FROM (SELECT count(*) AS count,DATE_FORMAT(idt, '%H') AS hour FROM lp_order_info
+            where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 and to_days(idt) = to_days(now()) GROUP BY hour
+            ORDER BY 1) A RIGHT JOIN (SELECT one.hours + two.hours AS dayHour FROM (SELECT 00 hours UNION ALL SELECT 1 hours
+            UNION ALL SELECT 2 hours
+            UNION ALL SELECT 3 hours
+            UNION ALL SELECT 4 hours
+            UNION ALL SELECT 5 hours
+            UNION ALL SELECT 6 hours
+            UNION ALL SELECT 7 hours
+            UNION ALL SELECT 8 hours
+            UNION ALL SELECT 9 hours) one CROSS JOIN (SELECT 0 hours
+            UNION ALL SELECT 10 hours
+            UNION ALL SELECT 20 hours) two WHERE (one.hours + two.hours) &lt; 24 order by dayHour) B ON A.hour = CONVERT(B.dayHour, SIGNED) ORDER BY dayHour
+        </if>
+        <if test="dateType == 'week'.toString()">
+            rq.xq as time,IFNULL(l.count,0) count from(
+            SELECT curdate() AS xq UNION ALL SELECT date_sub(curdate(), INTERVAL 1 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 2 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 3 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 4 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 5 DAY) AS xq UNION ALL
+            SELECT date_sub(curdate(), INTERVAL 6 DAY) AS xq) rq LEFT JOIN
+            (select date(idt) as datetime,count(1) as count from lp_order_info where SERVICE_ID
+            in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 GROUP BY date(idt)) l
+            on rq.xq = l.datetime order by rq.xq
+        </if>
+        <if test="dateType == 'month'.toString()">
+            date(idt) as time,count(1) as count FROM lp_order_info where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 and DATE_SUB(CURDATE(), INTERVAL #{maxDay} DAY) &lt; date(idt) GROUP BY date(idt) ORDER BY idt
+        </if>
+    </select>
+
+    <select id="getProviderDayAccessData" resultType="com.gla.datacenter.domain.OrderInfo">
+        select i.SERVICE_NAME serviceName,i.USRID userId,i.IDT idt,u.ACCOUNT rc1 from lp_order_info i left join lp_users u on i.USRID = u.id where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId}) and STATUS &lt;&gt; 0 and to_days(i.idt) = to_days(now())
+        <if test="idt != null">
+            and i.idt &lt; #{idt}
+        </if>
+        ORDER BY i.idt DESC
+        <if test="page != null and rows != null">
+            limit #{page},#{rows}
+        </if>
+    </select>
+
+    <select id="getProviderHistoryAccessData" resultType="com.gla.datacenter.domain.OrderInfo">
+        select i.SERVICE_NAME serviceName,i.USRID userId,i.IDT idt,u.ACCOUNT rc1 from lp_order_info i left join lp_users u on i.USRID = u.id and STATUS &lt;&gt; 0 where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId})
+        <if test="idt != null">
+            and i.idt &lt; #{idt}
+        </if>
+        ORDER BY i.idt DESC
+        <if test="page != null and rows != null">
+            limit #{page},#{rows}
+        </if>
+    </select>
+
+    <select id="getProviderHistoryAccessCount" resultType="java.lang.Integer">
+        select count(1) from lp_order_info i left join lp_users u on i.USRID = u.id and STATUS &lt;&gt; 0 where SERVICE_ID in (select id from dc_information_api where PRODUCER_ID = #{userId})
+    </select>
+
+    <select id="getApiStatus" resultType="java.util.Map" parameterType="string">
+          SELECT
+          		SUM(PRODUCER_ID = #{userid} AND API_STATUS = '0' AND (EXPIRE_TIME &gt; NOW() OR EXPIRE_TIME IS NULL) ) as available,
+          		SUM(PRODUCER_ID = #{userid} AND API_STATUS = '1' AND (EXPIRE_TIME &gt; NOW() OR EXPIRE_TIME IS NULL) ) as abnormal,
+          		SUM(PRODUCER_ID = #{userid} AND EXPIRE_TIME &lt; NOW() ) as overdue
+          FROM dc_information_api WHERE DELETE_FLAG = 0
+    </select>
+
+    <select id="getApiInvoking" resultType="java.util.Map" parameterType="string">
+          SELECT
+	    	    SUM(O.SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid}) AND O.STATUS = '1' OR '2' ) as total,
+	    	    SUM(O.SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid}) AND O.STATUS = '1' ) as success,
+	    	    SUM(O.SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid}) AND O.STATUS = '2' ) as fail
+          FROM lp_order_info O
+    </select>
+
+    <select id="getTodayFlowsByUserid" resultType="int" parameterType="string">
+            SELECT
+            	IFNULL(SUM(RC7),0) todayFlows
+            FROM lp_order_info O
+            WHERE SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid})
+            AND IDT BETWEEN #{beginTime} AND #{endTime}
+            AND O.STATUS = '1' ;
+    </select>
+
+    <select id="getTotalFlowsByUserid" resultType="int" parameterType="string">
+            SELECT
+            	IFNULL(SUM(RC7),0) totalFlows
+            FROM lp_order_info O
+            WHERE SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid})
+            AND O.STATUS = '1' ;
+    </select>
+
+    <select id="getResponseTime" resultType="int" parameterType="string">
+            SELECT IFNULL(SUM(RC8),0)
+            FROM lp_order_info O
+            WHERE O.SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid}) AND O.STATUS = '1'
+    </select>
+
+    <select id="getInvokingAndFlowByWeek" resultType="map" parameterType="string">
+        SELECT COUNT(tt.ID) 'invokings',SUM(tt.RC7) 'flows',DAY(tt.IDT) 'day',MONTH(tt.IDT) 'month',YEAR(tt.IDT) 'year',tt.IDT
+	    FROM (
+		   SELECT O.ID ,O.RC7,O.IDT from	lp_order_info O WHERE O.SERVICE_ID IN (SELECT A.ID FROM dc_information_api A WHERE A.PRODUCER_ID = #{userid})
+				) tt
+		GROUP BY YEAR(tt.IDT) ,MONTH(tt.IDT)
+		HAVING DATE(tt.IDT) > DATE_FORMAT(DATE_SUB(now(),INTERVAL 7 DAY),'%Y-%m-01')
+		ORDER BY YEAR(tt.IDT) DESC , MONTH(tt.IDT) DESC;
+    </select>
+
+    <select id="getApiQualityRanking" resultType="map" parameterType="string">
+        SELECT DISTINCT
+ 		  temp.SCORE score,temp.rank,d.name NAME
+        FROM
+		    ( SELECT
+				ta.*,
+				@index := @index + 1,
+				@rank := (CASE
+										WHEN @temp_SCORE = ta.SCORE THEN @rank
+										WHEN @temp_SCORE := ta.SCORE THEN @index
+										WHEN @temp_SCORE = 0 OR @temp_SCORE IS NULL THEN @index
+									END) AS rank
+			  FROM
+				( SELECT
+									DISTINCT USERID,
+									SCORE ,
+									BATCH
+						FROM dc_analysis_data
+						WHERE batch BETWEEN #{beginTime} AND #{endTime}
+ 						GROUP BY USERID
+						ORDER BY SCORE DESC
+         ) AS ta,
+				( SELECT @rank := 1 ,
+					@rowtotal := NULL ,
+					@index := 0 ) r
+				 ) AS temp,
+				 lp_users d
+        WHERE d.ID=temp.USERID
+        ORDER BY SCORE DESC
+        LIMIT 0,3;
+    </select>
+
+    <select id="getApiAndAppCountAndCalls" resultType="java.util.Map">
+        SELECT SUM(CASE WHEN RC6 = '1' THEN 1 ELSE 0 END) AS apiCalls,SUM(CASE WHEN RC6 = '2' THEN 1 ELSE 0 END) AS appCalls,
+          (SELECT COUNT(1) FROM dc_information_api WHERE DELETE_FLAG = 0) AS apiCount,
+          (SELECT COUNT(1) FROM dc_app_service WHERE APP_TYPE = 1 AND STATUS = 1) AS appCount FROM lp_order_info
+    </select>
+</mapper>

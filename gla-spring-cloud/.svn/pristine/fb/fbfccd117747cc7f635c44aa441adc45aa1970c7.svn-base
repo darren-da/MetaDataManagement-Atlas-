@@ -1,0 +1,192 @@
+package com.gla.datacenter.controller;
+
+
+import com.gla.datacenter.domain.Dept;
+import com.gla.datacenter.service.DeptService;
+import com.limp.framework.core.bean.Pager;
+import com.limp.framework.core.bean.Result;
+import com.limp.framework.core.bean.ResultCode;
+import com.limp.framework.core.constant.Constant;
+import com.limp.framework.core.constant.ResultMsg;
+import com.limp.framework.utils.TextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+public class DeptController {
+    private Logger log= LoggerFactory.getLogger(DeptController.class);
+
+    @Autowired
+    DeptService deptService;
+
+    /**
+     * 设置默认页面显示的条数
+     */
+    public static  final Integer DEFAULT_ROW=10;
+
+    /**
+     * 新增部门信息
+     * @param dept
+     * @return
+     */
+    @RequestMapping(value = "/dept",method= RequestMethod.POST)
+    public String saveDept(@RequestBody Dept dept) {
+        log.debug(TextUtils.format("/***新增部门信息**/"));
+        Boolean flay= deptService.save(dept);
+        if(flay){
+            return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,"","").getJson();
+        }
+        return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.ERROR,"","").getJson();
+    }
+
+    /**
+     * 删除部门（批量）
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/dept/{id}",method= RequestMethod.DELETE)
+    public String delDept( @PathVariable("id") String id) {
+        log.debug(TextUtils.format("/***根据部门id{0}，删除部门记录**/", id));
+        String []ids=id.split(Constant.DHAO);
+        if(id.split(Constant.DHAO).length>DEFAULT_ROW){
+            return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.DEL_ERROR_IDS_TOO_MANY,"","").getJson();
+        }
+        Boolean flay=true;
+        for(String did:ids){
+            if(!deptService.delete(did)){
+                flay=false;
+            };
+        }
+        if(flay){
+            return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,"","").getJson();
+        }
+        return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.ERROR,"","").getJson();
+    }
+    /**
+     * 更新部门信息
+     * @param dept dept
+     * @return
+     */
+    @RequestMapping(value = "/dept",method= RequestMethod.PUT)
+    public String updateDept(@RequestBody Dept dept) {
+        log.debug(TextUtils.format("/***更新部门信息**/"));
+        Boolean flay= deptService.update(dept);
+        if(flay){
+            return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.UPDATE_SUCCESS,"","").getJson();
+        }
+        return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.UPDATE_ERROR,"","").getJson();
+    }
+
+    /**
+     * 更新部门状态(启用、禁用部门)
+     * @param id
+     * @param state
+     * @return
+     */
+    @RequestMapping(value = "/dept/{id}/state/{state}",method= RequestMethod.PUT)
+    public String updateDeptState(@PathVariable("id") String id,@PathVariable("state") String state) {
+        log.debug(TextUtils.format("/***更新部门状态**/"));
+        Boolean flay= deptService.updateDeptState(id,state);
+        if(flay){
+            return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.UPDATE_SUCCESS,"","").getJson();
+        }
+        return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.UPDATE_ERROR,"","").getJson();
+    }
+
+    /**
+     * 获取部门信息根据部门id
+     * @param id 查询的id
+     * @return
+     */
+    @RequestMapping(value = "/dept/{id}",method= RequestMethod.GET)
+    public String selectDept(@PathVariable("id") String id) {
+        log.debug(TextUtils.format("/***根据部门id{0}，获取部门基本信息**/", id));
+        Dept dept= deptService.get(id);
+        return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,dept,"").getJson();
+    }
+
+
+    /**
+     * 获取部门信的角色根据部门id
+     * @param model
+     * @param id 查询的id
+     * @return
+     */
+//    @ApiOperation(value="获取部门角色信息", notes="根据url的id来获取部门角色列表列表")
+//    @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "String", paramType = "path")
+//    @RequestMapping(value = "/dept/{id}/roles",method= RequestMethod.GET)
+//    public String selectUserRole(@PathVariable("id") String id) {
+//        log.debug(TextUtils.format("/***根据部门id{0}，获取部门角色列表信息**/", id));
+//        List<Role> roleList= deptService.getUserRoleList(id);
+//        return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,roleList,"").getJson();
+//    }
+
+    /**
+     * 给部门授予角色
+     * @param id
+     * @param roleIds
+     * @return
+     */
+//    @RequiresPermissions("dept:role:update")
+//    @Access(privilege =true,login = true,operationLog = OPERATION.UPDATE,operationIntro = "更新部门角色")
+//    @RequestMapping(value = "/dept/{id}/roles",method= RequestMethod.POST)
+//    public String saveUserRole(@PathVariable("id") String id, String roleIds) {
+//        log.debug(TextUtils.format("/***根据部门id{0}，修改部门角色列表信息**/", id));
+//        boolean flay= deptService.addUserRoleList(id, Arrays.asList(roleIds.split(Constant.DHAO)));
+//        if(flay){
+//            return Result.Success().getJson();
+//        }else{
+//            return  Result.Error().getJson();
+//        }
+//    }
+    /**
+     * 查询部门列表
+     * @param dept
+     * @return
+     */
+//    @ApiOperation(value="获取部门列表", notes="获取部门列表")
+    @RequestMapping(value = "/depts")
+    public String selectDeptList(@RequestBody Dept dept) {
+        log.debug(TextUtils.format("/***查询部门,返回部门列表**/"));
+        List<Dept> list = deptService.getList(dept);
+        if(true){
+            return Result.getInstance(ResultCode.SUCCESS.toString(), ResultMsg.SUCCESS,list,"").getJson();
+        }
+        return Result.getInstance(ResultCode.ERROR.toString(), ResultMsg.ERROR,"","").getJson();
+    }
+
+    /**
+     *
+     * 功能描述: 远程更新部门表数据
+     *
+     * @param: 
+     * @param deptList
+     * @return: int
+     * @author: zhangbo
+     * @date: 2019/8/6 14:20
+     */
+    @RequestMapping(value = "/remote/dept/update")
+    public int insertDeptByList(@RequestBody List<Map<String, Object>> deptList){
+        return deptService.insertDeptByList(deptList);
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        /**
+         * 第一种方式：使用WebDataBinder注册一个自定义的编辑器，编辑器是日期类型
+         * 使用自定义的日期编辑器，日期格式：yyyy-MM-dd,第二个参数为是否为空  true代表可以为空
+         *  yyyy-MM-dd hh:mm:ss
+         */
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
+}

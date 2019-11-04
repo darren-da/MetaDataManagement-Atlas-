@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--引入标签：这样的话才可以在其他标签里面使用th:*这样的语法.这是下面语法的前提.-->
+
+<!--参考链接-->
+<!--https://blog.csdn.net/u012706811/article/details/52185345-->
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+<!--清除缓存-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title></title>
+    <script src="../../../static/scripts/jquery-3.2.1.min.js"></script>
+    <!--<script src="../static/scripts/test.js"></script>-->
+
+   <!-- 2.引入URL
+
+    Thymeleaf对于URL的处理是通过语法@{…}来处理的
+
+    <a th:href="@{http://blog.csdn.net/u012706811}">绝对路径</a>
+    <a th:href="@{/}">相对路径</a>
+    <a th:href="@{css/bootstrap.min.css}">Content路径,默认访问static下的css文件夹</a>
+    类似的标签有:th:href和th:src-->
+</head>
+<body>
+
+125qqwe212请求
+<p th:text="'Hello！, ' + ${name} + '!'" >3333</p>
+
+
+<!--可以看出获取变量值用$符号,对于javaBean的话使用变量名.属性名方式获取,这点和EL表达式一样.
+
+另外$表达式只能写在th标签内部,不然不会生效,上面例子就是使用th:text标签的值替换p标签里面的值,至于p里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离.-->
+<script>
+    $(function(){
+//        alert(1)
+    })
+</script>
+<script src="${name}/static/scripts/jquery-3.2.1.min.js"></script>
+
+</body>
+</html>

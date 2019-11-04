@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.AnalysisMapper">
+    <!--统一调用方式 http://localhost:8007/anaData/?method=getAccountsBusyOrIde&beginTime=2018-09-01&endTime=2018-09-30-->
+    <select id="selectListMapByMethod" resultType="java.util.HashMap" parameterType="map">
+        <if test="method =='getAccounts'">
+            <include refid="getAccounts"/>
+        </if>
+        <if test="method =='getFlows'">
+            <include refid="getFlows"/>
+        </if>
+        <if test="method =='getUserName'">
+            <include refid="getUserName"/>
+        </if>
+        <if test="method =='getStatusProvider'">
+            <include refid="getStatusProvider"/>
+        </if>
+        <if test="method =='getTimerToReport'">
+            <include refid="getTimerToReport"/>
+        </if>
+        <if test="method =='getAccountsBusyOrIde'">
+            <include refid="getAccountsBusyOrIde"/>
+        </if>
+        <if test="method =='getResideAccounts'">
+            <include refid="getResideAccounts"/>
+        </if>
+        <if test="method =='getStatusConsumer'">
+            <include refid="getStatusConsumer"/>
+        </if>
+        <if test="method =='getTop50HotMsg'">
+            <include refid="getTop50HotMsg"/>
+        </if>
+        <if test="method =='getMachineLoadRate'">
+            <include refid="getMachineLoadRate"/>
+        </if>
+        <if test="method =='getTop5Consumer'">
+            <include refid="getTop5Consumer"/>
+        </if>
+        <if test="method == 'getTop5Provider'">
+            <include refid = "getTop5Provider" />
+        </if>
+        <if test="method == 'getApiInLineTop5'">
+            <include refid = "getApiInLineTop5" />
+        </if>
+        <if test="method == 'getOrderCount'">
+            <include refid = "getOrderCount" />
+        </if>
+
+        <if test="method == 'countApiOrderByUserId'">
+          <include refid="countApiOrderByUserId" />
+        </if>
+
+        <if test="method == 'monthApiCountByUserId'">
+            <include refid="monthApiCountByUserId" />
+        </if>
+        <if test="method == 'getUserApiNum'">
+            <include refid="getUserApiNum" />
+        </if>
+
+    </select>
+    <!--todo:操作规范，所有的sql方法请注明 【方法描述】【方法请求参数说明】-->
+
+    <!--获取用户的API统计信息：定时任务，如果API失败数量超过50%，则预警-->
+    <sql id="getUserApiNum">
+        SELECT count(1) NUM,API_STATUS STATUS,CREATE_ID USERID  from dc_information_api where DELETE_FLAG=0 GROUP BY CREATE_ID,API_STATUS
+    </sql>
+
+    <!--方法名称：查询API被调用的次数
+    参数名称：
+        serviceId API的id   idt:时间段（包括起始时间和结束时间） beginTime：起始时间（用“-”分隔）  endTime：结束时间（用“-”分隔）
+     -->
+    <sql id="getAccounts">
+        SELECT T.SERVICE_NAME , COUNT(1) ACCOUNTS
+        FROM LP_ORDER_INFO T
+        WHERE T.SERVICE_ID is not null AND T.RC6 = '1'
+        <if test="params.serviceId!=null">
+            AND T.SERVICE_ID=#{params.serviceId}
+        </if>
+        AND T.IDT is not null
+        <if test="params.beginTime!=null and params.endTime!=null">
+            AND T.IDT BETWEEN #{params.beginTime} AND #{params.endTime}
+        </if>
+        GROUP BY T.SERVICE_ID
+    </sql>
+
+    <!--方法名称：查询API被调用的流量（字节数，单位：KB）
+    参数名称：
+        serviceId API的id  userid：用户的id  idt:时间段（包括起始时间和结束时间） beginTime：起始时间（用“-”分隔）  endTime：结束时间（用“-”分隔）
+     -->
+    <sql id="getFlows">
+        SELECT U.`NAME`, T.SERVICE_NAME,SUM(T.RC7)/1024 Flows
+        FROM LP_ORDER_INFO T,LP_USERS U
+        WHERE T.SERVICE_NAME is not null AND T.RC6 = '1'
+        <if test="params.serviceId!=null">
+            AND T.SERVICE_ID = #{params.serviceId}
+        </if>
+        <if test="params.userid!=null">
+            AND T.USRID = #{params.userid}
+        </if>
+        <if test="params.beginTime!=null and params.endTime!=null">
+            AND T.IDT BETWEEN #{params.beginTime} AND #{params.endTime}
+        </if>
+        AND T.`STATUS` = '1'
+        AND T.USRID = U.ID
+        GROUP BY T.SERVICE_IaD,T.USRID
+        ORDER BY T.RC7 DESC
+    </sql>
+
+    <!--方法名称：查询API与使用者的信息
+    参数名称：
+        serviceId API的id  userid：用户的id  idt:时间段（包括起始时间和结束时间） beginTime：起始时间（用“-”分隔）  endTime：结束时间（用“-”分隔）
+     -->
+    <sql id="getUserName">
+        SELECT U.`NAME`,T.SERVICE_NAME, COUNT(1) NUM
+        FROM LP_ORDER_INFO T , LP_USERS U
+        WHERE T.SERVICE_NAME is not null AND T.RC6 = '1'
+        <if test="params.serviceId!=null">
+            AND T.SERVICE_ID = #{params.serviceId}
+        </if>
+        <if test="params.userid!=null">
+            AND T.USRID = #{params.userid}
+        </if>
+        AND T.USRID = U.ID
+        <if test="params.beginTime!=null and params.endTime!=null">
+            AND T.IDT BETWEEN #{params.beginTime} AND #{params.endTime}
+        </if>
+        GROUP BY T.USRID,T.SERVICE_ID
+    </sql>
+
+    <!--方法名称：生产者根据状态（成功调用或失败调用）查询API的调用次数
+    参数名称：
+        serviceId API的id  status：API被调用的状态（成功调用或失败调用）  idt:时间段（包括起始时间和结束时间） beginTime：起始时间（用“-”分隔）  endTime：结束时间（用“-”分隔）
+     -->
+    <sql id="getStatusProvider">
+        SELECT T.SERVICE_NAME ,T.`STATUS`, COUNT(1) NUM
+        FROM LP_ORDER_INFO T
+        WHERE T.SERVICE_NAME is not null AND T.RC6 = '1'
+        <if test="params.serviceId!=null">
+            AND T.SERVICE_ID = #{params.serviceId}
+        </if>
+        <if test="params.status!=null">
+            AND T.STATUS = #{params.status}
+        </if>
+        <if test="params.beginTime!=null and params.endTime!=null">
+            AND T.IDT BETWEEN #{params.beginTime} AND #{params.endTime}
+        </if>
+        GROUP BY T.SERVICE_ID
+    </sql>
+
+    <!--方法名称：API被调用次数的报警提示（预留）
+    参数名称：
+     -->
+    <sql id="getTimerToReport">
+
+    </sql>
+
+    <!--方法名称：查询API在某个时间段内的负载率
+    参数名称：
+        serviceId API的id   idt:时间段（包括起始时间和结束时间） beginTime：起始时间（用“-”分隔）  endTime：结束时间（用“-”分隔）
+     -->
+    <sql id="getAccountsBusyOrIde">
+        SELECT T.SERVICE_NAME,COUNT(1) Accounts
+        FROM LP_ORDER_INFO T
+        WHERE T.SERVICE_NAME is not null AND T.RC6 = '1'
+        <if test="params.serviceId!=null">
+            AND T.SERVICE_ID = #{params.serviceId}
+        </if>
+        <if test="params.beginTime!=null and params.endTime!=null">
+            AND T.IDT BETWEEN #{params.beginTime} AND #{params.endTime}
+        </if>
+        GROUP BY T.SERVICE_ID
+    </sql>
+
+    <!--方法名称：消费者查询所购买API的剩余可使用次数（预留）
+    参数名称：
+     -->
+    <sql id="getResideAccounts">
+
+    </sql>
+
+
+    <!--方法名称：消费者根据状态（成功调用或失败调用）查询API的调用次数
+    参数名称：
+        serviceId API的id  status：API被调用的状态（成功调用或失败调用） userid：用户的id  idt:时间段（包括起始时间和结束时间） beginTime：起始时间（用“-”分隔）  endTime：结束时间（用“-”分隔）
+     -->
+    <sql id="getStatusConsumer">
+        SELECT U.`NAME`,T.SERVICE_NAME, T.`STATUS` ,COUNT(1) NUM
+        FROM LP_ORDER_INFO T , LP_USERS U
+        WHERE T.SERVICE_NAME is not null AND T.RC6 = '1'
+        <if test="params.serviceId!=null">
+            AND T.SERVICE_ID = #{params.serviceId}
+        </if>
+        <if test="params.status!=null">
+            AND T.STATUS = #{params.status}
+        </if>
+        <if test="params.userid!=null">
+            AND T.USRID = #{params.userid}
+        </if>
+        AND T.USRID = U.ID
+        <if test="params.beginTime!=null and params.endTime!=null">
+            AND T.IDT BETWEEN #{params.beginTime} AND #{params.endTime}
+        </if>
+        GROUP BY T.SERVICE_ID,T.`STATUS`
+    </sql>
+    <!--录日志和行为日志两张表操作前50条:目前是登录日后是20条，行为 操作是30条，否则都是一种行为的操作-->
+    <sql id="getTop50HotMsg">
+      select t1.* FROM (select ACCOUNT as account ,IDT as time1,MSG   as intro ,'1' type  from lp_login_log  ORDER BY IDT DESC  LIMIT 0,20 ) t1    union SELECT t3.* from (select OPT_USER  as account ,OPT_TIME as time, BUSINESS_NAME as intro ,'2' type   from  lp_operation_log t2 ORDER BY t2.OPT_TIME DESC  LIMIT 0,10) t3
+    </sql>
+    <!--系统负载统计:暂时是最近一天的统计情况  更改1000为24即为一天的-->
+    <sql id="getMachineLoadRate">
+         SELECT
+        DATE_FORMAT(t.IDT, '%Y%m%d%H') triggerDay,
+        COUNT(t.id) num,
+      sum(t.RC7) size,
+      sum(t.RC8) time
+    FROM
+        lp_order_info t
+    WHERE
+        t.IDT BETWEEN DATE_SUB(CURDATE(),INTERVAL 1000 HOUR) AND RC6 = '1'
+    AND sysdate()
+    GROUP BY triggerDay
+    ORDER BY t.IDT desc
+    </sql>
+
+    <!--消费者维度：部门API调用量最高排名（前五）-》展示用户部门-->
+    <sql id="getTop5Consumer">
+        SELECT  t.USRID   as userid ,t2.`NAME` as `name` ,t2.RC2 as deptname, count(1) num    from lp_order_info t LEFT JOIN lp_users t2 on t.USRID=t2.id AND t.RC6 = '1' group  by  t.USRID ,t2.RC2,t2.NAME   ORDER BY
+ num  desc  limit  0,5
+    </sql>
+
+    <!--生产者维度：部门API被调用量最高排名（前五）-》展示用户部门 子查询较多，待优化-->
+    <sql id="getTop5Provider">
+      SELECT b.PRODUCER_ID producerId,b.NAME producerName,b.orgName,COALESCE (sum(sunm), 0) count from
+        (SELECT t.PRODUCER_ID,s.orgName,s.sunm,u.NAME FROM dc_information_api t
+          left join (SELECT service_id,rc2 orgName,count(1) sunm FROM lp_order_info WHERE (STATUS = 1 OR STATUS = 2) AND SERVICE_ID IS NOT NULL AND RC6 = '1' GROUP BY service_id) s on t.id = s.service_id
+          left join lp_users u ON t.PRODUCER_ID = u.ID where t.PRODUCER_ID IS NOT NULL) b
+            GROUP BY b.PRODUCER_ID,b.NAME,b.orgName ORDER BY count DESC LIMIT 0,5
+    </sql>
+
+    <!--生产者维度：拥有的上线API数量最高排名 （前五）-》展示用户部门-->
+    <sql id="getApiInLineTop5">
+        select t.PRODUCER_ID userId,t.PRODUCER_ORG_ID orgId,t.count,u.name userName,d.name orgName from (select PRODUCER_ID,PRODUCER_ORG_ID,COUNT(1) count from dc_information_api where DELETE_FLAG = 0 and PRODUCER_ID is not null group by PRODUCER_ID,PRODUCER_ORG_ID) t LEFT JOIN lp_users u on t.PRODUCER_ID
+        = u.id left join  lp_dept d on t.PRODUCER_ORG_ID = d.id order by t.count desc limit 0,5
+    </sql>
+
+    <!--管理者:获取所有订单数量和流量-->
+    <sql id="getOrderCount">
+      <!--select sum(t.count) count,sum(t.data) data from(
+      select count(1) count,SUM(RC7) data from lp_order_info where STATUS = 1 UNION
+      select count(1) count,SUM(RC7) data from lp_order_info where STATUS = 2) t-->
+      select count(1) count,sum(RC7) data from LP_ORDER_INFO where (STATUS = 1 or STATUS = 2) AND RC6 = '1'
+    </sql>
+
+    <!--  生产者、管理者查询api访问次数  -->
+    <sql id="countApiOrderByUserId">
+      select count(1) from lp_order_info l inner join (select * from dc_information_api where DELETE_FLAG = 0
+        <if test="userId != null and userId != ''">
+          and PRODUCER_ID = #{userId}
+        </if>
+      ) t on l.SERVICE_ID = t.id AND l.RC6 = '1'
+    </sql>
+
+    <!--  生产者、管理者查询api月访问个数  -->
+    <sql id="monthApiCountByUserId">
+      SELECT COUNT(tt.ID) 'count',MONTH(tt.IDT) 'month' FROM (SELECT t.ID,t.IDT FROM LP_ORDER_INFO t WHERE t.RC6 = '1' AND t.SERVICE_ID IN (SELECT ID FROM DC_INFORMATION_API WHERE 1=1
+        <if test="userId != null and userId != ''">
+          AND PRODUCER_ID = #{userId}
+        </if>
+        AND DELETE_FLAG = 0
+       )) tt WHERE DATE_FORMAT(tt.IDT,'%Y') = #{year} GROUP BY MONTH(tt.IDT)
+    </sql>
+
+    <!--      生产者、管理者查看首页评分    -->
+    <select id="selectApiScore" resultType="java.util.HashMap">
+        select * from dc_analysis_data where 1=1 and userid = #{userId} order by batch desc limit 1
+    </select>
+
+    <select id="getConsumerApiUseNumByWeek" resultType="java.util.HashMap">
+        select date_format(rq.xq, '%w') AS xq,rq.xq as date,ifnull(t.count, 0) AS count from (
+        SELECT curdate() AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 1 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 2 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 3 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 4 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 5 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 6 DAY) AS xq) rq LEFT JOIN
+        (SELECT date(IDT) as datetime,count(1) as count from lp_order_info where USRID = #{userId} AND RC6 = '1' GROUP BY date(idt)) t ON rq.xq = t.datetime order by rq.xq
+    </select>
+
+    <select id="getConsumerApiApplyNumByWeek" resultType="java.util.HashMap">
+        select date_format(rq.xq, '%w') AS xq,rq.xq as date,ifnull(t.count, 0) AS count from (
+        SELECT curdate() AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 1 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 2 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 3 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 4 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 5 DAY) AS xq UNION ALL
+        SELECT date_sub(curdate(), INTERVAL 6 DAY) AS xq) rq LEFT JOIN
+        (SELECT date(IDT) as datetime,count(1) as count from dc_message_comment where SENDERID = #{userId} GROUP BY date(IDT)) t ON rq.xq = t.datetime order by rq.xq
+    </select>
+
+</mapper>

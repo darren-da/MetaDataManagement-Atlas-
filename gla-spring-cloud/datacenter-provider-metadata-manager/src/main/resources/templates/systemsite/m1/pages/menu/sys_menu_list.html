@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>菜单列表</title>
+	<!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">用户管理</a>
+        <a>
+          <cite>用户列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="menuTableMain">
+
+			<div style="padding: 20px; background-color: #F2F2F2;">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md3">
+						<div class="layui-card lpcard">
+							<div class="layui-card-header lpcard-head">菜单管理<i class="layui-icon" style="line-height:30px">ဂ</i></div>
+							<div class="layui-card-body">
+								<div class="TreeDemoBackground left" style="height: 640px; overflow: auto;padding-left: 5px;">
+									<ul id="treeDemo" class="ztree"></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-md9">
+						<div class="layui-card">
+							<div class="layui-card-header">菜单列表</div>
+							<div class="layui-card-body">
+
+								<div class="layui-row table-search">
+
+									<div class="layui-form layui-col-md12 we-search">
+
+										<div class="layui-inline">
+											<input type="text" id="perms_serach_account" placeholder="请输入权限标识" autocomplete="off" class="layui-input">
+										</div>
+										<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+									</div>
+								</div>
+
+								<!--测试区域-->
+								<div class="weadmin-block table-tools">
+									<!--<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>-->
+									<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+									<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+								</div>
+								<table class="layui-form layui-table" id="menuTable">
+
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!--*********************魔板部分**begin************************-->
+		<script type="text/template" id="tkAddMenu">
+			<div class="weadmin-body">
+				<form class="layui-form lpform-2clo" lay-filter="addFilter">
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							<span class="lp-red">*</span>菜单名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="name"  lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							父类菜单
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="parentName"  readonly="readonly"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							菜单类型
+						</label>
+						<div class="layui-input-inline">
+							<select size="1"name="type"  id="menType" title="0系统 1菜单 2页面 3Tab标签  4新窗口（页面新窗口打开） 5：隐藏  6:iframe控制  10功能按钮" class="form-control"> ' +
+								'
+								<option value="0" title="一级菜单定义为系统级别菜单">系统</option>
+								<option value="1" title="定义左侧菜单">菜单</option>
+								<option value="2">页面</option>
+								<option value="4" title="点击左侧菜单在新窗口打开">新窗口打开</option>
+								<option value="5" title="左侧菜单不显示">隐藏菜单</option>
+								<option value="6" title="点击左侧菜单，右侧是iframe加载，样式不影响">IFrame加载</option>
+								<option value="10">功能按钮</option>
+							</select>
+						</div>
+						<label  class="layui-form-label">
+							权限标识
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="perms"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							Key
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="keyword"  autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							VALUE
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="keywordValue"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							排序
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="sort"  autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							样式
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="icon"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							Url地址
+						</label>
+						<div class="layui-input-inline">
+							<div class="layui-input-inline">
+								<input type="text"  name="url"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+
+					</div>
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							描述
+						</label>
+						<div class="layui-input-inline">
+							<textarea class="model-text-new" style="width: 97%; float: left; border: 1px solid #ccc; border-radius: 4px;" rows="3" cols="20" name="desc"  autocomplete="off"  id="menDesc1"></textarea>
+
+						</div>
+
+					</div>
+					<div class="layui-form-item" style="float: right;">
+						<input type="hidden" name="id" />
+						<input type="hidden" id="fId" name="parentId" value=""/>
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+
+
+				</form>
+			</div>
+		</script>
+
+
+
+		<!--*********************魔板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_menu.js}"></script>
+
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+	</body>
+
+
+
+</html>

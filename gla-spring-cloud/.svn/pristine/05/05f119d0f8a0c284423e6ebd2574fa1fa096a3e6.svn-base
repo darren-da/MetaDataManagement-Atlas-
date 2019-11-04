@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>登陆日志列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">登陆日志管理</a>
+        <a>
+          <cite>登陆日志列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="logTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-form layui-col-md12 we-search">
+						<!--<lable class="layui-form-label">操作类型</lable>-->
+
+						<div class="layui-inline">
+							<input type="text" id="account" placeholder="用户账号" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-inline">
+							<select id="type">
+								<option value="">操作类型</option>
+								<option value="1">登陆</option>
+								<option value="2">注销</option>
+							</select>
+							<!--<input type="text" id="type" placeholder="操作类型" autocomplete="off" class="layui-input">-->
+						</div>
+
+						<!--<lable class="layui-form-label">登陆状态</lable>-->
+						<div class="layui-inline">
+							<select id="state">
+								<option value="">登陆状态</option>
+								<option value="1">正常</option>
+								<option value="-1">删除</option>
+							</select>
+						</div>
+						<div class="layui-inline">
+							<input class="layui-input"  placeholder="start时间" name="start" id="start">
+						</div>
+						<div class="layui-inline">
+							<input class="layui-input"  placeholder="end时间" name="end" id="end">
+						</div>
+						<!--<div class="layui-inline">
+							<input class="layui-input"  placeholder="" name="start" id="startT">
+						</div>-->
+						<!--<div class="layui-inline">
+							<input type="text" id="state" placeholder="状态" autocomplete="off" class="layui-input">
+						</div>-->
+						<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<table class="layui-form layui-table" id="logTable">
+
+			</table>
+			<!--测试区域-->
+		</div>
+
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_login_log.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

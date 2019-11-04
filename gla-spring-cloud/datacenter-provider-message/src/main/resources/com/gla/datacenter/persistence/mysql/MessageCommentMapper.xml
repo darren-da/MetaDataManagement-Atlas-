@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.MessageCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.MessageComment" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SENDERID" property="senderid" jdbcType="VARCHAR" />
+    <result column="RECEIVERID" property="receiverid" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="FID" property="fid" jdbcType="VARCHAR" />
+    <result column="ISREAD" property="isread" jdbcType="INTEGER" />
+    <result column="ISDEAL" property="isdeal" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="READTIME" property="readtime" jdbcType="TIMESTAMP" />
+    <result column="DEALTIME" property="dealtime" jdbcType="TIMESTAMP" />
+    <result column="APIID" property="apiid" jdbcType="VARCHAR" />
+    <result column="DEVBEGINTIME" property="devbegintime" jdbcType="TIMESTAMP" />
+    <result column="DEVENDTIME" property="devendtime" jdbcType="TIMESTAMP" />
+    <result column="REPLYRULE" property="replyrule" jdbcType="VARCHAR" />
+    <result column="LEVEL" property="level" jdbcType="INTEGER" />
+    <result column="STAR" property="star" jdbcType="INTEGER" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gla.datacenter.domain.MessageComment" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SENDERID, RECEIVERID, TITLE, IDT, FID, ISREAD, ISDEAL, STATUS, READTIME, DEALTIME, 
+    APIID, DEVBEGINTIME, DEVENDTIME, REPLYRULE, LEVEL, STAR, RC1, RC2, RC3
+  </sql>
+  <sql id="Base_Column_List_Add" >
+     u.NAME senderName,u.ACCOUNT senderAccount, c.ID, SENDERID, RECEIVERID, TITLE, IDT, FID, ISREAD, ISDEAL, STATUS, READTIME, DEALTIME,
+      APIID, DEVBEGINTIME, DEVENDTIME, REPLYRULE, LEVEL, STAR, c.RC1, c.RC2, c.RC3 , CONTENT
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gla.datacenter.domain.MessageCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_message_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+  <select id="selectByExampleWithBLOBsAddSenderName" resultMap="ResultMapWithBLOBs" parameterType="com.gla.datacenter.domain.MessageCommentExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+
+    <include refid="Base_Column_List_Add" />
+    <!--,-->
+    <!--<include refid="Blob_Column_List" />-->
+    from dc_message_comment c LEFT JOIN lp_users u
+
+    ON c.senderid=u.id
+    <if test="_parameter != null" >
+    <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.MessageCommentExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_message_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.MessageCommentExample" >
+    delete from dc_message_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.MessageComment" >
+    insert into dc_message_comment (ID, SENDERID, RECEIVERID, 
+      TITLE, IDT, FID, 
+      ISREAD, ISDEAL, STATUS, 
+      READTIME, DEALTIME, APIID, 
+      DEVBEGINTIME, DEVENDTIME, REPLYRULE, 
+      LEVEL, STAR, RC1, RC2, 
+      RC3, CONTENT)
+    values (#{id,jdbcType=VARCHAR}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, #{fid,jdbcType=VARCHAR}, 
+      #{isread,jdbcType=INTEGER}, #{isdeal,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR},
+      #{readtime,jdbcType=TIMESTAMP}, #{dealtime,jdbcType=TIMESTAMP}, #{apiid,jdbcType=VARCHAR}, 
+      #{devbegintime,jdbcType=TIMESTAMP}, #{devendtime,jdbcType=TIMESTAMP}, #{replyrule,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{star,jdbcType=INTEGER}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, 
+      #{rc3,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.MessageComment" >
+    insert into dc_message_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="senderid != null" >
+        SENDERID,
+      </if>
+      <if test="receiverid != null" >
+        RECEIVERID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="fid != null" >
+        FID,
+      </if>
+      <if test="isread != null" >
+        ISREAD,
+      </if>
+      <if test="isdeal != null" >
+        ISDEAL,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="readtime != null" >
+        READTIME,
+      </if>
+      <if test="dealtime != null" >
+        DEALTIME,
+      </if>
+      <if test="apiid != null" >
+        APIID,
+      </if>
+      <if test="devbegintime != null" >
+        DEVBEGINTIME,
+      </if>
+      <if test="devendtime != null" >
+        DEVENDTIME,
+      </if>
+      <if test="replyrule != null" >
+        REPLYRULE,
+      </if>
+      <if test="level != null" >
+        LEVEL,
+      </if>
+      <if test="star != null" >
+        STAR,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="senderid != null" >
+        #{senderid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverid != null" >
+        #{receiverid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="isread != null" >
+        #{isread,jdbcType=INTEGER},
+      </if>
+      <if test="isdeal != null" >
+        #{isdeal,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="readtime != null" >
+        #{readtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apiid != null" >
+        #{apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="devbegintime != null" >
+        #{devbegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="devendtime != null" >
+        #{devendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyrule != null" >
+        #{replyrule,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.MessageCommentExample" resultType="java.lang.Integer" >
+    select count(*) from dc_message_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_message_comment
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderid != null" >
+        SENDERID = #{record.senderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverid != null" >
+        RECEIVERID = #{record.receiverid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fid != null" >
+        FID = #{record.fid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isread != null" >
+        ISREAD = #{record.isread,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdeal != null" >
+        ISDEAL = #{record.isdeal,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readtime != null" >
+        READTIME = #{record.readtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealtime != null" >
+        DEALTIME = #{record.dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apiid != null" >
+        APIID = #{record.apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devbegintime != null" >
+        DEVBEGINTIME = #{record.devbegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.devendtime != null" >
+        DEVENDTIME = #{record.devendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyrule != null" >
+        REPLYRULE = #{record.replyrule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        LEVEL = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.star != null" >
+        STAR = #{record.star,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dc_message_comment
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SENDERID = #{record.senderid,jdbcType=VARCHAR},
+      RECEIVERID = #{record.receiverid,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      FID = #{record.fid,jdbcType=VARCHAR},
+      ISREAD = #{record.isread,jdbcType=INTEGER},
+      ISDEAL = #{record.isdeal,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      READTIME = #{record.readtime,jdbcType=TIMESTAMP},
+      DEALTIME = #{record.dealtime,jdbcType=TIMESTAMP},
+      APIID = #{record.apiid,jdbcType=VARCHAR},
+      DEVBEGINTIME = #{record.devbegintime,jdbcType=TIMESTAMP},
+      DEVENDTIME = #{record.devendtime,jdbcType=TIMESTAMP},
+      REPLYRULE = #{record.replyrule,jdbcType=VARCHAR},
+      LEVEL = #{record.level,jdbcType=INTEGER},
+      STAR = #{record.star,jdbcType=INTEGER},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_message_comment
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SENDERID = #{record.senderid,jdbcType=VARCHAR},
+      RECEIVERID = #{record.receiverid,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      FID = #{record.fid,jdbcType=VARCHAR},
+      ISREAD = #{record.isread,jdbcType=INTEGER},
+      ISDEAL = #{record.isdeal,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      READTIME = #{record.readtime,jdbcType=TIMESTAMP},
+      DEALTIME = #{record.dealtime,jdbcType=TIMESTAMP},
+      APIID = #{record.apiid,jdbcType=VARCHAR},
+      DEVBEGINTIME = #{record.devbegintime,jdbcType=TIMESTAMP},
+      DEVENDTIME = #{record.devendtime,jdbcType=TIMESTAMP},
+      REPLYRULE = #{record.replyrule,jdbcType=VARCHAR},
+      LEVEL = #{record.level,jdbcType=INTEGER},
+      STAR = #{record.star,jdbcType=INTEGER},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

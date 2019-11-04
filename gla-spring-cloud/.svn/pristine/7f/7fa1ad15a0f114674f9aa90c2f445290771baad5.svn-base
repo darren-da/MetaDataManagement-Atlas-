@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gla.datacenter.mapper.mysql.AppUserMapMapper">
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.AppUserMap">
+    <result column="APPID" jdbcType="VARCHAR" property="appid" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="APP_KEY" jdbcType="VARCHAR" property="appKey" />
+    <result column="APPLY_STATUS" jdbcType="INTEGER" property="applyStatus" />
+    <result column="RC1" jdbcType="VARCHAR" property="rc1" />
+    <result column="RC2" jdbcType="VARCHAR" property="rc2" />
+    <result column="RC3" jdbcType="VARCHAR" property="rc3" />
+    <result column="UDT" jdbcType="TIMESTAMP" property="udt" />
+    <result column="IDT" jdbcType="TIMESTAMP" property="idt" />
+
+
+    <result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+    <result column="APP_CODE" property="appCode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    APPID, USERID, APP_KEY, APPLY_STATUS, RC1, RC2, RC3, UDT, IDT
+  </sql>
+
+  <sql id="Base_Column">
+    APPID, USERID, APP_KEY, APPLY_STATUS,t1.IDT
+  </sql>
+  <select id="selectByExample" parameterType="com.gla.datacenter.domain.AppUserMapExample" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_app_user_map
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+
+  <select id="selectAppByCodeNameDesc" parameterType="com.gla.datacenter.domain.AppUserMapExample" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column" />
+    ,t2.app_name,t2.app_code,t2.DESCRIPTION
+    FROM dc_app_user_map t1 LEFT JOIN dc_app_service t2 ON appid=t2.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.AppUserMapExample">
+    delete from dc_app_user_map
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.AppUserMap">
+    insert into dc_app_user_map (APPID, USERID, APP_KEY, 
+      APPLY_STATUS, RC1, RC2, 
+      RC3, UDT, IDT)
+    values (#{appid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, 
+      #{applyStatus,jdbcType=INTEGER}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, 
+      #{rc3,jdbcType=VARCHAR}, #{udt,jdbcType=TIMESTAMP}, #{idt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.AppUserMap">
+    insert into dc_app_user_map
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appid != null">
+        APPID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="appKey != null">
+        APP_KEY,
+      </if>
+      <if test="applyStatus != null">
+        APPLY_STATUS,
+      </if>
+      <if test="rc1 != null">
+        RC1,
+      </if>
+      <if test="rc2 != null">
+        RC2,
+      </if>
+      <if test="rc3 != null">
+        RC3,
+      </if>
+      <if test="udt != null">
+        UDT,
+      </if>
+      <if test="idt != null">
+        IDT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null">
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null">
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null">
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null">
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idt != null">
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.AppUserMapExample" resultType="java.lang.Integer">
+    select count(*) from dc_app_user_map
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dc_app_user_map
+    <set>
+      <if test="record.appid != null">
+        APPID = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appKey != null">
+        APP_KEY = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyStatus != null">
+        APPLY_STATUS = #{record.applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc1 != null">
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null">
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null">
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null">
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.idt != null">
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dc_app_user_map
+    set APPID = #{record.appid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      APP_KEY = #{record.appKey,jdbcType=VARCHAR},
+      APPLY_STATUS = #{record.applyStatus,jdbcType=INTEGER},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      IDT = #{record.idt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="MySqlDialectPrefix">
+    <if test="page != null">
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--查询当前app存在已授权的appid-->
+  <select id="checkAppApply" resultType="java.lang.String">
+      SELECT APPID FROM DC_APP_USER_MAP WHERE APPID IN
+      <foreach collection="ids" index="index" item="ids" open="(" separator="," close=")" >
+        #{ids}
+      </foreach>
+  </select>
+
+  <insert id="batchApplyUser">
+    INSERT INTO DC_APP_USER_MAP(APPID,USERID,APPLY_STATUS,IDT) VALUES
+    <foreach collection="applyList" item="addItem" separator=",">
+      <foreach collection="addItem.appId" item="apiItem" index="index" separator=",">
+        (#{apiItem},#{addItem.user},1,#{time})
+      </foreach>
+    </foreach>
+  </insert>
+
+  <!--查询app和用户是否存在绑定关系-->
+  <select id="getApplyUsers" resultMap="BaseResultMap">
+    SELECT * FROM DC_APP_USER_MAP WHERE APPID IN
+    <foreach collection="appIdStr" item="appIdStr" open="(" close=")" separator=",">
+      #{appIdStr}
+    </foreach>
+    AND USERID IN
+    <foreach collection="applyUser" item="applyUser" open="(" close=")" separator=",">
+      #{applyUser}
+    </foreach>
+  </select>
+
+  <!--获取app授权详情-->
+  <select id="getApplyInforByAppId" resultMap="BaseResultMap">
+      SELECT APPID,USERID from dc_app_user_map where APPID = #{id}
+  </select>
+
+  <!--批量删除app授权信息-->
+  <delete id="delEmpowerByUserId">
+    DELETE FROM DC_APP_USER_MAP WHERE APPID IN
+    <foreach collection="appIdStr" item="appIdStr" separator="," open="(" close=")">
+      #{appIdStr}
+    </foreach>
+    AND USERID IN
+    <foreach collection="userStr" item="userStr" separator="," open="(" close=")">
+      #{userStr}
+    </foreach>
+    AND APPLY_STATUS = 1
+  </delete>
+
+  <!--查询当前的appId中已授权或者申请中的-->
+  <select id="checkIsEmpower" resultType="java.lang.String">
+    select APPID from DC_APP_USER_MAP where USERID = #{userId} AND (APPLY_STATUS = 1 OR APPLY_STATUS = 3)and APPID IN
+    <foreach collection="appId" item="appId" index="index" open="(" close=")" separator=",">
+      #{appId}
+    </foreach>
+  </select>
+
+  <!--批量授权app-->
+  <insert id="batchEmpower" >
+    INSERT INTO DC_APP_USER_MAP (APPID,USERID,APP_KEY,APPLY_STATUS,IDT) VALUE
+    <foreach collection ="openList" item="openList" separator =",">
+      (#{openList},#{userId},null,1,CURRENT_TIMESTAMP())
+    </foreach>
+  </insert>
+
+  <!--根据appId和用户id查询授权信息-->
+  <select id="getAppApplyStatus" resultMap="BaseResultMap">
+    select * from DC_APP_USER_MAP where APPID = #{id} and USERID = #{userId} ORDER BY IDT DESC limit 1
+  </select>
+
+
+  <delete id="delAuditFailureByStatus">
+    DELETE FROM DC_APP_USER_MAP WHERE appid = #{appid} AND userid = #{userid} AND APPLY_STATUS = 4
+  </delete>
+</mapper>

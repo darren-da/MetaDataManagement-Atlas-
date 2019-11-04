@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<meta charset="UTF-8">
+	<title>元数据列表</title>
+	<!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+<body>
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">元数据管理</a>
+        <a>
+          <cite>统计分析</cite></a>
+      </span>
+	<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+</div>
+
+<div class="weadmin-body " id="areaTableMain">
+
+	<div style="padding: 20px; background-color: #F2F2F2;">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md12">
+				<div class="layui-col-md3">
+				  <div class="layui-card">
+					<div class="layui-card-header" style="text-align: center;">提交元数据个数</div>
+					<div class="layui-card-body" style="text-align: center;height: 50px">
+						39879个
+					</div>
+				</div>
+				</div>
+				<div class="layui-col-md3">
+				  <div class="layui-card">
+					<div class="layui-card-header" style="text-align: center;">提交元数据个数</div>
+					<div class="layui-card-body" style="text-align: center;height: 50px">
+						39879个
+					</div>
+				</div>
+				</div>
+				<div class="layui-col-md3">
+				  <div class="layui-card">
+					<div class="layui-card-header" style="text-align: center;">提交元数据个数</div>
+					<div class="layui-card-body" style="text-align: center;height: 50px">
+						39879个
+					</div>
+				</div>
+				</div>
+				<div class="layui-col-md3">
+				  <div class="layui-card">
+					<div class="layui-card-header" style="text-align: center;">提交元数据个数</div>
+					<div class="layui-card-body" style="text-align: center;height: 50px">
+						39879个
+					</div>
+				</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="layui-row layui-col-space15">
+		  <div class="layui-col-md12">
+			<div class="layui-col-md4">
+				<div class="layui-card" style="    margin-right: 10px;">
+					<div class="layui-card-body" style="text-align: center;height: 500px">
+						此处是表格
+					</div>
+				</div>
+			</div>
+
+			  <div class="layui-col-md4">
+				  <div class="layui-card" style="    margin-right: 10px;">
+					  <div class="layui-card-body" style="text-align: center;height: 500px">
+						  此处是图表
+					  </div>
+				  </div>
+			  </div>
+
+			  <div class="layui-col-md4">
+				  <div class="layui-card">
+					  <div class="layui-card-body" style="text-align: center;height: 500px">
+						  此处是标签
+					  </div>
+				  </div>
+			  </div>
+
+		</div>
+		</div>
+
+</div>
+<!--*********************模板部分**begin************************-->
+<script type="text/template" id="tkDomain">
+	<div class="weadmin-body">
+		<form class="layui-form lpform-2clo" lay-filter="addFilter">
+
+			<div class="layui-form-item">
+				<label  class="layui-form-label">
+					<span class="lp-red">*</span>元数据名称
+				</label>
+				<div class="layui-input-inline">
+					<input type="text" name="name"   lay-verify="required"  autocomplete="off" class="layui-input">
+				</div>
+
+				<label  class="layui-form-label">
+					上级名称
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="parentName"  readonly="readonly"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+
+				<label  class="layui-form-label">
+					元数据编码
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="code" autocomplete="off" class="layui-input">
+				</div>
+
+				<label  class="layui-form-label" >
+					更新周期
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="updateCycle" autocomplete="off" class="layui-input">
+				</div>
+
+
+				<div class="layui-input-inline" style="display: none">
+					<!--readonly="readonly"-->
+					<input type="text"  name="pid"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+
+				<label  class="layui-form-label">
+					元数据介绍
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="intro" autocomplete="off" class="layui-input">
+				</div>
+				<label  class="layui-form-label">
+					层级
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="lv"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+
+				<label  class="layui-form-label" title="类型(如数据库、表、目录等  待定)">
+					类型
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="type" autocomplete="off" class="layui-input">
+				</div>
+				<label  class="layui-form-label">
+					排序号
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="orderNum"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+
+				<label  class="layui-form-label" >
+					图标样式
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="icon" autocomplete="off" class="layui-input">
+				</div>
+				<label  class="layui-form-label">
+					元数据提供方
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="provider"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+
+			<div class="layui-form-item">
+
+				<label  class="layui-form-label" >
+					关键词
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="keyWord" autocomplete="off" class="layui-input">
+				</div>
+				<label  class="layui-form-label">
+					链接地址
+				</label>
+				<div class="layui-input-inline">
+					<input type="text"  name="url"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+
+
+		</form>
+	</div>
+</script>
+
+
+
+<!--*********************模板部分**end************************-->
+
+
+<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+<script  th:src="@{/scripts/mdsite/service/md_db_index.js}"></script>
+
+<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+</body>
+
+
+
+</html>

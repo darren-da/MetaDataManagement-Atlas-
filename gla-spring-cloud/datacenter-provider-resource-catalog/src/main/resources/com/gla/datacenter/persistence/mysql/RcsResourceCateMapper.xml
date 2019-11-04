@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.RcsResourceCateMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.RcsResourceCate" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PCODE" property="pcode" jdbcType="VARCHAR" />
+    <result column="PROVIDER_NAME" property="providerName" jdbcType="VARCHAR" />
+    <result column="PROVIDER_CODE" property="providerCode" jdbcType="VARCHAR" />
+    <result column="INTRO" property="intro" jdbcType="VARCHAR" />
+    <result column="SHARE_TYPE" property="shareType" jdbcType="INTEGER" />
+    <result column="SHARE_INTRO" property="shareIntro" jdbcType="VARCHAR" />
+    <result column="SHARE_MODE" property="shareMode" jdbcType="VARCHAR" />
+    <result column="OPEN_TYPE" property="openType" jdbcType="INTEGER" />
+    <result column="OPEN_TYPE_INTRO" property="openTypeIntro" jdbcType="VARCHAR" />
+    <result column="PUBLISH_ID" property="publishId" jdbcType="VARCHAR" />
+    <result column="UPDATE_CYCLE" property="updateCycle" jdbcType="INTEGER" />
+    <result column="PUBLISH_DATE" property="publishDate" jdbcType="DATE" />
+    <result column="DRAFT_TYPE" property="draftType" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="LV" property="lv" jdbcType="INTEGER" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="SORT_NUM" property="sortNum" jdbcType="INTEGER" />
+    <result column="KEY_WORD" property="keyWord" jdbcType="VARCHAR" />
+    <result column="PCODES" property="pcodes" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gla.datacenter.domain.RcsResourceCate" extends="BaseResultMap" >
+    <result column="BASE_IMAGE" property="baseImage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, CODE, PCODE, PROVIDER_NAME, PROVIDER_CODE, INTRO, SHARE_TYPE, SHARE_INTRO,
+    SHARE_MODE, OPEN_TYPE, OPEN_TYPE_INTRO, PUBLISH_ID, UPDATE_CYCLE, PUBLISH_DATE, DRAFT_TYPE,
+    STATE, LV, CREATE_ID, IDT, UPDATE_ID, UDT, TYPE, SORT_NUM, KEY_WORD, PCODES, RC1,
+    RC2, RC3
+  </sql>
+  <sql id="Blob_Column_List" >
+    BASE_IMAGE
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gla.datacenter.domain.RcsResourceCateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rcs_resource_cate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.RcsResourceCateExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rcs_resource_cate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rcs_resource_cate
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rcs_resource_cate
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.RcsResourceCateExample" >
+    delete from rcs_resource_cate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.RcsResourceCate" >
+    insert into rcs_resource_cate (ID, NAME, CODE,
+    PCODE, PROVIDER_NAME, PROVIDER_CODE,
+    INTRO, SHARE_TYPE, SHARE_INTRO,
+    SHARE_MODE, OPEN_TYPE, OPEN_TYPE_INTRO,
+    PUBLISH_ID, UPDATE_CYCLE, PUBLISH_DATE,
+    DRAFT_TYPE, STATE, LV,
+    CREATE_ID, IDT, UPDATE_ID,
+    UDT, TYPE, SORT_NUM,
+    KEY_WORD, PCODES, RC1,
+    RC2, RC3, BASE_IMAGE
+    )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+    #{pcode,jdbcType=VARCHAR}, #{providerName,jdbcType=VARCHAR}, #{providerCode,jdbcType=VARCHAR},
+    #{intro,jdbcType=VARCHAR}, #{shareType,jdbcType=INTEGER}, #{shareIntro,jdbcType=VARCHAR},
+    #{shareMode,jdbcType=VARCHAR}, #{openType,jdbcType=INTEGER}, #{openTypeIntro,jdbcType=VARCHAR},
+    #{publishId,jdbcType=VARCHAR}, #{updateCycle,jdbcType=INTEGER}, #{publishDate,jdbcType=DATE},
+    #{draftType,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{lv,jdbcType=INTEGER},
+    #{createId,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR},
+    #{udt,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{sortNum,jdbcType=INTEGER},
+    #{keyWord,jdbcType=VARCHAR}, #{pcodes,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR},
+    #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR}, #{baseImage,jdbcType=LONGVARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.RcsResourceCate" >
+    insert into rcs_resource_cate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="pcode != null" >
+        PCODE,
+      </if>
+      <if test="providerName != null" >
+        PROVIDER_NAME,
+      </if>
+      <if test="providerCode != null" >
+        PROVIDER_CODE,
+      </if>
+      <if test="intro != null" >
+        INTRO,
+      </if>
+      <if test="shareType != null" >
+        SHARE_TYPE,
+      </if>
+      <if test="shareIntro != null" >
+        SHARE_INTRO,
+      </if>
+      <if test="shareMode != null" >
+        SHARE_MODE,
+      </if>
+      <if test="openType != null" >
+        OPEN_TYPE,
+      </if>
+      <if test="openTypeIntro != null" >
+        OPEN_TYPE_INTRO,
+      </if>
+      <if test="publishId != null" >
+        PUBLISH_ID,
+      </if>
+      <if test="updateCycle != null" >
+        UPDATE_CYCLE,
+      </if>
+      <if test="publishDate != null" >
+        PUBLISH_DATE,
+      </if>
+      <if test="draftType != null" >
+        DRAFT_TYPE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="lv != null" >
+        LV,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="sortNum != null" >
+        SORT_NUM,
+      </if>
+      <if test="keyWord != null" >
+        KEY_WORD,
+      </if>
+      <if test="pcodes != null" >
+        PCODES,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="baseImage != null" >
+        BASE_IMAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="pcode != null" >
+        #{pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerCode != null" >
+        #{providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="shareType != null" >
+        #{shareType,jdbcType=INTEGER},
+      </if>
+      <if test="shareIntro != null" >
+        #{shareIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="shareMode != null" >
+        #{shareMode,jdbcType=VARCHAR},
+      </if>
+      <if test="openType != null" >
+        #{openType,jdbcType=INTEGER},
+      </if>
+      <if test="openTypeIntro != null" >
+        #{openTypeIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="publishId != null" >
+        #{publishId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateCycle != null" >
+        #{updateCycle,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="draftType != null" >
+        #{draftType,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="lv != null" >
+        #{lv,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="keyWord != null" >
+        #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="pcodes != null" >
+        #{pcodes,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="baseImage != null" >
+        #{baseImage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.RcsResourceCateExample" resultType="java.lang.Integer" >
+    select count(*) from rcs_resource_cate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rcs_resource_cate
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcode != null" >
+        PCODE = #{record.pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerName != null" >
+        PROVIDER_NAME = #{record.providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerCode != null" >
+        PROVIDER_CODE = #{record.providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intro != null" >
+        INTRO = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareType != null" >
+        SHARE_TYPE = #{record.shareType,jdbcType=INTEGER},
+      </if>
+      <if test="record.shareIntro != null" >
+        SHARE_INTRO = #{record.shareIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareMode != null" >
+        SHARE_MODE = #{record.shareMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openType != null" >
+        OPEN_TYPE = #{record.openType,jdbcType=INTEGER},
+      </if>
+      <if test="record.openTypeIntro != null" >
+        OPEN_TYPE_INTRO = #{record.openTypeIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishId != null" >
+        PUBLISH_ID = #{record.publishId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateCycle != null" >
+        UPDATE_CYCLE = #{record.updateCycle,jdbcType=INTEGER},
+      </if>
+      <if test="record.publishDate != null" >
+        PUBLISH_DATE = #{record.publishDate,jdbcType=DATE},
+      </if>
+      <if test="record.draftType != null" >
+        DRAFT_TYPE = #{record.draftType,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.lv != null" >
+        LV = #{record.lv,jdbcType=INTEGER},
+      </if>
+      <if test="record.createId != null" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateId != null" >
+        UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortNum != null" >
+        SORT_NUM = #{record.sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.keyWord != null" >
+        KEY_WORD = #{record.keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcodes != null" >
+        PCODES = #{record.pcodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseImage != null" >
+        BASE_IMAGE = #{record.baseImage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update rcs_resource_cate
+    set ID = #{record.id,jdbcType=VARCHAR},
+    NAME = #{record.name,jdbcType=VARCHAR},
+    CODE = #{record.code,jdbcType=VARCHAR},
+    PCODE = #{record.pcode,jdbcType=VARCHAR},
+    PROVIDER_NAME = #{record.providerName,jdbcType=VARCHAR},
+    PROVIDER_CODE = #{record.providerCode,jdbcType=VARCHAR},
+    INTRO = #{record.intro,jdbcType=VARCHAR},
+    SHARE_TYPE = #{record.shareType,jdbcType=INTEGER},
+    SHARE_INTRO = #{record.shareIntro,jdbcType=VARCHAR},
+    SHARE_MODE = #{record.shareMode,jdbcType=VARCHAR},
+    OPEN_TYPE = #{record.openType,jdbcType=INTEGER},
+    OPEN_TYPE_INTRO = #{record.openTypeIntro,jdbcType=VARCHAR},
+    PUBLISH_ID = #{record.publishId,jdbcType=VARCHAR},
+    UPDATE_CYCLE = #{record.updateCycle,jdbcType=INTEGER},
+    PUBLISH_DATE = #{record.publishDate,jdbcType=DATE},
+    DRAFT_TYPE = #{record.draftType,jdbcType=INTEGER},
+    STATE = #{record.state,jdbcType=INTEGER},
+    LV = #{record.lv,jdbcType=INTEGER},
+    CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+    IDT = #{record.idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+    UDT = #{record.udt,jdbcType=TIMESTAMP},
+    TYPE = #{record.type,jdbcType=INTEGER},
+    SORT_NUM = #{record.sortNum,jdbcType=INTEGER},
+    KEY_WORD = #{record.keyWord,jdbcType=VARCHAR},
+    PCODES = #{record.pcodes,jdbcType=VARCHAR},
+    RC1 = #{record.rc1,jdbcType=VARCHAR},
+    RC2 = #{record.rc2,jdbcType=VARCHAR},
+    RC3 = #{record.rc3,jdbcType=VARCHAR},
+    BASE_IMAGE = #{record.baseImage,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rcs_resource_cate
+    set ID = #{record.id,jdbcType=VARCHAR},
+    NAME = #{record.name,jdbcType=VARCHAR},
+    CODE = #{record.code,jdbcType=VARCHAR},
+    PCODE = #{record.pcode,jdbcType=VARCHAR},
+    PROVIDER_NAME = #{record.providerName,jdbcType=VARCHAR},
+    PROVIDER_CODE = #{record.providerCode,jdbcType=VARCHAR},
+    INTRO = #{record.intro,jdbcType=VARCHAR},
+    SHARE_TYPE = #{record.shareType,jdbcType=INTEGER},
+    SHARE_INTRO = #{record.shareIntro,jdbcType=VARCHAR},
+    SHARE_MODE = #{record.shareMode,jdbcType=VARCHAR},
+    OPEN_TYPE = #{record.openType,jdbcType=INTEGER},
+    OPEN_TYPE_INTRO = #{record.openTypeIntro,jdbcType=VARCHAR},
+    PUBLISH_ID = #{record.publishId,jdbcType=VARCHAR},
+    UPDATE_CYCLE = #{record.updateCycle,jdbcType=INTEGER},
+    PUBLISH_DATE = #{record.publishDate,jdbcType=DATE},
+    DRAFT_TYPE = #{record.draftType,jdbcType=INTEGER},
+    STATE = #{record.state,jdbcType=INTEGER},
+    LV = #{record.lv,jdbcType=INTEGER},
+    CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+    IDT = #{record.idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+    UDT = #{record.udt,jdbcType=TIMESTAMP},
+    TYPE = #{record.type,jdbcType=INTEGER},
+    SORT_NUM = #{record.sortNum,jdbcType=INTEGER},
+    KEY_WORD = #{record.keyWord,jdbcType=VARCHAR},
+    PCODES = #{record.pcodes,jdbcType=VARCHAR},
+    RC1 = #{record.rc1,jdbcType=VARCHAR},
+    RC2 = #{record.rc2,jdbcType=VARCHAR},
+    RC3 = #{record.rc3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.RcsResourceCate" >
+    update rcs_resource_cate
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="pcode != null" >
+        PCODE = #{pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        PROVIDER_NAME = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerCode != null" >
+        PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        INTRO = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="shareType != null" >
+        SHARE_TYPE = #{shareType,jdbcType=INTEGER},
+      </if>
+      <if test="shareIntro != null" >
+        SHARE_INTRO = #{shareIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="shareMode != null" >
+        SHARE_MODE = #{shareMode,jdbcType=VARCHAR},
+      </if>
+      <if test="openType != null" >
+        OPEN_TYPE = #{openType,jdbcType=INTEGER},
+      </if>
+      <if test="openTypeIntro != null" >
+        OPEN_TYPE_INTRO = #{openTypeIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="publishId != null" >
+        PUBLISH_ID = #{publishId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateCycle != null" >
+        UPDATE_CYCLE = #{updateCycle,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null" >
+        PUBLISH_DATE = #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="draftType != null" >
+        DRAFT_TYPE = #{draftType,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="lv != null" >
+        LV = #{lv,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sortNum != null" >
+        SORT_NUM = #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="keyWord != null" >
+        KEY_WORD = #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="pcodes != null" >
+        PCODES = #{pcodes,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="baseImage != null" >
+        BASE_IMAGE = #{baseImage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gla.datacenter.domain.RcsResourceCate" >
+    update rcs_resource_cate
+    set NAME = #{name,jdbcType=VARCHAR},
+    CODE = #{code,jdbcType=VARCHAR},
+    PCODE = #{pcode,jdbcType=VARCHAR},
+    PROVIDER_NAME = #{providerName,jdbcType=VARCHAR},
+    PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+    INTRO = #{intro,jdbcType=VARCHAR},
+    SHARE_TYPE = #{shareType,jdbcType=INTEGER},
+    SHARE_INTRO = #{shareIntro,jdbcType=VARCHAR},
+    SHARE_MODE = #{shareMode,jdbcType=VARCHAR},
+    OPEN_TYPE = #{openType,jdbcType=INTEGER},
+    OPEN_TYPE_INTRO = #{openTypeIntro,jdbcType=VARCHAR},
+    PUBLISH_ID = #{publishId,jdbcType=VARCHAR},
+    UPDATE_CYCLE = #{updateCycle,jdbcType=INTEGER},
+    PUBLISH_DATE = #{publishDate,jdbcType=DATE},
+    DRAFT_TYPE = #{draftType,jdbcType=INTEGER},
+    STATE = #{state,jdbcType=INTEGER},
+    LV = #{lv,jdbcType=INTEGER},
+    CREATE_ID = #{createId,jdbcType=VARCHAR},
+    IDT = #{idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+    UDT = #{udt,jdbcType=TIMESTAMP},
+    TYPE = #{type,jdbcType=INTEGER},
+    SORT_NUM = #{sortNum,jdbcType=INTEGER},
+    KEY_WORD = #{keyWord,jdbcType=VARCHAR},
+    PCODES = #{pcodes,jdbcType=VARCHAR},
+    RC1 = #{rc1,jdbcType=VARCHAR},
+    RC2 = #{rc2,jdbcType=VARCHAR},
+    RC3 = #{rc3,jdbcType=VARCHAR},
+    BASE_IMAGE = #{baseImage,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.RcsResourceCate" >
+    update rcs_resource_cate
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      PCODE = #{pcode,jdbcType=VARCHAR},
+      PROVIDER_NAME = #{providerName,jdbcType=VARCHAR},
+      PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+      INTRO = #{intro,jdbcType=VARCHAR},
+      SHARE_TYPE = #{shareType,jdbcType=INTEGER},
+      SHARE_INTRO = #{shareIntro,jdbcType=VARCHAR},
+      SHARE_MODE = #{shareMode,jdbcType=VARCHAR},
+      OPEN_TYPE = #{openType,jdbcType=INTEGER},
+      OPEN_TYPE_INTRO = #{openTypeIntro,jdbcType=VARCHAR},
+      PUBLISH_ID = #{publishId,jdbcType=VARCHAR},
+      UPDATE_CYCLE = #{updateCycle,jdbcType=INTEGER},
+      PUBLISH_DATE = #{publishDate,jdbcType=DATE},
+      DRAFT_TYPE = #{draftType,jdbcType=INTEGER},
+      STATE = #{state,jdbcType=INTEGER},
+      LV = #{lv,jdbcType=INTEGER},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      TYPE = #{type,jdbcType=INTEGER},
+      SORT_NUM = #{sortNum,jdbcType=INTEGER},
+      KEY_WORD = #{keyWord,jdbcType=VARCHAR},
+      PCODES = #{pcodes,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--          自定义sql开始          -->
+
+  <!--查询资源目录草稿数据-->
+  <select id="getResourceDraftPages" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    SELECT t.* FROM (
+    SELECT * from RCS_RESOURCE_CATE where STATE &lt;&gt; -1 and code not in (select code from RCS_RESOURCE_CATE where STATE &lt;&gt; -1
+    AND PCODE = #{paramMap.pCode} group by code HAVING count(*) = 2)
+    UNION
+    SELECT * from RCS_RESOURCE_CATE where STATE &lt;&gt; -1 AND PCODE = #{paramMap.pCode} AND (STATE = 3 OR STATE = 4)) t where 1=1
+    AND t.STATE &lt;&gt; -1 AND t.PCODE = #{paramMap.pCode}
+    <if test="paramMap.codeOrName != null and paramMap.codeOrName != ''">
+      AND (t.code like CONCAT ('%',#{paramMap.codeOrName},'%') or t.name like CONCAT('%',#{paramMap.codeOrName},'%'))
+    </if>
+    <if test="paramMap.lv != null">
+      AND t.LV = #{paramMap.lv}
+    </if>
+    ORDER BY t.IDT DESC
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--消费者查询资源目录列表(分页)-->
+  <select id="getResourceCatalogConsumerPages" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    SELECT * FROM rcs_db.rcs_resource_cate WHERE PCODE = #{paramMap.pCode} AND STATE = 1 AND (SHARE_TYPE = 1 OR (SHARE_TYPE = 2 AND INSTR(SHARE_MODE,#{paramMap.deptCode}) > 0))
+    <if test="paramMap.keyword != null and paramMap.keyword != ''">
+      AND (CODE LIKE CONCAT ('%',#{paramMap.keyword},'%') OR NAME LIKE CONCAT ('%',#{paramMap.keyword},'%'))
+    </if>
+    order by IDT DESC
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--消费者高级搜索目录-->
+  <select id="searchResourceCatalogConsumerPages" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+      SELECT T.* FROM (
+      SELECT * FROM RCS_RESOURCE_CATE WHERE 1=1 AND STATE = 1
+        <if test="paramMap.keyword != null and paramMap.keyword != ''">
+          AND (CODE LIKE CONCAT ('%',#{paramMap.keyword},'%') OR NAME LIKE CONCAT ('%',#{paramMap.keyword},'%'))
+        </if>
+        <if test="paramMap.openType != null">
+          AND OPEN_TYPE = #{paramMap.openType}
+        </if>
+        <if test="paramMap.deptCode != null and paramMap.deptCode != ''">
+          AND (SHARE_TYPE = 1 OR (SHARE_TYPE = 2 AND INSTR(SHARE_MODE,#{paramMap.deptCode}) > 0))
+        </if>
+        <if test="paramMap.item != null and paramMap.item.size() > 0">
+          <trim prefix="and (" suffix=")" suffixOverrides="OR">
+            <if test="paramMap.item.contains('x'.toString())">
+              LV = 1 OR
+            </if>
+            <if test="paramMap.item.contains('m'.toString())">
+              LV = 2 OR
+            </if>
+            <if test="paramMap.item.contains('xm'.toString())">
+              LV = 3 OR
+            </if>
+          </trim>
+        </if>
+        <if test="paramMap.catagory != null and paramMap.catagory.length > 0">
+          <trim prefix="and (" suffix=")" suffixOverrides="OR">
+            <foreach collection="paramMap.catagory" item="catagory" index="index" open="" close="" separator="">
+                CODE LIKE CONCAT (#{catagory},'%') OR
+            </foreach>
+          </trim>
+        </if>
+        <if test="paramMap.startTime != null and paramMap.endTime != null">
+            AND (DATE(IDT) &gt;= DATE(#{paramMap.startTime}) AND DATE(IDT) &lt;= DATE(#{paramMap.endTime}))
+        </if>
+    ) T LEFT JOIN RCS_RESOURCE_CATE R ON T.PROVIDER_CODE = R.CODE WHERE 1= 1
+        <if test="paramMap.provider != null and paramMap.provider != ''">
+          AND (T.PROVIDER_CODE LIKE CONCAT ('%',#{paramMap.provider},'%') OR R.PROVIDER_NAME LIKE CONCAT ('%',#{paramMap.provider},'%'))
+        </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--(项、目、细目、全部)条件获取资源目录分页数据-->
+  <select id="getResourceCataLogByLvPages" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+      <if test="isDraft">
+        select t.* from ( SELECT * FROM rcs_db.rcs_resource_cate WHERE STATE &lt;&gt; -1 AND CODE NOT IN (SELECT CODE FROM rcs_resource_cate WHERE STATE &lt;&gt; -1
+        GROUP BY CODE HAVING count(*) = 2
+        ) UNION SELECT * FROM RCS_RESOURCE_CATE WHERE STATE &lt;&gt; -1 AND (STATE = 3 OR STATE = 4)) t where 1=1
+        <if test="paramMap.lv != null">
+          AND t.LV = #{paramMap.lv}
+        </if>
+        <if test="paramMap.name != null and paramMap.name != ''">
+          AND t.NAME LIKE CONCAT ('%',#{paramMap.name},'%')
+        </if>
+        <if test="paramMap.userId != null and paramMap.userId != ''">
+          AND (t.CREATE_ID = #{paramMap.userId} OR t.CREATE_ID is null)
+        </if>
+      </if>
+      <if test="isDraft != true">
+        SELECT * FROM RCS_RESOURCE_CATE t WHERE STATE = 1
+        <if test="paramMap.lv != null">
+          AND LV = #{paramMap.lv}
+        </if>
+        <if test="paramMap.name != null and paramMap.name != ''">
+          AND NAME LIKE CONCAT ('%',#{paramMap.name},'%')
+        </if>
+        <if test="paramMap.userId != null and paramMap.userId != ''">
+          AND (t.CREATE_ID = #{paramMap.userId} OR t.CREATE_ID is null)
+        </if>
+      </if>
+      order by IDT DESC
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+
+  <!--根据资源目录code数组获取当前上线的目录信息-->
+  <select id="getResourceDeptByDeptCode" resultType="java.util.Map">
+    SELECT id,name,code,STATE FROM RCS_RESOURCE_CATE WHERE state = 1 AND code in
+    <foreach collection="code" index="index" item="code" open="(" separator="," close=")">
+      #{code}
+    </foreach>
+  </select>
+
+  <!--查询正在审核中的资源目录-->
+  <select id="getResourceApprovedByCode" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM RCS_RESOURCE_CATE WHERE CODE IN
+    <foreach item="code" collection="code" index="index" open="(" separator="," close=")">
+      #{code}
+    </foreach>
+    AND STATE = 4
+  </select>
+
+  <!--新增资源目录审核通过后的数据修改-->
+  <update id="updateApprovedStatu">
+    UPDATE RCS_RESOURCE_CATE
+    <if test="type == 'add'.toString()">
+      set STATE = 1,PUBLISH_DATE = NOW()
+      where STATE = 4 AND CODE in
+    </if>
+    <if test="type == 'delete'.toString()">
+      SET STATE = -1,UDT = NOW() WHERE STATE = 1 AND CODE IN
+    </if>
+    <if test="type == 'update'.toString()">
+      SET STATE = 3,UDT = NOW() WHERE CODE IN
+    </if>
+    <foreach item="addCode" collection="addCode" index="index" open="(" separator="," close=")">
+      #{addCode}
+    </foreach>
+  </update>
+
+  <!--根据主键批量查询资源目录-->
+  <select id="getResourceListById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM RCS_RESOURCE_CATE WHERE ID IN
+    <foreach item="ids" collection="ids" index="index" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+  </select>
+
+  <!--批量插入资源目录-->
+  <insert id="insertBatch">
+    INSERT INTO RCS_RESOURCE_CATE (ID,NAME,CODE,PCODE,SHARE_TYPE,CREATE_ID,STATE,DRAFT_TYPE,UPDATE_CYCLE,SHARE_MODE,INTRO,OPEN_TYPE,OPEN_TYPE_INTRO,PROVIDER_CODE,LV,PCODES,IDT) VALUES
+    <foreach collection="resources" item="resources" separator=",">
+      ((SELECT REPLACE(UUID(), '-', '') AS ID),(#{resources.name}),(#{resources.code}),(#{resources.pcode}),(#{resources.shareType}),#{userId},#{resources.state},#{resources.draftType},#{resources.updateCycle},#{resources.shareMode},#{resources.intro},#{resources.openType},#{resources.openTypeIntro},#{deptCode},#{resources.lv},#{resources.pcodes},(CURRENT_TIMESTAMP()))
+    </foreach>
+  </insert>
+
+  <!--根据选中目录递归查询所有的子孙目录-->
+  <select id="getResourceAllById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM ( SELECT
+    t1.*, IF ( find_in_set(pcode, @pids) > 0 ,@pids := concat(@pids, ',', CODE),'0') AS ischild
+    FROM (SELECT * FROM rcs_resource_cate t WHERE t.state = 1 ORDER BY pcode,CODE ) t1,
+    (SELECT @pids := #{code}) t2) t3
+    WHERE
+    ischild != '0' union select
+      <include refid="Base_Column_List" />
+    from rcs_resource_cate where code = #{code} and state = 1 order by code
+  </select>
+
+  <!--查询资源目录修改并且未提交审核的数据-->
+  <select id="getResourceAlowByCode" resultType="java.lang.String">
+    SELECT
+    id
+    <!--<include refid="Base_Column_List" />-->
+    FROM ( SELECT
+    t1.*, IF ( find_in_set(pcode, @pids) > 0 ,@pids := concat(@pids, ',', CODE),'0') AS ischild
+    FROM (SELECT * FROM rcs_resource_cate t WHERE t.state = 3 ORDER BY pcode,CODE ) t1,
+    (SELECT @pids := #{code}) t2) t3
+    WHERE
+    ischild != '0' UNION SELECT id from rcs_resource_cate where code = #{code} and state = 3
+  </select>
+
+  <update id="updateResourceAlow">
+    UPDATE RCS_RESOURCE_CATE SET STATE = -1,UPDATE_ID = #{userId} WHERE ID IN
+    <foreach item="ids" collection="ids" index="index" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+  </update>
+
+  <update id="updateResourceStateById">
+    UPDATE RCS_RESOURCE_CATE SET STATE = #{state}
+    <if test="state == -1">
+      ,UPDATE_ID = #{userId}
+    </if>
+    <if test="state == 4">
+      ,PUBLISH_ID = #{userId}
+    </if>
+    where id in
+    <foreach item="ids" collection="ids" index="index" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+  </update>
+
+  <!--根据code获取上线中的资源目录-->
+  <select id="getResourceUseingByCode" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM RCS_RESOURCE_CATE WHERE CODE = #{code} AND STATE = 1
+  </select>
+
+  <!--根据code获取草稿或者审核中的资源目录-->
+  <select id="getDraftOrAuditByCode" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM RCS_RESOURCE_CATE WHERE (STATE = 3 OR STATE = 4)AND CODE = #{code}
+  </select>
+
+  <!--根据参数userId和state查询相应的资源目录-->
+  <select id="getResourceByStatu" resultMap="BaseResultMap">
+      SELECT
+    <include refid="Base_Column_List" />
+    FROM RCS_RESOURCE_CATE WHERE STATE = #{state} AND CREATE_ID = #{userId}
+  </select>
+
+  <!--根据code和级别查询孙子级资源目录-->
+  <select id="getGrandsonResourceByCodeAndLv" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM ( SELECT
+    t1.*, IF ( find_in_set(pcode, @pids) > 0 ,@pids := concat(@pids, ',', CODE),'0') AS ischild
+    FROM ( SELECT * FROM rcs_db.rcs_resource_cate WHERE STATE &lt;&gt; -1 AND CODE NOT IN (SELECT CODE FROM rcs_resource_cate WHERE STATE &lt;&gt; -1
+    GROUP BY CODE HAVING count(*) = 2
+    ) UNION SELECT * FROM RCS_RESOURCE_CATE WHERE STATE &lt;&gt; -1 AND (STATE = 3 OR STATE = 4)) t1,
+    (SELECT @pids := #{code}) t2) t3
+    WHERE
+    ischild != '0'
+    <if test="lv != null">
+      AND LV > #{lv}
+    </if>
+    order by code
+  </select>
+
+  <!--根据code和级别查询孙子级资源目录-->
+  <select id="getGrandsonResourceByCode" resultType="java.util.Map">
+    SELECT
+    NAME name,code code,PCODE pCode,lv lv
+    FROM ( SELECT
+    t1.*, IF ( find_in_set(pcode, @pids) > 0 ,@pids := concat(@pids, ',', CODE),'0') AS ischild
+    FROM ( SELECT * FROM rcs_db.rcs_resource_cate WHERE STATE &lt;&gt; -1 AND CODE NOT IN (SELECT CODE FROM rcs_resource_cate WHERE STATE &lt;&gt; -1
+    GROUP BY CODE HAVING count(*) = 2
+    ) UNION SELECT * FROM RCS_RESOURCE_CATE WHERE STATE &lt;&gt; -1 AND (STATE = 3 OR STATE = 4)) t1,
+    (SELECT @pids := #{code}) t2) t3
+    WHERE
+    (ischild != '0' and SHARE_type = 1 and STATE &lt;&gt; -1) or (CODE = #{code})
+    order by code
+  </select>
+
+  <!--获取当前选中节点草稿箱中的节点目录-->
+  <select id="getResourceDraftAllByPCode" resultMap="BaseResultMap">
+      SELECT t.* FROM (
+        SELECT * from RCS_RESOURCE_CATE where STATE &lt;&gt; -1 and code not in (select code from RCS_RESOURCE_CATE where STATE &lt;&gt; -1
+          AND PCODE = #{code} group by code HAVING count(*) = 2)
+        UNION
+        SELECT * from RCS_RESOURCE_CATE where STATE &lt;&gt; -1 AND PCODE = #{paramMap.pCode} AND (STATE = 3)) t where 1=1
+          AND t.STATE &lt;&gt; -1 AND t.PCODE = #{code}
+  </select>
+
+  <!--根据code获取基本资源目录信息（优先查询草稿）-->
+  <select id="getResourceAllByCode" resultMap="BaseResultMap">
+      SELECT t.NAME FROM (SELECT * FROM RCS_RESOURCE_CATE WHERE STATE &lt;&gt; - 1 AND CODE NOT IN (SELECT CODE FROM RCS_RESOURCE_CATE
+    WHERE STATE &lt;&gt; -1 GROUP BY code HAVING COUNT(*) = 2) UNION SELECT * FROM RCS_RESOURCE_CATE WHERE STATE &lt;&gt; -1 AND (STATE = 3 OR STATE = 4)) t WHERE t.CODE IN
+    <foreach item="codes" collection="codes" index="index" open="(" separator="," close=")">
+      #{codes}
+    </foreach>
+    order by t.lv
+  </select>
+
+  <!--根据codes集合获取上线的资源目录-->
+  <select id="getResourceUseingByCodes" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+      FROM RCS_RESOURCE_CATE WHERE STATE = 1 AND CODE IN
+        <foreach item="codeList" collection="codeList" index="index" open="(" separator="," close=")">
+          #{codeList}
+        </foreach>
+  </select>
+
+  <!--根据资源目录code获取所在页数-->
+  <select id="getResourcePageByCode" resultType="java.lang.Integer">
+    select ceil(rowsnumber/ #{rows}) page from
+    <if test="type == 'online'.toString()">
+      (select id,@rownum := @rownum + 1 as rowsnumber from rcs_resource_cate,(SELECT @rownum := 0) r where state = 1 and create_id = #{userId} and pcode = #{pcode} ORDER BY idt DESC) as a where a.code = #{code}
+    </if>
+    <if test="type == 'draft'.toString()">
+      (select id,@rownum := @rownum + 1 as rowsnumber from (
+      SELECT * from RCS_RESOURCE_CATE where STATE &lt;&gt; -1 and code not in (select code from RCS_RESOURCE_CATE where STATE &lt;&gt; -1
+      AND PCODE = #{code} group by code HAVING count(*) = 2)
+      UNION
+      SELECT * from RCS_RESOURCE_CATE where STATE &lt;&gt; -1 AND PCODE = #{code} AND (STATE = 3 OR STATE = 4)) t,(SELECT @rownum := 0) r where create_id = #{userId} and pcode = #{code} ORDER BY idt DESC) as a where a.code = #{code}
+    </if>
+    <if test="type == 'consumer'.toString()">
+      (select id,@rownum := @rownum + 1 as rowsnumber from rcs_resource_cate,(SELECT @rownum := 0) r where state = 1 and (SHARE_TYPE = 1 OR (SHARE_TYPE = 2 AND INSTR(SHARE_MODE,#{userId}) > 0)) and pcode = #{pcode} ORDER BY idt DESC) as a where a.code = #{code}
+    </if>
+  </select>
+
+  <!--获取当前父级下的最大子集-->
+  <select id="getResourceMaxCodeByPcode" resultType="java.lang.String">
+    SELECT CODE FROM RCS_RESOURCE_CATE WHERE PCODE LIKE CONCAT (#{pcode},'%') AND CODE &lt;&gt; #{pcode} AND CHAR_LENGTH(CODE) = #{length} ORDER BY CODE DESC LIMIT 1
+  </select>
+
+  <!--查询当前在线状态下的资源目录代码-->
+  <select id="getResourceStringArrayByState" resultType="java.lang.String">
+    SELECT CODE FROM rcs_db.rcs_resource_cate WHERE STATE = #{state}
+    <if test="userId != null and userId != ''">
+      AND CREATE_ID = #{userId}
+    </if>
+  </select>
+
+  <!--根据消费者查询已授权的类、项、目、细目各有多少个-->
+  <select id="countResourceCatalogByConsumer" resultType="java.util.Map">
+    SELECT SUM(CASE WHEN T.LV = 0 THEN 1 ELSE 0 END ) l,
+           SUM(CASE WHEN T.LV = 1 THEN 1 ELSE 0 END ) x,
+           SUM(CASE WHEN T.LV = 2 THEN 1 ELSE 0 END ) m,
+           SUM(CASE WHEN T.LV = 3 THEN 1 ELSE 0 END ) xm,
+           COUNT(1) count FROM RCS_RESOURCE_CATE T WHERE T.STATE = 1 AND (SHARE_TYPE = 1 OR (SHARE_TYPE = 2 AND INSTR(SHARE_MODE,#{deptCode}) > 0))
+  </select>
+
+
+  <!--根据lv查询上线资源目录-->
+  <select id="getResourceCatagoryByLv" resultMap="BaseResultMap">
+      SELECT * FROM RCS_RESOURCE_CATE WHERE STATE = 1 AND LV = #{lv}
+  </select>
+
+  <!--根据code分页查询资源目录数据-->
+  <select id="getResourcePageListByResourceCode" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    SELECT id,NAME,CODE,LV FROM RCS_RESOURCE_CATE WHERE 1=1 AND STATE = 1 AND CODE IN
+      <foreach item="code" collection="code" index="index" open="(" separator="," close=")">
+        #{code}
+      </foreach>
+      <if test="rcs.keyWord != null and rcs.keyWord != ''">
+        and (NAME LIKE CONCAT ('%',#{rcs.keyWord},'%') OR CODE LIKE CONCAT ('%',#{rcs.keyWord},'%'))
+      </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--欢迎页统计五大基础库的目数据量-->
+  <select id="getFoundationalLibraryCatalog" resultType="java.lang.Integer">
+      SELECT count(1) from rcs_db.rcs_resource_cate where STATE = 1
+      <if test="code != null and code != ''">
+        and PCODE = #{code}
+      </if>
+  </select>
+
+  <!--查询所有的基础库基本信息-->
+  <select id="getFoundationalLibraryCode" resultType="java.util.Map">
+    select id,code,NAME name,PCODES pcodes,BASE_IMAGE baseImage from rcs_resource_cate where PCODE = #{pcode} and STATE = 1
+  </select>
+
+  <select id="getResourceBLOBsByCodes" resultMap="ResultMapWithBLOBs">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM RCS_RESOURCE_CATE WHERE STATE = 1 AND CODE IN
+    <foreach item="codes" collection="codes" index="index" open="(" separator="," close=")">
+      #{codes}
+    </foreach>
+  </select>
+
+  <select id="getResourceNameByCodeList" resultType="java.util.Map">
+    SELECT code code,name name FROM RCS_RESOURCE_CATE WHERE STATE &lt;&gt; -1 AND (STATE = 1 OR ((STATE = 3 OR STATE = 4) AND CODE NOT IN (SELECT CODE FROM RCS_RESOURCE_CATE WHERE STATE = 1)))
+  </select>
+
+</mapper>

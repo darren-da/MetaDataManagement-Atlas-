@@ -1,0 +1,60 @@
+package com.gla.datacenter.service;
+
+
+import com.gla.datacenter.domain.Command;
+import com.gla.datacenter.domain.DataModelManager;
+import com.gla.datacenter.domain.MasterDataManager;
+import com.gla.datacenter.domain.ModelField;
+import com.gla.datacenter.model.MDMDataModelModels;
+import com.gla.datacenter.model.PublishApiModel;
+import com.gla.datacenter.service.fallback.MDMClientServiceFallbackFactory;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@FeignClient(value = "DATACENTER-GATEWAY",path = "/api9/mdm",fallbackFactory = MDMClientServiceFallbackFactory.class)
+public interface MDMCommondClientService {
+
+
+    /**
+     * 新增命令
+     * @param command
+     * @return
+     */
+    @RequestMapping(value = "/command/add")
+    String saveCommand(@RequestBody Command command);
+    /**
+     * 删除命令
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/command/delete/{id}")
+    String delCommand(@PathVariable("id") String id);
+
+    @RequestMapping(value = "/command/update")
+    String updateCommand(@RequestBody Command command);
+
+
+    @RequestMapping(value = "/command/detail/{id}")
+    String selectCommand(@PathVariable("id") String id);
+
+    /**
+     * 查询用于列表
+     * @param command
+     * @return
+     */
+    @RequestMapping(value = "/commands/list")
+    String selectCommandList(@RequestBody Command command);
+
+
+    @RequestMapping(value = "/api/{code}")
+    String api(@PathVariable("code") String code,@RequestParam Map<String,String> param);
+
+    @RequestMapping(value = "/api/publish/{id}")
+    String publishApi(@PathVariable("id") String id, @RequestBody PublishApiModel publishApiModel);
+
+    @RequestMapping(value = "/api/reset/state")
+    String resetApiStatusByCodeList(@RequestBody List<String> codes);
+}

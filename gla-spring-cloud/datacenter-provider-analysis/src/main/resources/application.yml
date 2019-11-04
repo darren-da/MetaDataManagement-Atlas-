@@ -1,0 +1,24 @@
+server:
+  port: 8007
+
+
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.gla.datacenter.domain    # 所有Entity别名类所在包
+  mapper-locations:
+  - classpath:com/gla/datacenter/persistence/mysql/**/*.xml                      # mapper映射文件
+# application.name 很重要 eureka
+spring:
+  application:
+    name: provider-analysis
+
+
+info:
+  app.name: datacenter
+  app.model: provider-analysis
+  app.desc: 数据交换平台-数据分析模块
+  company.name: 西藏国路安科技股份有限公司
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+

@@ -1,0 +1,15 @@
+spring:
+#redis配置
+  redis:
+    host: 192.168.26.113
+    port: 6379
+    password: datacenter
+      # 连接超时时间（毫秒）
+    timeout: 18000
+    database: 0
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+

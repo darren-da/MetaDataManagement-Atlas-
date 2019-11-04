@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.PageLogMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.PageLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="OPT_TYPE" property="optType" jdbcType="VARCHAR" />
+    <result column="MENUID" property="menuid" jdbcType="VARCHAR" />
+    <result column="OPT_URL" property="optUrl" jdbcType="VARCHAR" />
+    <result column="OPT_PARAMS" property="optParams" jdbcType="VARCHAR" />
+    <result column="OPT_FORE_PARAMS" property="optForeParams" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="OPT_DETAIL" property="optDetail" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USERID, OPT_TYPE, MENUID, OPT_URL, OPT_PARAMS, OPT_FORE_PARAMS, REMARKS, IDT, 
+    STATE, OPT_DETAIL, RC1, RC2, RC3, RC4, RC5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.PageLogExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_page_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lp_page_log
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_page_log
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.PageLogExample" >
+    delete from lp_page_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.PageLog" >
+    insert into lp_page_log (ID, USERID, OPT_TYPE, 
+      MENUID, OPT_URL, OPT_PARAMS, 
+      OPT_FORE_PARAMS, REMARKS, IDT, 
+      STATE, OPT_DETAIL, RC1, 
+      RC2, RC3, RC4, RC5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{optType,jdbcType=VARCHAR}, 
+      #{menuid,jdbcType=VARCHAR}, #{optUrl,jdbcType=VARCHAR}, #{optParams,jdbcType=VARCHAR}, 
+      #{optForeParams,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{optDetail,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR}, 
+      #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR}, #{rc4,jdbcType=INTEGER}, #{rc5,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.PageLog" >
+    insert into lp_page_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="optType != null" >
+        OPT_TYPE,
+      </if>
+      <if test="menuid != null" >
+        MENUID,
+      </if>
+      <if test="optUrl != null" >
+        OPT_URL,
+      </if>
+      <if test="optParams != null" >
+        OPT_PARAMS,
+      </if>
+      <if test="optForeParams != null" >
+        OPT_FORE_PARAMS,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="optDetail != null" >
+        OPT_DETAIL,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="optType != null" >
+        #{optType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuid != null" >
+        #{menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="optUrl != null" >
+        #{optUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="optParams != null" >
+        #{optParams,jdbcType=VARCHAR},
+      </if>
+      <if test="optForeParams != null" >
+        #{optForeParams,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="optDetail != null" >
+        #{optDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.PageLogExample" resultType="java.lang.Integer" >
+    select count(*) from lp_page_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_page_log
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optType != null" >
+        OPT_TYPE = #{record.optType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuid != null" >
+        MENUID = #{record.menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optUrl != null" >
+        OPT_URL = #{record.optUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optParams != null" >
+        OPT_PARAMS = #{record.optParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optForeParams != null" >
+        OPT_FORE_PARAMS = #{record.optForeParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.optDetail != null" >
+        OPT_DETAIL = #{record.optDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_page_log
+    set ID = #{record.id,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      OPT_TYPE = #{record.optType,jdbcType=VARCHAR},
+      MENUID = #{record.menuid,jdbcType=VARCHAR},
+      OPT_URL = #{record.optUrl,jdbcType=VARCHAR},
+      OPT_PARAMS = #{record.optParams,jdbcType=VARCHAR},
+      OPT_FORE_PARAMS = #{record.optForeParams,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      STATE = #{record.state,jdbcType=INTEGER},
+      OPT_DETAIL = #{record.optDetail,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.PageLog" >
+    update lp_page_log
+    <set >
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="optType != null" >
+        OPT_TYPE = #{optType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuid != null" >
+        MENUID = #{menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="optUrl != null" >
+        OPT_URL = #{optUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="optParams != null" >
+        OPT_PARAMS = #{optParams,jdbcType=VARCHAR},
+      </if>
+      <if test="optForeParams != null" >
+        OPT_FORE_PARAMS = #{optForeParams,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="optDetail != null" >
+        OPT_DETAIL = #{optDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        RC5 = #{rc5,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.PageLog" >
+    update lp_page_log
+    set USERID = #{userid,jdbcType=VARCHAR},
+      OPT_TYPE = #{optType,jdbcType=VARCHAR},
+      MENUID = #{menuid,jdbcType=VARCHAR},
+      OPT_URL = #{optUrl,jdbcType=VARCHAR},
+      OPT_PARAMS = #{optParams,jdbcType=VARCHAR},
+      OPT_FORE_PARAMS = #{optForeParams,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=INTEGER},
+      OPT_DETAIL = #{optDetail,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR},
+      RC4 = #{rc4,jdbcType=INTEGER},
+      RC5 = #{rc5,jdbcType=DATE}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

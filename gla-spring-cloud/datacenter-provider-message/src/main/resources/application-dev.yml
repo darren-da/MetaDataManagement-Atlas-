@@ -1,0 +1,36 @@
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.gla.datacenter.domain    # 所有Entity别名类所在包
+  mapper-locations:
+  - classpath:com/gla/datacenter/persistence/mysql/**/*.xml                      # mapper映射文件
+# application.name 很重要 eureka
+spring:
+  application:
+    name: provider-message
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: shiniandate@163.com
+    password: 1qaz2wsX
+    properties:
+      mail:
+      smtp:
+      auth: true
+      timeout: 25000
+      #titleOfCode: 验证登陆
+      #contentOfCode: 您好，您正在登录国路安数据交换平台，邮箱验证码:{0}，{1}分钟内有效。转发可能导致账号被盗，请勿泄露给他人。如非本人操作，请检查账号安全。
+      #titleOfResetPassword: 密码重置
+      resetPassword: 123456
+      #contentOfResetPassword: 欢迎使用国路安数据交换平台，您的重置密码为{0}.为了您的账号安全，请尽快修改密码。如非本人操作，请检查账号安全。
+      company: 西藏国路安科技股份有限公司
+
+info: 
+  app.name: datacenter
+  app.model: provider-message
+  app.desc: 数据交换平台-消息发送模块
+  company.name: 西藏国路安科技股份有限公司
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+
+

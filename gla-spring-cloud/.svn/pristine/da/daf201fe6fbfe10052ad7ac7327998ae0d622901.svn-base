@@ -1,0 +1,47 @@
+/* maki 自定义 */
+/*空白表格样式定义*/
+.table-striped-no-border{
+
+
+}
+.table-striped-no-border tbody tr  th,.table-striped-no-border tbody tr td{
+    border-top: 0px solid #ddd !important;
+    text-align: left;
+    font-size: 13px;
+    padding-left: 20px;
+}
+.table-striped-no-border tbody tr td input,.table-striped-no-border tbody tr td select{
+    width: 92%;
+}
+
+/*整体背景的颜色*/
+#lpbody{
+    background: #222D32 !important;
+}
+/*表头背景色*/
+#bs-example-navbar-collapse-1{
+    background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(#222D32), to(#888)) !important;
+}
+
+/*系统模块的颜色*/
+ul.topnav{
+    background: #444 !important;
+}
+/*选中的颜色*/
+.checked{
+    background:#777 !important;
+}
+/*鼠标移动li效果变化*/
+ul.topnav li a:hover {
+    /*background-color:rgba(0, 0, 0, 0.2);*/
+    background-color: #777 !important;
+
+}
+
+.side-mail{
+    border-top: 3px solid #888  !important;
+}
+.content-panel-border{
+    border-top: 3px solid #888 !important;
+}
+

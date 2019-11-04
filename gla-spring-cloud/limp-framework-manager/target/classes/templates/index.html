@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--引入标签：这样的话才可以在其他标签里面使用th:*这样的语法.这是下面语法的前提.-->
+
+<!--参考链接-->
+<!--https://blog.csdn.net/u012706811/article/details/52185345-->
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+    <title>登录页面</title>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+    <meta name="renderer" content="webkit">
+</head>
+<!--
+<head lang="en">
+    <meta charset="UTF-8">
+&lt;!&ndash;清除缓存&ndash;&gt;
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title></title>
+    <script src="../../../static/scripts/jquery-3.2.1.min.js"></script>
+    &lt;!&ndash;<script src="../static/scripts/test.js"></script>&ndash;&gt;
+
+   &lt;!&ndash; 2.引入URL
+
+    Thymeleaf对于URL的处理是通过语法@{…}来处理的
+
+    <a th:href="@{http://blog.csdn.net/u012706811}">绝对路径</a>
+    <a th:href="@{/}">相对路径</a>
+    <a th:href="@{css/bootstrap.min.css}">Content路径,默认访问static下的css文件夹</a>
+    类似的标签有:th:href和th:src&ndash;&gt;
+</head>-->
+<body class="login-bg">
+
+<!--
+<h1><a href="/system/nav/main">datacenter 首页</a></h1>
+<h1><a href="/swagger-ui.html">[swagger接口文档]</a></h1>-->
+<!--可以看出获取变量值用$符号,对于javaBean的话使用变量名.属性名方式获取,这点和EL表达式一样.
+
+另外$表达式只能写在th标签内部,不然不会生效,上面例子就是使用th:text标签的值替换p标签里面的值,至于p里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离.-->
+
+
+<style>
+
+</style>
+<div id="index-show" style="margin: 60px 60px">
+ <!--   <div class="layui-inline">
+        <img src="/systemsite/assets/static/images/flower.png" class="layui-circle">
+        shouye
+    </div>-->
+</div>
+
+<!--*********************魔板部分**end************************-->
+
+
+<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+<!--<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>-->
+<script  th:src="@{/systemsite/assets/static/js/sys_index.js}"></script>
+<script>
+    window.location.href="http://192.168.26.113/system/nav/desk"
+</script>
+
+
+
+</body>
+</html>

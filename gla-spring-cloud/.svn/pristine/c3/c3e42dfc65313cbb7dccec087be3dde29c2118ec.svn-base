@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.MasterDataManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.MasterDataManager" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="MASTER_DESCRIBE" property="masterDescribe" jdbcType="VARCHAR" />
+    <result column="MODEL_ID" property="modelId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="INTEGER" />
+    <result column="RC3" property="rc3" jdbcType="TIMESTAMP" />
+    <result column="RC4" property="rc4" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gla.datacenter.domain.MasterDataManager" extends="BaseResultMap" >
+    <result column="MASTER_SQL" property="masterSql" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, CODE, MASTER_DESCRIBE, MODEL_ID, STATUS, CREATE_ID, IDT, UPDATE_ID, UDT,
+    RC1, RC2, RC3, RC4
+  </sql>
+  <sql id="Blob_Column_List" >
+    MASTER_SQL
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gla.datacenter.domain.MasterDataManagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mdm_master_data_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.MasterDataManagerExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mdm_master_data_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mdm_master_data_manager
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mdm_master_data_manager
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.MasterDataManagerExample" >
+    delete from mdm_master_data_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.MasterDataManager" >
+    insert into mdm_master_data_manager (ID, NAME, CODE,
+    MASTER_DESCRIBE, MODEL_ID, STATUS,
+    CREATE_ID, IDT, UPDATE_ID,
+    UDT, RC1, RC2, RC3,
+    RC4, MASTER_SQL
+    )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+    #{masterDescribe,jdbcType=VARCHAR}, #{modelId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+    #{createId,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR},
+    #{udt,jdbcType=TIMESTAMP}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=INTEGER}, #{rc3,jdbcType=TIMESTAMP},
+    #{rc4,jdbcType=TIMESTAMP}, #{masterSql,jdbcType=LONGVARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.MasterDataManager" >
+    insert into mdm_master_data_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="masterDescribe != null" >
+        MASTER_DESCRIBE,
+      </if>
+      <if test="modelId != null" >
+        MODEL_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="masterSql != null" >
+        MASTER_SQL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="masterDescribe != null" >
+        #{masterDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=INTEGER},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="masterSql != null" >
+        #{masterSql,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.MasterDataManagerExample" resultType="java.lang.Integer" >
+    select count(*) from mdm_master_data_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mdm_master_data_manager
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterDescribe != null" >
+        MASTER_DESCRIBE = #{record.masterDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelId != null" >
+        MODEL_ID = #{record.modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createId != null" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateId != null" >
+        UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.masterSql != null" >
+        MASTER_SQL = #{record.masterSql,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update mdm_master_data_manager
+    set ID = #{record.id,jdbcType=VARCHAR},
+    NAME = #{record.name,jdbcType=VARCHAR},
+    CODE = #{record.code,jdbcType=VARCHAR},
+    MASTER_DESCRIBE = #{record.masterDescribe,jdbcType=VARCHAR},
+    MODEL_ID = #{record.modelId,jdbcType=VARCHAR},
+    STATUS = #{record.status,jdbcType=INTEGER},
+    CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+    IDT = #{record.idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+    UDT = #{record.udt,jdbcType=TIMESTAMP},
+    RC1 = #{record.rc1,jdbcType=VARCHAR},
+    RC2 = #{record.rc2,jdbcType=INTEGER},
+    RC3 = #{record.rc3,jdbcType=TIMESTAMP},
+    RC4 = #{record.rc4,jdbcType=TIMESTAMP},
+    MASTER_SQL = #{record.masterSql,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mdm_master_data_manager
+    set ID = #{record.id,jdbcType=VARCHAR},
+    NAME = #{record.name,jdbcType=VARCHAR},
+    CODE = #{record.code,jdbcType=VARCHAR},
+    MASTER_DESCRIBE = #{record.masterDescribe,jdbcType=VARCHAR},
+    MODEL_ID = #{record.modelId,jdbcType=VARCHAR},
+    STATUS = #{record.status,jdbcType=INTEGER},
+    CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+    IDT = #{record.idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+    UDT = #{record.udt,jdbcType=TIMESTAMP},
+    RC1 = #{record.rc1,jdbcType=VARCHAR},
+    RC2 = #{record.rc2,jdbcType=INTEGER},
+    RC3 = #{record.rc3,jdbcType=TIMESTAMP},
+    RC4 = #{record.rc4,jdbcType=TIMESTAMP},
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.MasterDataManager" >
+    update mdm_master_data_manager
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="masterDescribe != null" >
+        MASTER_DESCRIBE = #{masterDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        MODEL_ID = #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=INTEGER},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="masterSql != null" >
+        MASTER_SQL = #{masterSql,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gla.datacenter.domain.MasterDataManager" >
+    update mdm_master_data_manager
+    set NAME = #{name,jdbcType=VARCHAR},
+    CODE = #{code,jdbcType=VARCHAR},
+    MASTER_DESCRIBE = #{masterDescribe,jdbcType=VARCHAR},
+    MODEL_ID = #{modelId,jdbcType=VARCHAR},
+    STATUS = #{status,jdbcType=INTEGER},
+    CREATE_ID = #{createId,jdbcType=VARCHAR},
+    IDT = #{idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+    UDT = #{udt,jdbcType=TIMESTAMP},
+    RC1 = #{rc1,jdbcType=VARCHAR},
+    RC2 = #{rc2,jdbcType=INTEGER},
+    RC3 = #{rc3,jdbcType=TIMESTAMP},
+    RC4 = #{rc4,jdbcType=TIMESTAMP},
+    MASTER_SQL = #{masterSql,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.MasterDataManager" >
+    update mdm_master_data_manager
+    set NAME = #{name,jdbcType=VARCHAR},
+    CODE = #{code,jdbcType=VARCHAR},
+    MASTER_DESCRIBE = #{masterDescribe,jdbcType=VARCHAR},
+    MODEL_ID = #{modelId,jdbcType=VARCHAR},
+    STATUS = #{status,jdbcType=INTEGER},
+    CREATE_ID = #{createId,jdbcType=VARCHAR},
+    IDT = #{idt,jdbcType=TIMESTAMP},
+    UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+    UDT = #{udt,jdbcType=TIMESTAMP},
+    RC1 = #{rc1,jdbcType=VARCHAR},
+    RC2 = #{rc2,jdbcType=INTEGER},
+    RC3 = #{rc3,jdbcType=TIMESTAMP},
+    RC4 = #{rc4,jdbcType=TIMESTAMP},
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+  <!--自定义sql开始-->
+  <!--根据主数据id集合批量删除主数据-->
+  <update id="deleteMasterDataByIdList">
+      update mdm_master_data_manager set status = -1 where id in
+    <foreach collection="list" item="addItem" separator="," open="(" close=")">
+      #{addItem}
+    </foreach>
+  </update>
+
+  <!--批量删除表-->
+  <delete id="deleteTable">
+    <foreach collection="tableNameList" item="item">
+      DROP TABLE ${item}
+    </foreach>
+  </delete>
+
+  <!--查询主数据结果集-->
+  <select id="findMDMDate" resultType="java.util.Map">
+    <include refid="MySqlDialectPrefix" />
+      SELECT * FROM ${code} where 1=1
+      <if test="params != null">
+        <foreach collection="params.entrySet()" item="value" index="key">
+          AND ${key} LIKE CONCAT('%',#{value},'%')
+        </foreach>
+      </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--根据数据库名称和表名称查询数据总量 databaseTable= 库名.表名-->
+  <select id="countMDMData" resultType="java.lang.Integer">
+    SELECT count(1) FROM ${databaseTable} where 1=1
+    <if test="params != null">
+      <foreach collection="params.entrySet()" item="value" index="key">
+        AND ${key} LIKE CONCAT('%',#{value},'%')
+      </foreach>
+    </if>
+  </select>
+
+  <!--创建表补全数据-->
+  <insert id="insertDataByTableName">
+    INSERT INTO ${tableName} 
+    <foreach collection="modelFields" item="item" open="(" close=")" separator=",">
+      ${item.name}
+    </foreach>
+    SELECT 
+    <foreach collection="modelFields" item="item" separator=",">
+      ${item.name}
+    </foreach>
+    from ${table}
+  </insert>
+
+  <!--查询当前连接的库名称-->
+  <select id="getDatabaseByDB" resultType="java.lang.String">
+    SELECT TABLE_SCHEMA FROM information_schema.tables GROUP BY TABLE_SCHEMA HAVING TABLE_SCHEMA LIKE CONCAT('',#{prefix},'%');
+  </select>
+
+</mapper>

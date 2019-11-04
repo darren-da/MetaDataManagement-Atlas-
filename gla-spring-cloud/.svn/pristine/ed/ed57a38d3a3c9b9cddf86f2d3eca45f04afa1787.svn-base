@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>用戶列表</title>
+	<!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">用户管理</a>
+        <a>
+          <cite>用户列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="userTableMain">
+			<div style="padding: 20px; background-color: #F2F2F2;">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md3">
+						<div class="layui-card lpcard">
+							<div class="layui-card-header lpcard-head">单位列表<i class="layui-icon" style="line-height:30px">ဂ</i></div>
+							<div class="layui-card-body">
+								<div class="TreeDemoBackground left" style="height: 640px; overflow: auto;padding-left: 5px;">
+									<ul id="treeDemo" class="ztree"></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-md9">
+						<div class="layui-card">
+							<div class="layui-card-header">用户列表</div>
+							<div class="layui-card-body">
+								<div class="layui-row table-search">
+
+									<div class="layui-form layui-col-md12 we-search">
+										<div class="layui-inline">
+											<input class="layui-input"  placeholder="start时间" name="start" id="start">
+										</div>
+										<div class="layui-inline">
+											<input class="layui-input"  placeholder="end时间" name="end" id="end">
+										</div>
+
+										<div class="layui-inline">
+											<input type="text" id="user_serach_account" placeholder="请输入账号" autocomplete="off" class="layui-input">
+										</div>
+										<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+									</div>
+								</div>
+
+								<!--测试区域-->
+								<div class="weadmin-block table-tools">
+									<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>
+									<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+									<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+								</div>
+								<table class="layui-form layui-table" id="userTable">
+
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!--测试区域-->
+				</div>
+			</div>
+		</div>
+		<!--*********************魔板部分**begin************************-->
+		<script type="text/template" id="tkAddUser" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="addFilter">
+
+					<div class="layui-form-item">
+						<label for="lp_account" class="layui-form-label">
+							<span class="lp-red">*</span>账号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_account" name="account" lay-verify="required|account" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							至少5个字符
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_name" class="layui-form-label">
+							<span class="lp-red">*</span>昵称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_name" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_password" class="layui-form-label">
+							<span class="lp-red">*</span>密码
+						</label>
+						<div class="layui-input-inline">
+							<input type="password" id="lp_password" name="password" lay-verify="required|password" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							6到16个字符
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_repassword" class="layui-form-label">
+							<span class="lp-red">*</span>确认密码
+						</label>
+						<div class="layui-input-inline">
+							<input type="password" id="lp_repassword" name="repassword" lay-verify="required|repassword" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_expiredate" class="layui-form-label">
+							过期时间
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="expiredate" class="layui-input" id="lp_expiredate">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_isautoexpire" class="layui-form-label">自动到期</label>
+						<div class="layui-input-block" id="lp_isautoexpire">
+							<input type="checkbox" name="isautoexpire" lay-skin="switch"  lay-text="开启|关闭">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_phone" class="layui-form-label">
+							手机
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_phone" name="phone"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_email" class="layui-form-label">
+							邮箱
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_email" name="email" autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_state" class="layui-form-label">用户状态</label>
+						<div class="layui-input-inline">
+
+							<select name="state" id="lp_state">
+								<option value="1">正常</option>
+								<option value="0">待审核</option>
+								<option value="-1">删除</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_rc3" class="layui-form-label">是否加密</label>
+						<div class="layui-input-block" id="lp_rc3">
+							<input type="checkbox" name="rc3"   lay-skin="switch" lay-text="开启|关闭">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_utype" class="layui-form-label">用户类型</label>
+						<div class="layui-input-inline">
+							<select name="utype" id="lp_utype">
+								<option value="1">普通用户</option>
+								<option value="0">管理员</option>
+								<option value="2">其他</option>
+							</select>
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_icn" class="layui-form-label">
+							身份标识
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_icn" name="icn"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+				<!--	<div class="layui-form-item">
+						<label for="lp_sex" class="layui-form-label">性别</label>
+						<div class="layui-input-block" id="lp_sex">
+							<input type="radio" name="sex" value="1" title="男" checked>
+							<input type="radio" name="sex" value="2" title="女">
+							<input type="radio" name="sex" value="0" title="未知">
+						</div>
+					</div>-->
+
+					<div class="layui-form-item">
+						<label for="unitcode" class="layui-form-label">
+							单位编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="unitcode" name="unitcode"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_conaccount" class="layui-form-label">
+							关联账号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_conaccount" name="conaccount"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_keypath" class="layui-form-label">
+							秘钥路径
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="lp_keypath" name="keypath"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_remarks" class="layui-form-label">
+							备注
+						</label>
+						<div class="layui-input-inline">
+							<textarea id="lp_remarks" name="remarks"placeholder="请输入内容" class="layui-textarea"></textarea>
+							<!--<input type="text"  autocomplete="off" class="layui-input">-->
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_repassword" class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<!--修改魔板-->
+		<script type="text/template" id="tkUpdateUser" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="updateFilter">
+
+					<div class="layui-form-item">
+						<label for="lp_account" class="layui-form-label">
+							<span class="lp-red">*</span>账号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="account" lay-verify="required|account" disabled autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_name" class="layui-form-label">
+							<span class="lp-red">*</span>昵称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="name" lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_expiredate_1" class="layui-form-label">
+							过期时间
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="expiredate" id="lp_expiredate_1" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">自动到期</label>
+						<div class="layui-input-block">
+							<input type="checkbox" name="isautoexpire" lay-skin="switch"  lay-text="开启|关闭">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							手机
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="phone"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							邮箱
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="email" autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_state" class="layui-form-label">用户状态</label>
+						<div class="layui-input-inline">
+
+							<select name="state" >
+								<option value="1">正常</option>
+								<option value="0">待审核</option>
+								<option value="-1">删除</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_rc3" class="layui-form-label">是否加密</label>
+						<div class="layui-input-block" >
+							<input type="checkbox" name="rc3"   lay-skin="switch" lay-text="开启|关闭">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_utype" class="layui-form-label">用户类型</label>
+						<div class="layui-input-inline">
+							<select name="utype">
+								<option value="1">普通用户</option>
+								<option value="0">管理员</option>
+								<option value="2">其他</option>
+							</select>
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label for="lp_icn" class="layui-form-label">
+							身份标识
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="icn"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+				<!--	<div class="layui-form-item">
+						<label for="lp_sex" class="layui-form-label">性别</label>
+						<div class="layui-input-block" id="lp_sex">
+							<input type="radio" name="sex" value="1" title="男" checked>
+							<input type="radio" name="sex" value="2" title="女">
+							<input type="radio" name="sex" value="0" title="未知">
+						</div>
+					</div>-->
+
+					<div class="layui-form-item">
+						<label for="lp_unitcode" class="layui-form-label">
+							单位编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="unitcode"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_conaccount" class="layui-form-label">
+							关联账号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="conaccount"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="lp_keypath" class="layui-form-label">
+							秘钥路径
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="keypath"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_remarks" class="layui-form-label">
+							备注
+						</label>
+						<div class="layui-input-inline">
+							<textarea name="remarks"placeholder="请输入内容" class="layui-textarea"></textarea>
+							<!--<input type="text"  autocomplete="off" class="layui-input">-->
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<input type="hidden"  name="id"  class="layui-input">
+
+						<label for="lp_repassword" class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="updateFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+		<script type="text/template" id="tkSetUserRoles" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="setUserRoleFilter">
+
+					<div class="layui-form-item">
+						<label for="lp_account" class="layui-form-label">
+							<span class="lp-red">*</span>账号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="account"  disabled autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_state" class="layui-form-label">角色</label>
+						<div class="layui-input-inline">
+
+							<select name="roleIds" id="roles-option" >
+								<option value="1">管理员</option>
+								<option value="0">普通用户</option>
+								<option value="-1">test</option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<input type="hidden"  name="id"  class="layui-input">
+						<button class="layui-btn" lay-filter="setUserRoleFilterSubmit" lay-submit="">确定</button>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<!--*********************魔板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_user.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_dept.js}"></script>
+
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+	</body>
+
+<script>
+
+</script>
+<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	ctxPath = /*[[@{/}]]*/ '';
+	/*]]>*/
+	console.info("路径");
+	console.info(ctxPath);
+</script>
+</html>

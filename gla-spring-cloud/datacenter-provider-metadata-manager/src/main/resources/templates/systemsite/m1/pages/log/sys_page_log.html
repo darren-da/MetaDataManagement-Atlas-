@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>orders列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">访问日志管理</a>
+        <a>
+          <cite>访问日志列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="pageLogTableMain">
+			<div class="layui-row table-search">
+
+
+					<div class="layui-form layui-col-md12 we-search">
+						<div class="layui-inline">
+							<input type="text" id="userid" placeholder="请输入用户账号" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-inline">
+							<input type="text" id="optParams" placeholder="请输入相关参数" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-inline">
+							<input class="layui-input"  placeholder="start时间" name="start" id="start">
+						</div>
+						<div class="layui-inline">
+							<input class="layui-input"  placeholder="end时间" name="end" id="end">
+						</div>
+						<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+					</div>
+
+			</div>
+			<table class="layui-form layui-table" id="pageLogTable">
+
+			</table>
+
+			<!--测试区域-->
+		</div>
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_page_log.js}"></script>
+	</body>
+
+<script>
+
+</script>
+</html>

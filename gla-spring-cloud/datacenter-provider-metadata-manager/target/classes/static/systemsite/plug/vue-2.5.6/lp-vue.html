@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2018. 北京中软国际信息技术有限公司 .
+  -->
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="vue.js"></script>
+    <script src="../js-utils/jquery-3.2.1.min.js"></script>
+    <script src="../layer-v3.1.1/layer/layer.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../bootstrap-4.0/css/bootstrap.css">
+</head>
+<body>
+<div type="text/x-template" id="tkDictInfo" >
+    <div id="tkD">
+        <div class="modal-body" style=" height: 332px; overflow: hidden; overflow-y: auto;">
+            <div class="compose_mail">
+                <form role="form" class="lpform" id="formId" action="#" method="POST">
+                    <table class="table  table-striped-no-border">
+                        <tbody>
+                        <tr>
+                            <td><span><span style="color: red">*&nbsp;</span>小分类码:</span></td>
+                            <td>
+                                <span></span>
+                            </td>
+                            <td>
+                                <span>分类名称:</span>
+                            </td>
+                            <td>
+                                <input v-model="domain.dictdataName" name="dictdataValue" @click="handleInput()" value="">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><span>状态:</span></td>
+                            <td>
+                                <span>{{domain.dictStatue}}</span>
+                            </td>
+                            <td>
+                                <span>KEY:</span>
+                            </td>
+                            <td>
+                                {{domain.dictKey}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>大分类编码:</span></td>
+                            <td>
+                                <span>{{domain.dictCate}}</span>
+                            </td>
+                            <td>
+                                <span>分类描述:</span>
+                            </td>
+                            <td>
+                                {{domain.dictIntro}}
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function submitForm(){
+
+        console.log($("#lp .lpform").serialize())
+    }
+
+        layer.open({
+            skin: 'lp-skin-fir',
+            title:'<span class="modal-title-logo"><i style="color: #f8bb2b" class="entypo-flow-tree"></i></span>详细信息',
+            type: 1,
+            area: ['570px','460px'],
+            content: "<div id='lp'>"+$('#tkDictInfo').html()+"</div>", //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响：
+          yes:function(){
+              console.log(111)
+          }
+            //可设置为隐藏状态，在结合vue初始化数据，获取当前div情况
+        });
+//        setTimeout(function(){
+            var update_vm =new Vue({
+                el:"#lp",
+                data:{domain:{dictdataName:"测试名称",dictStatue:"1",dictIntro:"介绍测试",dictKey:new Date().getMilliseconds()}
+                },
+                methods:{
+                    handleInput:function(){
+                        console.log(this.domain);
+                        //var domain=this.domain;
+                    }
+                }
+            })
+//        },2000)
+
+
+//    layer.msg("123")
+</script>
+</body>
+</html>

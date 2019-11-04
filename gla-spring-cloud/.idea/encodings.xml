@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-auth-jwt-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-auth-server-jwt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-cloud-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-cloud-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-cloud-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-cloud-eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-cloud-gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-cloud-zuul-gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-config-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-plug-cache" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-plug-dynamic-call-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-analysis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-api-manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-mdm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-message" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-metadata" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-metadata-manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-order" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-provider-resource-catalog" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/datacenter-sys-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/limp-framework" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/limp-framework-manager" charset="UTF-8" />
+  </component>
+</project>

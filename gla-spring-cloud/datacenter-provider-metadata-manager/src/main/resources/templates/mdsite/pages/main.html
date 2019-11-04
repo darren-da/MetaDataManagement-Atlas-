@@ -1,0 +1,388 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+		<meta charset="UTF-8">
+		<title>[[#{app.name}]]</title>
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/weadmin.css}"/>
+		<!--注意需要用双标签进行闭合，即用一对<script></script>-->
+		<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+
+	</head>
+	<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+
+
+	<body>
+		<!-- 顶部开始 -->
+		<div class="container" style="background-color: #316AC5 !important;">
+			<div class="logo">
+				<a href="/system/nav/main">元数据管理平台 </a>
+			</div>
+			<div class="left_open">
+				<i title="展开左侧栏" class="iconfont">&#xe699;</i>
+			</div>
+			<ul class="layui-nav left fast-add" lay-filter="">
+
+			</ul>
+			<ul class="layui-nav right" lay-filter="">
+				<li class="layui-nav-item">
+					<a href="javascript:;">管理员</a>
+					<dl class="layui-nav-child">
+						<!-- 二级菜单 -->
+
+						<dd>
+							<a href="/logout">切换帐号</a>
+						</dd>
+						<dd>
+							<a class="loginout" href="/logout">退出</a>
+						</dd>
+					</dl>
+				</li>
+
+			</ul>
+
+		</div>
+		<!-- 顶部结束 -->
+		<!-- 中部开始 -->
+		<!-- 左侧菜单开始 -->
+		<div class="left-nav"style="max-width: 280px !important; width: 228px !important;;">
+
+
+			<!--左侧：功能工具栏-->
+			<div id="side-nav" >
+					<div style="background-color: #EEEEEE;border-bottom: 1px solid #CCCCFD;    height: 24px;">
+						<span style="margin-left: 20px">
+							<a  id="addMetaData" title="新建元数据" class="addMetaData"   href="javascript:;"> <i class="layui-icon">&#xe608;</i> </a>
+						</span>
+					</div>
+				<!--左侧：树形栏目-->
+
+				<div class="layui-card ">
+						<div class="TreeDemoBackground left" style=" overflow: auto;background-color:#EEEEEE;padding-left: 0px;">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="x-slide_left"></div> -->
+		<!-- 左侧菜单结束 -->
+		<!-- 右侧主体开始 -->
+		<div class="page-content" style="left: 228px !important; ">
+			<div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+				<ul class="layui-tab-title" id="tabName">
+					<li id="tagName">元数据基本信息</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show" id="nav-1">
+						<div class="weadmin-body " id="areaTableMain" style="padding-top: 10px">
+							<div class="layui-col-md9">
+									<!--<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>删除</button>-->
+								<fieldset class="layui-elem-field site-demo-button" style="border:solid 0px #ffffff">
+										<div>
+
+											<button>
+													<ul class="layui-nav layui-nav-tree" lay-filter="test" style="width: 100px;background-color:#009688">
+													<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+													<li class="layui-nav-item">
+														<a href="javascript:;" style="height: 28px; line-height: 26px;">新增</a>
+														<dl class="layui-nav-child">
+															<dd><a onclick="javascript:void(0)">系统</a></dd>
+															<dd><a onclick="javascript:void(0)">系统层次</a></dd>
+															<dd><a onclick="javascript:void(0)">表</a></dd>
+														</dl>
+													</li>
+												</ul>
+											</button>
+
+											<button class="layui-btn layui-btn-normal layui-btn-sm" onclick="metaMain.updateRelationModel()">维护关系</button>
+											<button class="layui-btn layui-btn-warm layui-btn-sm">修改</button>
+											<button class="layui-btn layui-btn-danger layui-btn-sm">删除</button>
+											<button class="layui-btn layui-btn-normal layui-btn-sm">查看历史</button>
+											<button class="layui-btn layui-btn-normal layui-btn-sm">版本管理</button>
+
+											<button class="layui-btn layui-btn-normal layui-btn-sm">影响分析</button>
+											<button class="layui-btn layui-btn-normal layui-btn-sm">血统分析</button>
+											<button class="layui-btn layui-btn-normal layui-btn-sm">全链分析</button>
+											<button class="layui-btn layui-btn-disabled layui-btn-sm">ER图？</button>
+											<button class="layui-btn layui-btn-normal layui-btn-sm" id="setDB">关联数据库</button>
+											<button class="layui-btn layui-btn-normal layui-btn-sm" id="reloadDB">重新抽取</button>
+										</div>
+									</fieldset>
+
+
+							</div>
+
+							<div class="layui-col-md9">
+								<div class="layui-card">
+									<!--<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>删除</button>-->
+									<div class="layui-card-header">基本信息</div>
+
+									<table class="layui-form layui-table"lay-skin="nob"  style="border-width:0px;width: 800px">
+
+										<tbody>
+										<tr>
+											<th style="text-align:left;width: 100px" >元数据代码：</th>
+											<td style="text-align:left;" id="code_id">...</td>
+
+										</tr>
+										<tr>
+											<th style="text-align:left;">元数据名称：</th>
+											<td style="text-align:left;" id="name_id">...</td>
+
+										</tr>
+										<tr>
+											<th style="text-align:left;">元数据类型：</th>
+											<td style="text-align:left;"id="type_id">...</td>
+
+										</tr>
+										<tr>
+											<th style="text-align:left;">创建时间：</th>
+											<td style="text-align:left;"  id="idt_id">...</td>
+
+										</tr>
+										<tr>
+											<th style="text-align:left;">元数据介绍：</th>
+											<td style="text-align:left;" id="intro_id">...</td>
+
+										</tr>
+
+										<tr>
+											<th style="text-align:left;">上线文路径：</th>
+											<td style="text-align:left;" id="intro_path">/业务系统/数据库/都是固定值</td>
+
+										</tr>
+
+										</tbody>
+
+									</table>
+
+								</div>
+							</div>
+
+							<!--<div class="layui-card-body">-->
+							<div class="layui-col-md12">
+								<div class="weadmin-block table-tools">
+									<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+									<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+								</div>
+								<table class="layui-form layui-table" id="areaTable">
+
+								</table>
+							</div>
+
+						</div>
+					</div>
+					<div class="layui-tab-item " id="nav-2">
+						<iframe src='/page/search' frameborder="0" id="iframeUrl" scrolling="yes" class="weIframe"></iframe>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="page-content-bg"></div>
+		<!-- 右侧主体结束 -->
+		<!-- 中部结束 -->
+
+		<!--*********************模板部分**begin************************-->
+		<script type="text/template" id="tkAddRelationMeta">
+			<div class="weadmin-body">
+				<form class="layui-form lpform-2clo" lay-filter="addFilter">
+
+
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label">
+							元数据代码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="code" disabled id="meta_code"  autocomplete="off" class="layui-input">
+						</div>
+						<label  class="layui-form-label">
+							元数据名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="name"  disabled id="meta_name" autocomplete="off" class="layui-input">
+						</div>
+						<input  type="hidden" id="meta_id">
+
+					</div>
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							请选择关系*
+						</label>
+						<div class="layui-input-inline" style="width: 470px">
+							<!--<input type="text"   autocomplete="off" class="layui-input">-->
+							<select>
+								<option> 相关的库[库]</option>
+								<option> 相关的系统 [系统]</option>
+								<option> 归属源系统[表] </option>
+							</select>
+
+						</div>
+
+
+						<hr>
+						<div class="layui-col-md6">
+
+
+							<!--<div class="layui-form-item" style="float: right;">  "-->
+								<span class="layui-btn layui-btn-normal layui-btn-sm" onclick="metaMain.relactionSubmit()">新增</span>此处有检索框
+							<!--</div>-->
+							<table class="layui-form layui-table" id="metaTable">
+
+							</table>
+
+
+
+						</div>
+						<div class="layui-col-md1">
+							&nbsp;
+						</div>
+						<div class="layui-col-md5">
+
+							关联关系
+							<table class="layui-form layui-table" id="relactionTable">
+
+							</table>
+						</div>
+
+
+
+					</div>
+
+
+
+
+				</form>
+			</div>
+		</script>
+
+
+		<script type="text/template" id="tkAddMeta">
+			<div class="weadmin-body">
+				<form class="layui-form lpform-2clo" lay-filter="addFilter">
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							请选择模型*
+						</label>
+						<div class="layui-input-inline" style="width: 470px">
+							<input type="text" onclick="metaMain.ckModelTree()" id="modelName"   autocomplete="off" class="layui-input">
+						</div>
+
+
+					</div>
+					<div class="layui-form-item">
+
+						<label  class="layui-form-label">
+							元数据代码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="code"  autocomplete="off" class="layui-input">
+						</div>
+						<label  class="layui-form-label">
+							元数据名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="name"  autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+
+					<div class="layui-form-item" style="float: right;">
+						<input type="hidden" id="modelId" />
+						<input type="hidden" id="icon" name="icon"/>
+						<input type="hidden" id="p_id" name="pid"/>
+						<input type="hidden" id="p_type" name="type"/>
+						<input type="hidden" id="connCode" name="connModelCode"/>
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+
+				</form>
+			</div>
+		</script>
+
+		<script type="text/template" id="tkCkMeta">
+				<div>
+					<div class="zTreeDemoBackground  left">
+						<ul id="treeModelSet" class="ztree"></ul>
+					</div>
+					<input type="hidden" name="id" id="roleId" />
+				</div>
+		</script>
+
+
+
+		<!--*********************模板部分**end************************-->
+		<!-- 底部开始 -->
+		<div class="footer">
+			<div class="copyright">Copyright ©2018 datacenter v1.0 All Rights Reserved</div>
+		</div>
+		<!-- 底部结束 -->
+
+	</body>
+	<!--Tab菜单右键弹出菜单-->
+	<ul class="rightMenu" id="rightMenu">
+        <li data-type="fresh">刷新</li>
+        <li data-type="current">关闭当前</li>
+        <li data-type="other">关闭其它</li>
+        <li data-type="all">关闭所有</li>
+    </ul>
+
+	<!--*********************魔板部分**end************************-->
+
+
+	<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+	<!--<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>-->
+	<script  th:src="@{/systemsite/assets/static/js/sys_main.js}"></script>
+
+	<script  th:src="@{/scripts/mdsite/service/md_main.js}"></script>
+
+	<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+	<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+	<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+<script type="text/javascript">
+    //			layui扩展模块的两种加载方式-示例
+    layui.extend({
+        admin: '../../../systemsite/assets/static/js/admin' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    });
+    //使用拓展模块。。
+    layui.use('admin', function(){
+        var admin = layui.admin;
+    });
+    layui.config({
+        base: '../../../systemsite/assets/static/js/'
+        ,version: '101100'
+    }).use('admin');
+    layui.use(['jquery','admin'], function(){
+        var $ = layui.jquery;
+        $(function(){
+            var login = JSON.parse(localStorage.getItem("login"));
+            if(login){
+                if(login=0){
+//							window.location.href='./login.html';
+//							return false;
+                }else{
+//							return false;
+                }
+            }else{
+//						window.location.href='./login.html';
+//						return false;
+            }
+        });
+    });
+
+</script>
+</html>

@@ -1,0 +1,121 @@
+server:
+  port: 8100
+
+#配置的时候注意空格位置
+spring:
+  application:
+    name: datacenter-gateway
+
+  cloud:
+    gateway:
+      routes: # 配置静态路由
+      - id: baidu_route
+        uri: http://baidu.com:80/
+        predicates:
+          - Path=/bd
+
+      - id: provider-sys
+        uri: lb://PROVIDER-SYS
+        predicates:
+          - Path=/api0/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-order
+        uri: lb://PROVIDER-ORDER
+        predicates:
+          - Path=/api1/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-analysis
+        uri: lb://PROVIDER-ANALYSIS
+        predicates:
+          - Path=/api2/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-message
+        uri: lb://PROVIDER-MESSAGE
+        predicates:
+          - Path=/api3/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-core
+        uri: lb://PROVIDER-CORE
+        predicates:
+          - Path=/api4/**
+        filters:
+          - StripPrefix= 1
+
+      - id: plug-cache
+        uri: lb://PLUG-CACHE
+        predicates:
+          - Path=/api5/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-api-manager
+        uri: lb://PROVIDER-API-MANAGER
+        predicates:
+          - Path=/api6/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-api
+        uri: lb://PROVIDER-API
+        predicates:
+          - Path=/api7/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-resource-catalog
+        uri: lb://PROVIDER-RESOURCE-CATALOG
+        predicates:
+          - Path=/api8/**
+        filters:
+          - StripPrefix= 1
+
+      - id: provider-mdm
+        uri: lb://PROVIDER-MDM
+        predicates:
+          - Path=/api9/**
+        filters:
+          - StripPrefix= 1
+#------------------------------------------------------------------------
+      - id: route-exachage
+        uri: http://192.168.26.10:8002/
+        predicates:
+        - Path= /outnet1/**
+        filters:
+        - StripPrefix= 1
+#-----------------------------------------------------------------------
+#
+#   demo:
+#       path: /datacenter/**
+#       url: http://www.webxml.com.cn
+#    webservice:
+#       path: /api/center/v1/**
+#       url: http://192.168.26.112:8001
+############################开启动态路由#########################################
+#可以看到这里的parts指定要去除的前缀的个数，然后使用stream的skip来去除掉相应前缀，然后得到newPath，构造newRequest
+#StripPrefix 注意用法，如StripPrefix= 2，意味着 需要添加2个/outnet2/outnet2/orders 去除掉前面两个前缀之后，最后转发到目标服务的路径为/orders#########################################
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+
+logging: ## 配置输出日志
+  level:
+    #org.*: TRACE
+    org.springframework.cloud.gateway: TRACE
+    #org.springframework.http.server.reactive: DEBUG
+   # org.springframework.web.reactive: DEBUG
+    #reactor.ipc.netty: DEBUG
+    com.gla.*: debug
+

@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>行为审计日志列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">行为审计日志</a>
+        <a>
+          <cite>行为审计日志</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="logTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-form layui-col-md12 we-search">
+						<!--<lable class="layui-form-label">操作类型</lable>-->
+
+						<!--<div class="layui-inline">
+							<input type="text" id="account" placeholder="用户编号" autocomplete="off" class="layui-input">
+						</div>-->
+						<div class="layui-inline">
+							<select id="optType">
+								<option value="">操作类型</option>
+								<option value="1">新增</option>
+								<option value="2">删除</option>
+								<option value="3">修改</option>
+							</select>
+						</div>
+
+						<div class="layui-inline">
+							<input class="layui-input"  placeholder="start时间" name="start" id="start">
+						</div>
+						<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<table class="layui-form layui-table" id="logTable">
+
+			</table>
+			<!--测试区域-->
+		</div>
+		<script type="text/template" id="tkLooklog">
+			<!--<div class="weadmin" id="weadmin">-->
+				<table class="layui-table" lay-filter="table1" id="table1"></table>
+			<!--</div>-->
+		</script>
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_operation_log.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

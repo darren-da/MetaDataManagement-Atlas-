@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.OrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.OrderInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SERVICE_ID" property="serviceId" jdbcType="VARCHAR" />
+    <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="USRID" property="usrid" jdbcType="VARCHAR" />
+    <result column="PARMS" property="parms" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="PARAMS_KEY" property="paramsKey" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="VARCHAR" />
+    <result column="RC5" property="rc5" jdbcType="VARCHAR" />
+    <result column="RC6" property="rc6" jdbcType="VARCHAR" />
+    <result column="RC7" property="rc7" jdbcType="INTEGER" />
+    <result column="RC8" property="rc8" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SERVICE_ID, SERVICE_NAME, ORDER_NO, USRID, PARMS, IP, PARAMS_KEY, IDT, UDT, STATUS, 
+    URL, RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.OrderInfoExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from LP_ORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LP_ORDER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from LP_ORDER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.OrderInfoExample" >
+    delete from LP_ORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.OrderInfo" >
+    insert into LP_ORDER_INFO (ID, SERVICE_ID, SERVICE_NAME, 
+      ORDER_NO, USRID, PARMS, 
+      IP, PARAMS_KEY, IDT, UDT, 
+      STATUS, URL, RC1, RC2, 
+      RC3, RC4, RC5, RC6, 
+      RC7, RC8)
+    values (#{id,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{usrid,jdbcType=VARCHAR}, #{parms,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{paramsKey,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, #{udt,jdbcType=TIMESTAMP},
+      #{status,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, 
+      #{rc3,jdbcType=VARCHAR}, #{rc4,jdbcType=VARCHAR}, #{rc5,jdbcType=VARCHAR}, #{rc6,jdbcType=VARCHAR}, 
+      #{rc7,jdbcType=INTEGER}, #{rc8,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.OrderInfo" >
+    insert into LP_ORDER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="usrid != null" >
+        USRID,
+      </if>
+      <if test="parms != null" >
+        PARMS,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="paramsKey != null" >
+        PARAMS_KEY,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+      <if test="rc7 != null" >
+        RC7,
+      </if>
+      <if test="rc8 != null" >
+        RC8,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrid != null" >
+        #{usrid,jdbcType=VARCHAR},
+      </if>
+      <if test="parms != null" >
+        #{parms,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="paramsKey != null" >
+        #{paramsKey,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=VARCHAR},
+      </if>
+      <if test="rc7 != null" >
+        #{rc7,jdbcType=INTEGER},
+      </if>
+      <if test="rc8 != null" >
+        #{rc8,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.OrderInfoExample" resultType="java.lang.Integer" >
+    select count(*) from LP_ORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update LP_ORDER_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null" >
+        SERVICE_ID = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceName != null" >
+        SERVICE_NAME = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrid != null" >
+        USRID = #{record.usrid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parms != null" >
+        PARMS = #{record.parms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramsKey != null" >
+        PARAMS_KEY = #{record.paramsKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc7 != null" >
+        RC7 = #{record.rc7,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc8 != null" >
+        RC8 = #{record.rc8,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update LP_ORDER_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SERVICE_ID = #{record.serviceId,jdbcType=VARCHAR},
+      SERVICE_NAME = #{record.serviceName,jdbcType=VARCHAR},
+      ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      USRID = #{record.usrid,jdbcType=VARCHAR},
+      PARMS = #{record.parms,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      PARAMS_KEY = #{record.paramsKey,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=VARCHAR},
+      RC5 = #{record.rc5,jdbcType=VARCHAR},
+      RC6 = #{record.rc6,jdbcType=VARCHAR},
+      RC7 = #{record.rc7,jdbcType=INTEGER},
+      RC8 = #{record.rc8,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.OrderInfo" >
+    update LP_ORDER_INFO
+    <set >
+      <if test="serviceId != null" >
+        SERVICE_ID = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrid != null" >
+        USRID = #{usrid,jdbcType=VARCHAR},
+      </if>
+      <if test="parms != null" >
+        PARMS = #{parms,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="paramsKey != null" >
+        PARAMS_KEY = #{paramsKey,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc5 != null" >
+        RC5 = #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        RC6 = #{rc6,jdbcType=VARCHAR},
+      </if>
+      <if test="rc7 != null" >
+        RC7 = #{rc7,jdbcType=INTEGER},
+      </if>
+      <if test="rc8 != null" >
+        RC8 = #{rc8,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.OrderInfo" >
+    update LP_ORDER_INFO
+    set SERVICE_ID = #{serviceId,jdbcType=VARCHAR},
+      SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      USRID = #{usrid,jdbcType=VARCHAR},
+      PARMS = #{parms,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      PARAMS_KEY = #{paramsKey,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR},
+      RC4 = #{rc4,jdbcType=VARCHAR},
+      RC5 = #{rc5,jdbcType=VARCHAR},
+      RC6 = #{rc6,jdbcType=VARCHAR},
+      RC7 = #{rc7,jdbcType=INTEGER},
+      RC8 = #{rc8,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.gla</groupId>
+    <artifactId>limp-framework-manager</artifactId>
+    <version>2.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <target.dir>C:\datacenter</target.dir>
+        <target.version>boss-jar</target.version>
+     <!--   &lt;!&ndash; log4j日志包版本号 &ndash;&gt;
+        <slf4j.version>1.7.18</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+
+        &lt;!&ndash;swagger2&ndash;&gt;
+        <swagger2.version>2.6.1</swagger2.version>
+        <swagger-ui.version>2.6.1</swagger-ui.version>
+
+        <java.version>1.8</java.version>
+        &lt;!&ndash;<spring-boot.version>1.5.9.RELEASE</spring-boot.version>&ndash;&gt;
+        <shiro.version>1.4.0</shiro.version>
+        <limp-framework.version>2.0-SNAPSHOT</limp-framework.version>
+        &lt;!&ndash; Spring Boot默认选择的Thymeleaf是2.0版本的，使用3.0版本或set thymeleaf version &ndash;&gt;
+        &lt;!&ndash;<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>&ndash;&gt;
+        &lt;!&ndash;<thymeleaf-layout-dialect.version>2.0.2.RELEASE</thymeleaf-layout-dialect.version>&ndash;&gt;
+        <shiro-redis.version>2.4.2.1-RELEASE</shiro-redis.version>
+-->
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.xidea</groupId>
+            <artifactId>jsel</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gla</groupId>
+            <artifactId>limp-framework</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 修改后立即生效，热部署 -->
+    <!--    <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>-->
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <configuration>
+                    <!-- 没有该配置，devtools 不生效 -->
+                    <fork>true</fork>
+
+                    <!--新增-->
+                    <mainClass>com.limp.framework.boss.run.LpFrameStart</mainClass>
+                </configuration>
+                <!--新增-->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                    <!-- spring热部署 -->
+              <!--  <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.5.RELEASE</version>
+                    </dependency>
+                </dependencies>-->
+            </plugin>
+            <!--配置copy命令-->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${target.dir}"/>
+                                <copy todir="${target.dir}" overwrite="true" >
+                                    <fileset dir="${project.build.directory}" erroronmissingdir="false">
+                                        <include name="*.jar"/>
+                                    </fileset>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

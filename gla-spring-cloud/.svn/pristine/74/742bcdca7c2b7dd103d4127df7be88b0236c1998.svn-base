@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.DataModelManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.DataModelManager" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MODEL_NAME" property="modelName" jdbcType="VARCHAR" />
+    <result column="MODEL_CODE" property="modelCode" jdbcType="VARCHAR" />
+    <result column="MODEL_TYPE_ID" property="modelTypeId" jdbcType="VARCHAR" />
+    <result column="MODEL_DESCRIBE" property="modelDescribe" jdbcType="VARCHAR" />
+    <result column="MODEL_UPDATE_CYCLE" property="modelUpdateCycle" jdbcType="INTEGER" />
+    <result column="MODEL_UNITS" property="modelUnits" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="PUBLIC_FLAG" property="publicFlag" jdbcType="INTEGER" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MODEL_NAME, MODEL_CODE, MODEL_TYPE_ID, MODEL_DESCRIBE, MODEL_UPDATE_CYCLE, MODEL_UNITS, 
+    STATUS, PUBLIC_FLAG, VERSION, CREATE_ID, IDT, UPDATE_ID, UDT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.DataModelManagerExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mdm_data_model_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mdm_data_model_manager
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mdm_data_model_manager
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.DataModelManagerExample" >
+    delete from mdm_data_model_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.DataModelManager" >
+    insert into mdm_data_model_manager (ID, MODEL_NAME, MODEL_CODE, 
+      MODEL_TYPE_ID, MODEL_DESCRIBE, MODEL_UPDATE_CYCLE, 
+      MODEL_UNITS, STATUS, PUBLIC_FLAG, 
+      VERSION, CREATE_ID, IDT, 
+      UPDATE_ID, UDT)
+    values (#{id,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}, #{modelCode,jdbcType=VARCHAR}, 
+      #{modelTypeId,jdbcType=VARCHAR}, #{modelDescribe,jdbcType=VARCHAR}, #{modelUpdateCycle,jdbcType=INTEGER}, 
+      #{modelUnits,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{publicFlag,jdbcType=INTEGER}, 
+      #{version,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=VARCHAR}, #{udt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.DataModelManager" >
+    insert into mdm_data_model_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="modelName != null" >
+        MODEL_NAME,
+      </if>
+      <if test="modelCode != null" >
+        MODEL_CODE,
+      </if>
+      <if test="modelTypeId != null" >
+        MODEL_TYPE_ID,
+      </if>
+      <if test="modelDescribe != null" >
+        MODEL_DESCRIBE,
+      </if>
+      <if test="modelUpdateCycle != null" >
+        MODEL_UPDATE_CYCLE,
+      </if>
+      <if test="modelUnits != null" >
+        MODEL_UNITS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="publicFlag != null" >
+        PUBLIC_FLAG,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelCode != null" >
+        #{modelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeId != null" >
+        #{modelTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelDescribe != null" >
+        #{modelDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="modelUpdateCycle != null" >
+        #{modelUpdateCycle,jdbcType=INTEGER},
+      </if>
+      <if test="modelUnits != null" >
+        #{modelUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="publicFlag != null" >
+        #{publicFlag,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.DataModelManagerExample" resultType="java.lang.Integer" >
+    select count(*) from mdm_data_model_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mdm_data_model_manager
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelName != null" >
+        MODEL_NAME = #{record.modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelCode != null" >
+        MODEL_CODE = #{record.modelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelTypeId != null" >
+        MODEL_TYPE_ID = #{record.modelTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelDescribe != null" >
+        MODEL_DESCRIBE = #{record.modelDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelUpdateCycle != null" >
+        MODEL_UPDATE_CYCLE = #{record.modelUpdateCycle,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelUnits != null" >
+        MODEL_UNITS = #{record.modelUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.publicFlag != null" >
+        PUBLIC_FLAG = #{record.publicFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createId != null" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateId != null" >
+        UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mdm_data_model_manager
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MODEL_NAME = #{record.modelName,jdbcType=VARCHAR},
+      MODEL_CODE = #{record.modelCode,jdbcType=VARCHAR},
+      MODEL_TYPE_ID = #{record.modelTypeId,jdbcType=VARCHAR},
+      MODEL_DESCRIBE = #{record.modelDescribe,jdbcType=VARCHAR},
+      MODEL_UPDATE_CYCLE = #{record.modelUpdateCycle,jdbcType=INTEGER},
+      MODEL_UNITS = #{record.modelUnits,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      PUBLIC_FLAG = #{record.publicFlag,jdbcType=INTEGER},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      UDT = #{record.udt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.DataModelManager" >
+    update mdm_data_model_manager
+    <set >
+      <if test="modelName != null" >
+        MODEL_NAME = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelCode != null" >
+        MODEL_CODE = #{modelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeId != null" >
+        MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelDescribe != null" >
+        MODEL_DESCRIBE = #{modelDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="modelUpdateCycle != null" >
+        MODEL_UPDATE_CYCLE = #{modelUpdateCycle,jdbcType=INTEGER},
+      </if>
+      <if test="modelUnits != null" >
+        MODEL_UNITS = #{modelUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="publicFlag != null" >
+        PUBLIC_FLAG = #{publicFlag,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.DataModelManager" >
+    update mdm_data_model_manager
+    set MODEL_NAME = #{modelName,jdbcType=VARCHAR},
+      MODEL_CODE = #{modelCode,jdbcType=VARCHAR},
+      MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR},
+      MODEL_DESCRIBE = #{modelDescribe,jdbcType=VARCHAR},
+      MODEL_UPDATE_CYCLE = #{modelUpdateCycle,jdbcType=INTEGER},
+      MODEL_UNITS = #{modelUnits,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      PUBLIC_FLAG = #{publicFlag,jdbcType=INTEGER},
+      VERSION = #{version,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      UDT = #{udt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--自定义sql开始-->
+
+  <!--建表语句-->
+  <update id="createTable">
+    CREATE TABLE ${tableName} (
+      <foreach collection="modelFields" item="addItem" separator=",">
+        <choose>
+          <when test="addItem.name != 'id' and addItem.name != 'ID'">
+            <choose>
+              <when test="addItem.fieldDescribe != null and addItem.fieldDescribe != ''">
+                <choose>
+                  <when test="addItem.type != 'timestamp'.toString()">
+                    ${addItem.name}  ${addItem.type} DEFAULT NULL COMMENT &apos;${addItem.fieldDescribe}&apos;
+                  </when>
+                  <otherwise>
+                    ${addItem.name}  ${addItem.type} NULL DEFAULT NULL COMMENT &apos;${addItem.fieldDescribe}&apos;
+                  </otherwise>
+                </choose>
+              </when>
+              <otherwise>
+                <choose>
+                  <when test="addItem.type != 'timestamp'.toString()">
+                    ${addItem.name}  ${addItem.type} DEFAULT NULL
+                  </when>
+                  <otherwise>
+                    ${addItem.name}  ${addItem.type} NULL DEFAULT NULL
+                  </otherwise>
+                </choose>
+
+              </otherwise>
+            </choose>
+          </when>
+          <otherwise>
+            <choose>
+              <when test="addItem.fieldDescribe != null and addItem.fieldDescribe != ''">
+                ${addItem.name}  ${addItem.type} NOT NULL COMMENT &apos;${addItem.fieldDescribe}&apos;
+              </when>
+              <otherwise>
+                ${addItem.name}  ${addItem.type} NOT NULL
+              </otherwise>
+            </choose>
+          </otherwise>
+        </choose>
+        <!--<if test="addItem.name == 'id' and addItem.name == 'ID'">
+
+        </if>-->
+
+      </foreach>
+    <!--,PRIMARY KEY (`ID`)-->
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+  </update>
+
+  <!--查询当前表的数据条数-->
+  <select id="selectNumByTableName" resultType="java.lang.Integer">
+    SELECT count(1) FROM ${tableName}
+  </select>
+
+  <!--根据主数据id集合查询表名(modelCode)集合-->
+  <select id="getModelCodeListByMasterIdList" resultType="java.lang.String">
+      select MODEL_CODE from mdm_data_model_manager where 1=1 and id IN (
+      <foreach collection="list" item="addItem" separator=",">
+        #{addItem}
+      </foreach>
+    )
+  </select>
+
+  <!--查询数据库所有表名称-->
+  <select id="getTableNameList" resultType="java.lang.String">
+    SELECT table_name tableName from information_schema.tables where table_schema = #{database}  <!--and TABLE_NAME like #{prefix}-->
+  </select>
+
+  <!--根据数据库名称和表名称查询字段-->
+  <select id="getFieldByTableName" resultType="java.util.Map">
+    select COLUMN_NAME name,COLUMN_TYPE type,COLUMN_COMMENT fieldDescribe from information_schema.columns WHERE 1=1
+    <if test="databse != null and databse != ''">
+      and table_schema = #{databse}
+    </if>
+     and table_name = #{name}
+  </select>
+
+  <!--根据主数据id集合查询模型id集合-->
+  <select id="getModeIdByMasterIdList" resultType="java.lang.String">
+    select model_id FROM mdm_master_data_manager where id in
+    <foreach collection="list" open="(" close=")" separator="," item="item">
+      #{item}
+    </foreach>
+  </select>
+
+  <!--查询不包含集合中的字段名称-->
+  <select id="getFieldByTableNameAndUse" resultType="java.util.Map">
+    select COLUMN_NAME name,COLUMN_TYPE type,COLUMN_COMMENT fieldDescribe,table_name tableName,TABLE_SCHEMA databaseName from information_schema.columns WHERE 1=1
+    <if test="database != null and database != ''">
+      and table_schema = #{database}
+    </if>
+    AND table_name = #{name} and COLUMN_NAME not in
+    <foreach collection="list" item="collect" open="(" close=")" separator=",">
+      #{collect}
+    </foreach>
+  </select>
+
+</mapper>

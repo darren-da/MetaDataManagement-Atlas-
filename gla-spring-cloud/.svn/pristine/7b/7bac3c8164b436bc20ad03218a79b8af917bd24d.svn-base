@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.Menu" >
+    <id column="MEN_ID" property="id" jdbcType="VARCHAR" />
+    <result column="MEN_SSMGUID" property="ssmguid" jdbcType="VARCHAR" />
+    <result column="MEN_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="MEN_DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="MEN_TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="MEN_PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="MEN_URL" property="url" jdbcType="VARCHAR" />
+    <result column="MEN_ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="MEN_SORT" property="sort" jdbcType="DECIMAL" />
+    <result column="MEN_CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="MEN_UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="MEN_HINTS" property="hints" jdbcType="DECIMAL" />
+    <result column="MEN_STATE" property="state" jdbcType="DECIMAL" />
+    <result column="MEN_FIELD" property="field" jdbcType="VARCHAR" />
+    <result column="MEN_KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="MEN_DATASOURCE" property="datasource" jdbcType="VARCHAR" />
+    <result column="MEN_KEYWORD_VALUE" property="keywordValue" jdbcType="VARCHAR" />
+    <result column="MEN_RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="MEN_RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="MEN_RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="MEN_RC4" property="rc4" jdbcType="VARCHAR" />
+    <result column="MEN_RC5" property="rc5" jdbcType="VARCHAR" />
+    <result column="MEN_RC6" property="rc6" jdbcType="DECIMAL" />
+    <result column="MEN_RC7" property="rc7" jdbcType="DECIMAL" />
+    <result column="MEN_RC8" property="rc8" jdbcType="TIMESTAMP" />
+    <result column="MEN_RC9" property="rc9" jdbcType="TIMESTAMP" />
+    <result column="MEN_PERMS" property="perms" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <select id="selectRoleMenus" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  t.*  from lp_menus t left  join lp_role_menu_map t1 on t.men_id=t1.menuid where t.men_state=1 and t1.roleid=#{roleId,jdbcType=VARCHAR}
+  </select>
+  <sql id="Base_Column_List" >
+    MEN_ID, MEN_SSMGUID, MEN_NAME, MEN_DESC, MEN_TYPE, MEN_PARENT_ID, MEN_URL, MEN_ICON, 
+    MEN_SORT, MEN_CREATEDATE, MEN_UPDATETIME, MEN_HINTS, MEN_STATE, MEN_FIELD, MEN_KEYWORD, 
+    MEN_DATASOURCE, MEN_KEYWORD_VALUE, MEN_RC1, MEN_RC2, MEN_RC3, MEN_RC4, MEN_RC5, MEN_RC6, 
+    MEN_RC7, MEN_RC8, MEN_RC9, MEN_PERMS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.MenuExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_menus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lp_menus
+    where MEN_ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_menus
+    where MEN_ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.MenuExample" >
+    delete from lp_menus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.Menu" >
+    insert into lp_menus (MEN_ID, MEN_SSMGUID, MEN_NAME, 
+      MEN_DESC, MEN_TYPE, MEN_PARENT_ID, 
+      MEN_URL, MEN_ICON, MEN_SORT, MEN_CREATEDATE, 
+      MEN_UPDATETIME, MEN_HINTS, MEN_STATE, 
+      MEN_FIELD, MEN_KEYWORD, MEN_DATASOURCE, 
+      MEN_KEYWORD_VALUE, MEN_RC1, MEN_RC2, 
+      MEN_RC3, MEN_RC4, MEN_RC5, MEN_RC6, 
+      MEN_RC7, MEN_RC8, MEN_RC9, 
+      MEN_PERMS)
+    values (#{id,jdbcType=VARCHAR}, #{ssmguid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}, #{parentId,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{hints,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, 
+      #{field,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{datasource,jdbcType=VARCHAR}, 
+      #{keywordValue,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, 
+      #{rc3,jdbcType=VARCHAR}, #{rc4,jdbcType=VARCHAR}, #{rc5,jdbcType=VARCHAR}, #{rc6,jdbcType=DECIMAL}, 
+      #{rc7,jdbcType=DECIMAL}, #{rc8,jdbcType=TIMESTAMP}, #{rc9,jdbcType=TIMESTAMP}, 
+      #{perms,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.Menu" >
+    insert into lp_menus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        MEN_ID,
+      </if>
+      <if test="ssmguid != null" >
+        MEN_SSMGUID,
+      </if>
+      <if test="name != null" >
+        MEN_NAME,
+      </if>
+      <if test="desc != null" >
+        MEN_DESC,
+      </if>
+      <if test="type != null" >
+        MEN_TYPE,
+      </if>
+      <if test="parentId != null" >
+        MEN_PARENT_ID,
+      </if>
+      <if test="url != null" >
+        MEN_URL,
+      </if>
+      <if test="icon != null" >
+        MEN_ICON,
+      </if>
+      <if test="sort != null" >
+        MEN_SORT,
+      </if>
+      <if test="createdate != null" >
+        MEN_CREATEDATE,
+      </if>
+      <if test="updatetime != null" >
+        MEN_UPDATETIME,
+      </if>
+      <if test="hints != null" >
+        MEN_HINTS,
+      </if>
+      <if test="state != null" >
+        MEN_STATE,
+      </if>
+      <if test="field != null" >
+        MEN_FIELD,
+      </if>
+      <if test="keyword != null" >
+        MEN_KEYWORD,
+      </if>
+      <if test="datasource != null" >
+        MEN_DATASOURCE,
+      </if>
+      <if test="keywordValue != null" >
+        MEN_KEYWORD_VALUE,
+      </if>
+      <if test="rc1 != null" >
+        MEN_RC1,
+      </if>
+      <if test="rc2 != null" >
+        MEN_RC2,
+      </if>
+      <if test="rc3 != null" >
+        MEN_RC3,
+      </if>
+      <if test="rc4 != null" >
+        MEN_RC4,
+      </if>
+      <if test="rc5 != null" >
+        MEN_RC5,
+      </if>
+      <if test="rc6 != null" >
+        MEN_RC6,
+      </if>
+      <if test="rc7 != null" >
+        MEN_RC7,
+      </if>
+      <if test="rc8 != null" >
+        MEN_RC8,
+      </if>
+      <if test="rc9 != null" >
+        MEN_RC9,
+      </if>
+      <if test="perms != null" >
+        MEN_PERMS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ssmguid != null" >
+        #{ssmguid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hints != null" >
+        #{hints,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="field != null" >
+        #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="datasource != null" >
+        #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordValue != null" >
+        #{keywordValue,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=DECIMAL},
+      </if>
+      <if test="rc7 != null" >
+        #{rc7,jdbcType=DECIMAL},
+      </if>
+      <if test="rc8 != null" >
+        #{rc8,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc9 != null" >
+        #{rc9,jdbcType=TIMESTAMP},
+      </if>
+      <if test="perms != null" >
+        #{perms,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.MenuExample" resultType="java.lang.Integer" >
+    select count(*) from lp_menus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_menus
+    <set >
+      <if test="record.id != null" >
+        MEN_ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ssmguid != null" >
+        MEN_SSMGUID = #{record.ssmguid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        MEN_NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.desc != null" >
+        MEN_DESC = #{record.desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        MEN_TYPE = #{record.type,jdbcType=DECIMAL},
+      </if>
+      <if test="record.parentId != null" >
+        MEN_PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        MEN_URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null" >
+        MEN_ICON = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        MEN_SORT = #{record.sort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdate != null" >
+        MEN_CREATEDATE = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        MEN_UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hints != null" >
+        MEN_HINTS = #{record.hints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null" >
+        MEN_STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+      <if test="record.field != null" >
+        MEN_FIELD = #{record.field,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyword != null" >
+        MEN_KEYWORD = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datasource != null" >
+        MEN_DATASOURCE = #{record.datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywordValue != null" >
+        MEN_KEYWORD_VALUE = #{record.keywordValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        MEN_RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        MEN_RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        MEN_RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        MEN_RC4 = #{record.rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc5 != null" >
+        MEN_RC5 = #{record.rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc6 != null" >
+        MEN_RC6 = #{record.rc6,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rc7 != null" >
+        MEN_RC7 = #{record.rc7,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rc8 != null" >
+        MEN_RC8 = #{record.rc8,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rc9 != null" >
+        MEN_RC9 = #{record.rc9,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.perms != null" >
+        MEN_PERMS = #{record.perms,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_menus
+    set MEN_ID = #{record.id,jdbcType=VARCHAR},
+      MEN_SSMGUID = #{record.ssmguid,jdbcType=VARCHAR},
+      MEN_NAME = #{record.name,jdbcType=VARCHAR},
+      MEN_DESC = #{record.desc,jdbcType=VARCHAR},
+      MEN_TYPE = #{record.type,jdbcType=DECIMAL},
+      MEN_PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      MEN_URL = #{record.url,jdbcType=VARCHAR},
+      MEN_ICON = #{record.icon,jdbcType=VARCHAR},
+      MEN_SORT = #{record.sort,jdbcType=DECIMAL},
+      MEN_CREATEDATE = #{record.createdate,jdbcType=TIMESTAMP},
+      MEN_UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      MEN_HINTS = #{record.hints,jdbcType=DECIMAL},
+      MEN_STATE = #{record.state,jdbcType=DECIMAL},
+      MEN_FIELD = #{record.field,jdbcType=VARCHAR},
+      MEN_KEYWORD = #{record.keyword,jdbcType=VARCHAR},
+      MEN_DATASOURCE = #{record.datasource,jdbcType=VARCHAR},
+      MEN_KEYWORD_VALUE = #{record.keywordValue,jdbcType=VARCHAR},
+      MEN_RC1 = #{record.rc1,jdbcType=VARCHAR},
+      MEN_RC2 = #{record.rc2,jdbcType=VARCHAR},
+      MEN_RC3 = #{record.rc3,jdbcType=VARCHAR},
+      MEN_RC4 = #{record.rc4,jdbcType=VARCHAR},
+      MEN_RC5 = #{record.rc5,jdbcType=VARCHAR},
+      MEN_RC6 = #{record.rc6,jdbcType=DECIMAL},
+      MEN_RC7 = #{record.rc7,jdbcType=DECIMAL},
+      MEN_RC8 = #{record.rc8,jdbcType=TIMESTAMP},
+      MEN_RC9 = #{record.rc9,jdbcType=TIMESTAMP},
+      MEN_PERMS = #{record.perms,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limp.framework.boss.domain.Menu" >
+    update lp_menus
+    <set >
+      <if test="ssmguid != null" >
+        MEN_SSMGUID = #{ssmguid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        MEN_NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        MEN_DESC = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        MEN_TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        MEN_PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        MEN_URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        MEN_ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        MEN_SORT = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null" >
+        MEN_CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        MEN_UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hints != null" >
+        MEN_HINTS = #{hints,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        MEN_STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="field != null" >
+        MEN_FIELD = #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        MEN_KEYWORD = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="datasource != null" >
+        MEN_DATASOURCE = #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordValue != null" >
+        MEN_KEYWORD_VALUE = #{keywordValue,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        MEN_RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        MEN_RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        MEN_RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        MEN_RC4 = #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc5 != null" >
+        MEN_RC5 = #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        MEN_RC6 = #{rc6,jdbcType=DECIMAL},
+      </if>
+      <if test="rc7 != null" >
+        MEN_RC7 = #{rc7,jdbcType=DECIMAL},
+      </if>
+      <if test="rc8 != null" >
+        MEN_RC8 = #{rc8,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc9 != null" >
+        MEN_RC9 = #{rc9,jdbcType=TIMESTAMP},
+      </if>
+      <if test="perms != null" >
+        MEN_PERMS = #{perms,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MEN_ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limp.framework.boss.domain.Menu" >
+    update lp_menus
+    set MEN_SSMGUID = #{ssmguid,jdbcType=VARCHAR},
+      MEN_NAME = #{name,jdbcType=VARCHAR},
+      MEN_DESC = #{desc,jdbcType=VARCHAR},
+      MEN_TYPE = #{type,jdbcType=DECIMAL},
+      MEN_PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      MEN_URL = #{url,jdbcType=VARCHAR},
+      MEN_ICON = #{icon,jdbcType=VARCHAR},
+      MEN_SORT = #{sort,jdbcType=DECIMAL},
+      MEN_CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      MEN_UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      MEN_HINTS = #{hints,jdbcType=DECIMAL},
+      MEN_STATE = #{state,jdbcType=DECIMAL},
+      MEN_FIELD = #{field,jdbcType=VARCHAR},
+      MEN_KEYWORD = #{keyword,jdbcType=VARCHAR},
+      MEN_DATASOURCE = #{datasource,jdbcType=VARCHAR},
+      MEN_KEYWORD_VALUE = #{keywordValue,jdbcType=VARCHAR},
+      MEN_RC1 = #{rc1,jdbcType=VARCHAR},
+      MEN_RC2 = #{rc2,jdbcType=VARCHAR},
+      MEN_RC3 = #{rc3,jdbcType=VARCHAR},
+      MEN_RC4 = #{rc4,jdbcType=VARCHAR},
+      MEN_RC5 = #{rc5,jdbcType=VARCHAR},
+      MEN_RC6 = #{rc6,jdbcType=DECIMAL},
+      MEN_RC7 = #{rc7,jdbcType=DECIMAL},
+      MEN_RC8 = #{rc8,jdbcType=TIMESTAMP},
+      MEN_RC9 = #{rc9,jdbcType=TIMESTAMP},
+      MEN_PERMS = #{perms,jdbcType=VARCHAR}
+    where MEN_ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectUserMenus" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <![CDATA[SELECT DISTINCT TT.*
+            FROM (select D.*
+                    from lp_user_role_map    A,
+                         lp_role_menu_map B,
+                         lp_users            C,
+                         lp_menus            D,
+                         lp_role         E
+                   WHERE
+                     A.URM_USERID = C.ID
+                     AND A.URM_ROLEID = B.ROLEID
+                     AND B.MENUID = D.MEN_ID
+                     AND C.ID =  #{userId,jdbcType=VARCHAR}
+                     AND A.URM_ROLEID = E.ID
+                     AND D.MEN_TYPE < 30
+                     AND E.STATE = 1
+                     AND D.MEN_STATE = 1
+                 ) TT
+                     ORDER BY TT.MEN_SORT ASC]]>
+  </select>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

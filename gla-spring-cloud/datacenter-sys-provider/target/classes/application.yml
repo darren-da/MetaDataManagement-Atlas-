@@ -1,0 +1,27 @@
+
+#环境切换
+#spring:
+#  profiles:
+#    active: dev
+
+
+server:
+  port: 8011
+
+#redis配置
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.limp.framework.boss.domain    # 所有Entity别名类所在包
+  mapper-locations: classpath:com/limp/framework/boss/persistence/oracle/*.xml                      # mapper映射文件
+
+# application.name 很重要 eureka
+
+
+info:
+  app.name: datacenter
+  app.model: provider-sys
+  app.desc: 数据交换平台
+  company.name: 西藏国路安科技股份有限公司
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+

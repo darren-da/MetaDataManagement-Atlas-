@@ -1,0 +1,1227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gla.datacenter.mapper.mysql.InformationApiMapper">
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.InformationApi">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="API_NAME" jdbcType="VARCHAR" property="apiName" />
+    <result column="API_CODE" jdbcType="VARCHAR" property="apiCode" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="METHOD" jdbcType="VARCHAR" property="method" />
+    <result column="REQUEST_TYPE" jdbcType="TINYINT" property="requestType" />
+    <result column="API_TYPE" jdbcType="TINYINT" property="apiType" />
+    <result column="API_STATUS" jdbcType="TINYINT" property="apiStatus" />
+    <result column="PRODUCER_ID" jdbcType="VARCHAR" property="producerId" />
+    <result column="PRODUCER_ORG_ID" jdbcType="VARCHAR" property="producerOrgId" />
+    <result column="CATEGORY_ID" jdbcType="VARCHAR" property="categoryId" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="LABLE" jdbcType="VARCHAR" property="lable" />
+    <result column="SHARE_LEVEL" jdbcType="TINYINT" property="shareLevel" />
+    <result column="SHARE_TYPE" jdbcType="TINYINT" property="shareType" />
+    <result column="SHARE_CODE" jdbcType="VARCHAR" property="shareCode" />
+    <result column="CHECK_STATUS" jdbcType="TINYINT" property="checkStatus" />
+    <result column="PARMS_FLAG" jdbcType="TINYINT" property="parmsFlag" />
+    <result column="EXPIRE_FLAG" jdbcType="TINYINT" property="expireFlag" />
+    <result column="EXPIRE_TIME" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="DELETE_FLAG" jdbcType="TINYINT" property="deleteFlag" />
+    <result column="INTER_PARAM_TYPE" jdbcType="VARCHAR" property="interParamType" />
+    <result column="OUTER_PARAM_TYPE" jdbcType="VARCHAR" property="outerParamType" />
+    <result column="HEADER" jdbcType="VARCHAR" property="header" />
+    <result column="IDT" jdbcType="TIMESTAMP" property="idt" />
+    <result column="CREATE_ID" jdbcType="VARCHAR" property="createId" />
+    <result column="UDT" jdbcType="TIMESTAMP" property="udt" />
+    <result column="UPDATE_ID" jdbcType="VARCHAR" property="updateId" />
+    <result column="RC1" jdbcType="VARCHAR" property="rc1" />
+    <result column="RC2" jdbcType="VARCHAR" property="rc2" />
+    <result column="RC3" jdbcType="INTEGER" property="rc3" />
+    <result column="RC4" jdbcType="TIMESTAMP" property="rc4" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, API_NAME, API_CODE, URL, METHOD, REQUEST_TYPE, API_TYPE, API_STATUS, PRODUCER_ID, 
+    PRODUCER_ORG_ID, CATEGORY_ID, DESCRIPTION, LABLE, SHARE_LEVEL, SHARE_TYPE, SHARE_CODE, 
+    CHECK_STATUS, PARMS_FLAG, EXPIRE_FLAG, EXPIRE_TIME, DELETE_FLAG, INTER_PARAM_TYPE, 
+    OUTER_PARAM_TYPE, HEADER, IDT, CREATE_ID, UDT, UPDATE_ID, RC1, RC2, RC3, RC4
+  </sql>
+  <select id="selectByExample" parameterType="com.gla.datacenter.domain.InformationApiExample" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DC_INFORMATION_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DC_INFORMATION_API
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DC_INFORMATION_API
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.InformationApiExample">
+    delete from DC_INFORMATION_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.InformationApi">
+    insert into DC_INFORMATION_API (ID, API_NAME, API_CODE, 
+      URL, METHOD, REQUEST_TYPE, 
+      API_TYPE, API_STATUS, PRODUCER_ID, 
+      PRODUCER_ORG_ID, CATEGORY_ID, DESCRIPTION, 
+      LABLE, SHARE_LEVEL, SHARE_TYPE, 
+      SHARE_CODE, CHECK_STATUS, PARMS_FLAG, 
+      EXPIRE_FLAG, EXPIRE_TIME, DELETE_FLAG, 
+      INTER_PARAM_TYPE, OUTER_PARAM_TYPE, HEADER, 
+      IDT, CREATE_ID, UDT, 
+      UPDATE_ID, RC1, RC2, 
+      RC3, RC4)
+    values (#{id,jdbcType=VARCHAR}, #{apiName,jdbcType=VARCHAR}, #{apiCode,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{requestType,jdbcType=TINYINT}, 
+      #{apiType,jdbcType=TINYINT}, #{apiStatus,jdbcType=TINYINT}, #{producerId,jdbcType=VARCHAR}, 
+      #{producerOrgId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{lable,jdbcType=VARCHAR}, #{shareLevel,jdbcType=TINYINT}, #{shareType,jdbcType=TINYINT}, 
+      #{shareCode,jdbcType=VARCHAR}, #{checkStatus,jdbcType=TINYINT}, #{parmsFlag,jdbcType=TINYINT}, 
+      #{expireFlag,jdbcType=TINYINT}, #{expireTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=TINYINT}, 
+      #{interParamType,jdbcType=VARCHAR}, #{outerParamType,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR}, 
+      #{idt,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, #{udt,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, 
+      #{rc3,jdbcType=INTEGER}, #{rc4,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.InformationApi">
+    insert into DC_INFORMATION_API
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="apiName != null">
+        API_NAME,
+      </if>
+      <if test="apiCode != null">
+        API_CODE,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="method != null">
+        METHOD,
+      </if>
+      <if test="requestType != null">
+        REQUEST_TYPE,
+      </if>
+      <if test="apiType != null">
+        API_TYPE,
+      </if>
+      <if test="apiStatus != null">
+        API_STATUS,
+      </if>
+      <if test="producerId != null">
+        PRODUCER_ID,
+      </if>
+      <if test="producerOrgId != null">
+        PRODUCER_ORG_ID,
+      </if>
+      <if test="categoryId != null">
+        CATEGORY_ID,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="lable != null">
+        LABLE,
+      </if>
+      <if test="shareLevel != null">
+        SHARE_LEVEL,
+      </if>
+      <if test="shareType != null">
+        SHARE_TYPE,
+      </if>
+      <if test="shareCode != null">
+        SHARE_CODE,
+      </if>
+      <if test="checkStatus != null">
+        CHECK_STATUS,
+      </if>
+      <if test="parmsFlag != null">
+        PARMS_FLAG,
+      </if>
+      <if test="expireFlag != null">
+        EXPIRE_FLAG,
+      </if>
+      <if test="expireTime != null">
+        EXPIRE_TIME,
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG,
+      </if>
+      <if test="interParamType != null">
+        INTER_PARAM_TYPE,
+      </if>
+      <if test="outerParamType != null">
+        OUTER_PARAM_TYPE,
+      </if>
+      <if test="header != null">
+        HEADER,
+      </if>
+      <if test="idt != null">
+        IDT,
+      </if>
+      <if test="createId != null">
+        CREATE_ID,
+      </if>
+      <if test="udt != null">
+        UDT,
+      </if>
+      <if test="updateId != null">
+        UPDATE_ID,
+      </if>
+      <if test="rc1 != null">
+        RC1,
+      </if>
+      <if test="rc2 != null">
+        RC2,
+      </if>
+      <if test="rc3 != null">
+        RC3,
+      </if>
+      <if test="rc4 != null">
+        RC4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="apiName != null">
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null">
+        #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null">
+        #{requestType,jdbcType=TINYINT},
+      </if>
+      <if test="apiType != null">
+        #{apiType,jdbcType=TINYINT},
+      </if>
+      <if test="apiStatus != null">
+        #{apiStatus,jdbcType=TINYINT},
+      </if>
+      <if test="producerId != null">
+        #{producerId,jdbcType=VARCHAR},
+      </if>
+      <if test="producerOrgId != null">
+        #{producerOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lable != null">
+        #{lable,jdbcType=VARCHAR},
+      </if>
+      <if test="shareLevel != null">
+        #{shareLevel,jdbcType=TINYINT},
+      </if>
+      <if test="shareType != null">
+        #{shareType,jdbcType=TINYINT},
+      </if>
+      <if test="shareCode != null">
+        #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="parmsFlag != null">
+        #{parmsFlag,jdbcType=TINYINT},
+      </if>
+      <if test="expireFlag != null">
+        #{expireFlag,jdbcType=TINYINT},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="interParamType != null">
+        #{interParamType,jdbcType=VARCHAR},
+      </if>
+      <if test="outerParamType != null">
+        #{outerParamType,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null">
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null">
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null">
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null">
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null">
+        #{rc3,jdbcType=INTEGER},
+      </if>
+      <if test="rc4 != null">
+        #{rc4,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.InformationApiExample" resultType="java.lang.Integer">
+    select count(*) from DC_INFORMATION_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DC_INFORMATION_API
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiName != null">
+        API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiCode != null">
+        API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        METHOD = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestType != null">
+        REQUEST_TYPE = #{record.requestType,jdbcType=TINYINT},
+      </if>
+      <if test="record.apiType != null">
+        API_TYPE = #{record.apiType,jdbcType=TINYINT},
+      </if>
+      <if test="record.apiStatus != null">
+        API_STATUS = #{record.apiStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.producerId != null">
+        PRODUCER_ID = #{record.producerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producerOrgId != null">
+        PRODUCER_ORG_ID = #{record.producerOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null">
+        CATEGORY_ID = #{record.categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lable != null">
+        LABLE = #{record.lable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareLevel != null">
+        SHARE_LEVEL = #{record.shareLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.shareType != null">
+        SHARE_TYPE = #{record.shareType,jdbcType=TINYINT},
+      </if>
+      <if test="record.shareCode != null">
+        SHARE_CODE = #{record.shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkStatus != null">
+        CHECK_STATUS = #{record.checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.parmsFlag != null">
+        PARMS_FLAG = #{record.parmsFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.expireFlag != null">
+        EXPIRE_FLAG = #{record.expireFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.expireTime != null">
+        EXPIRE_TIME = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteFlag != null">
+        DELETE_FLAG = #{record.deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.interParamType != null">
+        INTER_PARAM_TYPE = #{record.interParamType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outerParamType != null">
+        OUTER_PARAM_TYPE = #{record.outerParamType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.header != null">
+        HEADER = #{record.header,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null">
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createId != null">
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null">
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateId != null">
+        UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null">
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null">
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null">
+        RC3 = #{record.rc3,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc4 != null">
+        RC4 = #{record.rc4,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DC_INFORMATION_API
+    set ID = #{record.id,jdbcType=VARCHAR},
+      API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      METHOD = #{record.method,jdbcType=VARCHAR},
+      REQUEST_TYPE = #{record.requestType,jdbcType=TINYINT},
+      API_TYPE = #{record.apiType,jdbcType=TINYINT},
+      API_STATUS = #{record.apiStatus,jdbcType=TINYINT},
+      PRODUCER_ID = #{record.producerId,jdbcType=VARCHAR},
+      PRODUCER_ORG_ID = #{record.producerOrgId,jdbcType=VARCHAR},
+      CATEGORY_ID = #{record.categoryId,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      LABLE = #{record.lable,jdbcType=VARCHAR},
+      SHARE_LEVEL = #{record.shareLevel,jdbcType=TINYINT},
+      SHARE_TYPE = #{record.shareType,jdbcType=TINYINT},
+      SHARE_CODE = #{record.shareCode,jdbcType=VARCHAR},
+      CHECK_STATUS = #{record.checkStatus,jdbcType=TINYINT},
+      PARMS_FLAG = #{record.parmsFlag,jdbcType=TINYINT},
+      EXPIRE_FLAG = #{record.expireFlag,jdbcType=TINYINT},
+      EXPIRE_TIME = #{record.expireTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG = #{record.deleteFlag,jdbcType=TINYINT},
+      INTER_PARAM_TYPE = #{record.interParamType,jdbcType=VARCHAR},
+      OUTER_PARAM_TYPE = #{record.outerParamType,jdbcType=VARCHAR},
+      HEADER = #{record.header,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=INTEGER},
+      RC4 = #{record.rc4,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.InformationApi">
+    update DC_INFORMATION_API
+    <set>
+      <if test="apiName != null">
+        API_NAME = #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null">
+        API_CODE = #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        METHOD = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null">
+        REQUEST_TYPE = #{requestType,jdbcType=TINYINT},
+      </if>
+      <if test="apiType != null">
+        API_TYPE = #{apiType,jdbcType=TINYINT},
+      </if>
+      <if test="apiStatus != null">
+        API_STATUS = #{apiStatus,jdbcType=TINYINT},
+      </if>
+      <if test="producerId != null">
+        PRODUCER_ID = #{producerId,jdbcType=VARCHAR},
+      </if>
+      <if test="producerOrgId != null">
+        PRODUCER_ORG_ID = #{producerOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lable != null">
+        LABLE = #{lable,jdbcType=VARCHAR},
+      </if>
+      <if test="shareLevel != null">
+        SHARE_LEVEL = #{shareLevel,jdbcType=TINYINT},
+      </if>
+      <if test="shareType != null">
+        SHARE_TYPE = #{shareType,jdbcType=TINYINT},
+      </if>
+      <if test="shareCode != null">
+        SHARE_CODE = #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        CHECK_STATUS = #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="parmsFlag != null">
+        PARMS_FLAG = #{parmsFlag,jdbcType=TINYINT},
+      </if>
+      <if test="expireFlag != null">
+        EXPIRE_FLAG = #{expireFlag,jdbcType=TINYINT},
+      </if>
+      <if test="expireTime != null">
+        EXPIRE_TIME = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG = #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="interParamType != null">
+        INTER_PARAM_TYPE = #{interParamType,jdbcType=VARCHAR},
+      </if>
+      <if test="outerParamType != null">
+        OUTER_PARAM_TYPE = #{outerParamType,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        HEADER = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null">
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null">
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null">
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null">
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null">
+        RC3 = #{rc3,jdbcType=INTEGER},
+      </if>
+      <if test="rc4 != null">
+        RC4 = #{rc4,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.InformationApi">
+    update DC_INFORMATION_API
+    set API_NAME = #{apiName,jdbcType=VARCHAR},
+      API_CODE = #{apiCode,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      METHOD = #{method,jdbcType=VARCHAR},
+      REQUEST_TYPE = #{requestType,jdbcType=TINYINT},
+      API_TYPE = #{apiType,jdbcType=TINYINT},
+      API_STATUS = #{apiStatus,jdbcType=TINYINT},
+      PRODUCER_ID = #{producerId,jdbcType=VARCHAR},
+      PRODUCER_ORG_ID = #{producerOrgId,jdbcType=VARCHAR},
+      CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      LABLE = #{lable,jdbcType=VARCHAR},
+      SHARE_LEVEL = #{shareLevel,jdbcType=TINYINT},
+      SHARE_TYPE = #{shareType,jdbcType=TINYINT},
+      SHARE_CODE = #{shareCode,jdbcType=VARCHAR},
+      CHECK_STATUS = #{checkStatus,jdbcType=TINYINT},
+      PARMS_FLAG = #{parmsFlag,jdbcType=TINYINT},
+      EXPIRE_FLAG = #{expireFlag,jdbcType=TINYINT},
+      EXPIRE_TIME = #{expireTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG = #{deleteFlag,jdbcType=TINYINT},
+      INTER_PARAM_TYPE = #{interParamType,jdbcType=VARCHAR},
+      OUTER_PARAM_TYPE = #{outerParamType,jdbcType=VARCHAR},
+      HEADER = #{header,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=INTEGER},
+      RC4 = #{rc4,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix">
+    <if test="page != null">
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+  <!--  自定义sql开始  -->
+  <!--  批量修改api状态  -->
+  <update id="updateStatusBatch" parameterType="java.util.List">
+    UPDATE DC_INFORMATION_API
+    set API_STATUS=1, UDT = #{updateTime}
+    where id in
+    <foreach item="apiStr" collection="apiStr" index="index" open="(" separator="," close=")">
+      #{apiStr}
+    </foreach>
+  </update>
+
+  <!--  批量删除api   -->
+  <update id="deleteBatchApi" parameterType="java.lang.String">
+    update dc_information_api t set t.delete_flag = 1,t.udt = #{date},t.update_id = #{userId} where t.id in
+    <foreach item = 'item' index = 'index' collection = 'ids' open = '(' separator = ',' close = ')'>
+      #{item}
+    </foreach>
+  </update>
+
+
+  <!--          该sql语句模板是递归查询子节点数据           -->
+  <select id="getManagerListTwo" parameterType="hashmap" resultType="com.gla.datacenter.domain.InformationApi">
+    select td.* from dc_information_api td where td.PRODUCER_ORG_ID in (SELECT id deptId FROM (SELECT t1.*,IF (find_in_set(parent_id, @pids) > 0,@pids := concat(@pids, ',', code),'0') AS ischild
+    FROM (SELECT * FROM lp_dept t where t.state = 1 ORDER BY parent_id,code) t1,(SELECT @pids := #{producerOrgId}) t2 ) t3 WHERE ischild != '0' union all select id deptId from lp_dept where code = #{producerOrgId}) and td.delete_flag = 0 and td.share_level &lt;&gt; 2
+    <if test="name != null and name != ''">
+      and td.API_NAME like CONCAT ('%',#{name},'%')
+    </if>
+    <if test="desc != null and desc != ''">
+      and td.DESCRIPTION like CONCAT ('%',#{desc},'%')
+    </if>
+    <if test="code != null and code != ''">
+      and td.API_CODE like CONCAT ('%',#{code},'%')
+    </if>
+    <if test="rc2 != null and rc2 != ''">
+      and (td.API_NAME like CONCAT ('%',#{rc2},'%') or td.DESCRIPTION like CONCAT ('%',#{rc2},'%'))
+    </if>
+    ORDER BY td.IDT DESC
+    <if test="page != null and rows != null">
+      limit #{page},#{rows}
+    </if>
+  </select>
+
+  <select id="getList" parameterType="hashmap" resultType="com.gla.datacenter.domain.InformationApi">
+      select t.ID,t.API_NAME,CONCAT_WS('',#{url},t.API_CODE) URL,t.API_CODE,t.API_STATUS,t.REQUEST_TYPE,t.API_TYPE,t.PRODUCER_ID,t.PRODUCER_ORG_ID,
+    t.CATEGORY_ID,t.DESCRIPTION,t.SHARE_LEVEL,t.SHARE_TYPE,t.CHECK_STATUS,t.PARMS_FLAG,t.EXPIRE_FLAG,t.EXPIRE_TIME,t.IDT,T.DELETE_FLAG
+    from dc_information_api t where t.DELETE_FLAG = 0
+        <if test="categoryId != null and categoryId != ''">
+          and t.CATEGORY_ID = #{categoryId}
+        </if>
+		<if test="name != null and name != ''">
+          and t.API_NAME like CONCAT ('%',#{name},'%')
+        </if>
+        <if test="desc != null and desc != ''">
+          and t.DESCRIPTION like CONCAT ('%',#{desc},'%')
+        </if>
+        <if test="code != null and code != ''">
+          and t.API_CODE like CONCAT ('%',#{code},'%')
+        </if>
+        <if test="shareLevel != null and shareLevel != ''">
+          and t.SHARE_LEVEL &lt;&gt; #{shareLevel}
+        </if>
+        ORDER BY t.IDT DESC
+        <if test="page != null and rows != null">
+          limit #{page},#{rows}
+        </if>
+
+  </select>
+
+
+  <select id="getConsumerListTwo" parameterType="hashmap" resultType="com.gla.datacenter.domain.InformationApi">
+    <include refid="MySqlDialectPrefix" />
+    select tt.*,l.AUDIT_STATUS CHECK_STATUS from (select t.ID,t.API_NAME,CONCAT_WS('',#{paramMap.url},t.API_CODE)
+    URL,t.API_CODE,t.API_STATUS,t.REQUEST_TYPE,t.API_TYPE,t.PRODUCER_ID,t.PRODUCER_ORG_ID,
+    t.CATEGORY_ID,t.DESCRIPTION,t.SHARE_LEVEL,t.SHARE_TYPE,t.PARMS_FLAG,t.EXPIRE_FLAG,t.EXPIRE_TIME,t.IDT,t.DELETE_FLAG
+    from dc_information_api t where t.DELETE_FLAG = 0
+    <if test="paramMap.type == ''">
+      <trim prefix="and (" suffix=")" suffixOverrides="OR">
+        <!--   未申请   -->
+        <if test="paramMap.apiTerm.contains('check1')">
+          (t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND LIMT_TYPE = 1) or t.id in (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1)) OR
+        </if>
+        <!--   申请中   -->
+        <if test="paramMap.apiTerm.contains('check2')">
+          t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND AUDIT_STATUS &lt;&gt; 4 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId}) OR
+        </if>
+        <!--   已加入   -->
+        <if test="paramMap.apiTerm.contains('check3')">
+          <if test="paramMap.apiTerm.size() == 1">
+            <if test="paramMap.addId == null">
+              1 &lt;&gt; 1
+            </if>
+          </if>
+          <if test="paramMap.addId != null and paramMap.addId.length > 0">
+            t.id IN
+            <foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">
+              #{addId}
+            </foreach>
+            OR
+          </if>
+        </if>
+        <!--   开放   -->
+        <if test="paramMap.apiTerm.contains('check4')">
+          (t.SHARE_LEVEL = 0 AND t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND USERID = #{paramMap.userId} AND LIMT_TYPE = 1)) OR
+        </if>
+        <!--   已授权   -->
+        <if test="paramMap.apiTerm.contains('check5')">
+          t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId} ) OR
+        </if>
+      </trim>
+
+      <if test="paramMap.apiTerm.contains('check1') != true">
+      </if>
+      <if test="paramMap.apiTerm.contains('check4') != true">
+        AND (t.SHARE_LEVEL &lt;&gt; 0 OR (t.SHARE_LEVEL = 0 AND t.id IN (select APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 4 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId})))
+      </if>
+      <if test="paramMap.apiTerm.contains('check2') != true">
+        AND (t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 3 AND LIMT_TYPE = 1) OR t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1))
+      </if>
+      <if test="paramMap.apiTerm.contains('check3') != true">
+
+        <if test="paramMap.addId != null and paramMap.addId.length > 0">
+          AND t.id NOT IN
+          <foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">
+            #{addId}
+          </foreach>
+        </if>
+      </if>
+    </if>
+    <if test="paramMap.apiTerm == null">
+      AND 1 &lt;&gt; 1
+    </if>
+
+    <if test="paramMap.type != null and paramMap.type == '1'.toString()">
+      <if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">
+        <trim prefix="and (" suffix=")" suffixOverrides="OR">
+          <!--   未申请   -->
+          <if test="paramMap.apiTerm.contains('check1')">
+            (t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND LIMT_TYPE = 1) or t.id in (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1)) OR
+          </if>
+          <!--   申请中   -->
+          <if test="paramMap.apiTerm.contains('check2')">
+            t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND AUDIT_STATUS &lt;&gt; 4 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId}) OR
+          </if>
+          <!--   已加入   -->
+          <if test="paramMap.apiTerm.contains('check3')">
+            <if test="paramMap.apiTerm.size() == 1">
+              <if test="paramMap.addId == null">
+                1 &lt;&gt; 1
+              </if>
+            </if>
+            <if test="paramMap.addId != null and paramMap.addId.length > 0">
+              t.id IN
+              <foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">
+                #{addId}
+              </foreach>
+              OR
+            </if>
+          </if>
+          <!--   开放   -->
+          <if test="paramMap.apiTerm.contains('check4')">
+            (t.SHARE_LEVEL = 0 AND t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND USERID = #{paramMap.userId} AND LIMT_TYPE = 1)) OR
+          </if>
+          <!--   已授权   -->
+          <if test="paramMap.apiTerm.contains('check5')">
+            t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId} ) OR
+          </if>
+        </trim>
+
+        <if test="paramMap.apiTerm.contains('check1') != true">
+
+        </if>
+        <if test="paramMap.apiTerm.contains('check4') != true">
+          AND (t.SHARE_LEVEL &lt;&gt; 0 OR (t.SHARE_LEVEL = 0 AND t.id IN (select APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId})))
+        </if>
+        <if test="paramMap.apiTerm.contains('check2') != true">
+          AND (t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND LIMT_TYPE = 1) OR t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1))
+        </if>
+        <if test="paramMap.apiTerm.contains('check3') != true">
+          <if test="paramMap.addId != null and paramMap.addId.length > 0">
+            AND t.id NOT IN
+            <foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">
+              #{addId}
+            </foreach>
+          </if>
+        </if>
+      </if>
+    </if>
+    <!--                          已授权                 -->
+    <if test="paramMap.type != null and paramMap.type == '2'.toString()">
+      <!--     开放api     -->
+      <if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">
+        <trim prefix="and (" suffix=")" suffixOverrides="OR">
+          <!--   已授权   -->
+          <if test="paramMap.apiTerm.contains('check5')">
+            t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId}) OR
+          </if>
+        </trim>
+        <!--   已授权   -->
+        <if test="paramMap.apiTerm.contains('check5') != true">
+          AND 1 &lt;&gt; 1
+        </if>
+      </if>
+    </if>
+    <!--                          已加入                 -->
+    <if test="paramMap.type != null and paramMap.type == '3'.toString()">
+      <if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">
+        <if test="paramMap.apiTerm.contains('check3')">
+          <if test="paramMap.addId != null and paramMap.addId.length > 0">
+            AND t.id IN
+            <foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">
+              #{addId}
+            </foreach>
+          </if>
+          <if test="paramMap.addId == null">
+            AND 1 &lt;&gt; 1
+          </if>
+        </if>
+        <if test="paramMap.apiTerm.contains('check3') != true">
+          AND 1 &lt;&gt; 1
+        </if>
+        <if test="paramMap.apiTerm.contains('check4') != true">
+          AND t.SHARE_LEVEL &lt;&gt; 0
+        </if>
+      </if>
+      <if test="paramMap.apiTerm == null">
+        AND 1 &lt;&gt; 1
+      </if>
+    </if>
+
+    <if test="paramMap.categoryId != null and paramMap.categoryId != ''">
+      and INSTR(t.CATEGORY_ID,#{paramMap.categoryId}) > 0
+    </if>
+    <if test="paramMap.name != null and paramMap.name != ''">
+      and t.API_NAME like CONCAT ('%',#{paramMap.name},'%')
+    </if>
+    <if test="paramMap.desc != null and paramMap.desc != ''">
+      and t.DESCRIPTION like CONCAT ('%',#{paramMap.desc},'%')
+    </if>
+    <if test="paramMap.code != null and paramMap.code != ''">
+      and t.API_CODE like CONCAT ('%',#{paramMap.code},'%')
+    </if>
+    <if test="paramMap.rc2 != null and paramMap.rc2 != ''">
+      and (t.API_NAME like CONCAT ('%',#{paramMap.rc2},'%') or t.DESCRIPTION like CONCAT ('%',#{paramMap.rc2},'%'))
+    </if>
+    <if test="paramMap.shareLevel != null and paramMap.shareLevel != ''">
+      and t.SHARE_LEVEL = #{paramMap.shareLevel}
+    </if>
+    <if test="paramMap.shareLevel == null or paramMap.shareLevel == ''">
+      and t.SHARE_LEVEL &lt;&gt; 2
+    </if>
+    ) tt LEFT JOIN DC_API_NUM_LIMT l ON tt.ID = l.APIID AND l.USERID = #{paramMap.userId}
+    ORDER BY tt.IDT DESC
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--<select id="getConsumerListTwo" parameterType="hashmap" resultType="com.gla.datacenter.domain.InformationApi">-->
+    <!--<include refid="MySqlDialectPrefix" />-->
+    <!--select tt.*,l.AUDIT_STATUS CHECK_STATUS from (select t.ID,t.API_NAME,CONCAT_WS('',#{paramMap.url},t.API_CODE)-->
+    <!--URL,t.API_CODE,t.API_STATUS,t.REQUEST_TYPE,t.API_TYPE,t.PRODUCER_ID,t.PRODUCER_ORG_ID,-->
+    <!--t.CATEGORY_ID,t.DESCRIPTION,t.SHARE_LEVEL,t.SHARE_TYPE,t.PARMS_FLAG,t.EXPIRE_FLAG,t.EXPIRE_TIME,t.IDT,t.DELETE_FLAG-->
+    <!--from dc_information_api t where t.DELETE_FLAG = 0-->
+    <!--<if test="paramMap.type == null and paramMap.type == ''">-->
+      <!--<if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">-->
+        <!--<trim prefix="and (" suffix=")" suffixOverrides="OR">-->
+          <!--&lt;!&ndash;   未申请   &ndash;&gt;-->
+          <!--<if test="paramMap.apiTerm.contains('check1')">-->
+            <!--(t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND LIMT_TYPE = 1) or t.id in (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1)) OR-->
+          <!--</if>-->
+          <!--&lt;!&ndash;   申请中   &ndash;&gt;-->
+          <!--<if test="paramMap.apiTerm.contains('check2')">-->
+            <!--t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND AUDIT_STATUS &lt;&gt; 4 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId}) OR-->
+          <!--</if>-->
+          <!--&lt;!&ndash;   已加入   &ndash;&gt;-->
+          <!--<if test="paramMap.apiTerm.contains('check3')">-->
+            <!--<if test="paramMap.addId != null and paramMap.addId.length > 0">-->
+              <!--t.id IN-->
+              <!--<foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">-->
+                <!--#{addId}-->
+              <!--</foreach>-->
+              <!--OR-->
+            <!--</if>-->
+          <!--</if>-->
+          <!--&lt;!&ndash;   开放   &ndash;&gt;-->
+          <!--<if test="paramMap.apiTerm.contains('check4')">-->
+            <!--(t.SHARE_LEVEL = 0 AND t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND USERID = #{paramMap.userId} AND LIMT_TYPE = 1)) OR-->
+          <!--</if>-->
+          <!--&lt;!&ndash;   已授权   &ndash;&gt;-->
+          <!--<if test="paramMap.apiTerm.contains('check5')">-->
+            <!--t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId} ) OR-->
+          <!--</if>-->
+        <!--</trim>-->
+      <!--</if>-->
+    <!--</if>-->
+    <!--<if test="paramMap.type != null and paramMap.type == '1'.toString()">-->
+        <!--<if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">-->
+          <!--<trim prefix="and (" suffix=")" suffixOverrides="OR">-->
+            <!--&lt;!&ndash;   未申请   &ndash;&gt;-->
+            <!--<if test="paramMap.apiTerm.contains('check1')">-->
+              <!--(t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND LIMT_TYPE = 1) or t.id in (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1)) OR-->
+            <!--</if>-->
+            <!--&lt;!&ndash;   申请中   &ndash;&gt;-->
+            <!--<if test="paramMap.apiTerm.contains('check2')">-->
+              <!--t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND AUDIT_STATUS &lt;&gt; 4 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId}) OR-->
+            <!--</if>-->
+            <!--&lt;!&ndash;   已加入   &ndash;&gt;-->
+            <!--<if test="paramMap.apiTerm.contains('check3')">-->
+              <!--<if test="paramMap.addId != null and paramMap.addId.length > 0">-->
+                <!--t.id IN-->
+                <!--<foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">-->
+                  <!--#{addId}-->
+                <!--</foreach>-->
+                <!--OR-->
+              <!--</if>-->
+            <!--</if>-->
+            <!--&lt;!&ndash;   开放   &ndash;&gt;-->
+            <!--<if test="paramMap.apiTerm.contains('check4')">-->
+               <!--(t.SHARE_LEVEL = 0 AND t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND USERID = #{paramMap.userId} AND LIMT_TYPE = 1)) OR-->
+            <!--</if>-->
+            <!--&lt;!&ndash;   已授权   &ndash;&gt;-->
+            <!--<if test="paramMap.apiTerm.contains('check5')">-->
+              <!--t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId} ) OR-->
+            <!--</if>-->
+          <!--</trim>-->
+
+          <!--<if test="paramMap.apiTerm.contains('check1') != true">-->
+            <!--&lt;!&ndash;<if test="apiTerm.contains('check3') != true">&ndash;&gt;-->
+              <!--&lt;!&ndash;AND t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND USERID = #{userId})&ndash;&gt;-->
+            <!--&lt;!&ndash;</if>&ndash;&gt;-->
+            <!--&lt;!&ndash;AND t.id in (SELECT APIID from DC_API_NUM_LIMT where USERID = #{userId} AND AUDIT_STATUS &lt;&gt; 4)-->
+            <!--AND t.id not in (select id from DC_API_NUM_LIMT where USERID = #{userId})&ndash;&gt;-->
+          <!--</if>-->
+          <!--<if test="paramMap.apiTerm.contains('check4') != true">-->
+            <!--AND (t.SHARE_LEVEL &lt;&gt; 0 OR (t.SHARE_LEVEL = 0 AND t.id IN (select APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS &lt;&gt; 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId})))-->
+          <!--</if>-->
+          <!--<if test="paramMap.apiTerm.contains('check2') != true">-->
+            <!--AND (t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND LIMT_TYPE = 1) OR t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE USERID = #{paramMap.userId} AND AUDIT_STATUS = 4 AND LIMT_TYPE = 1))-->
+          <!--</if>-->
+          <!--<if test="paramMap.apiTerm.contains('check3') != true">-->
+            <!--<if test="paramMap.addId != null and paramMap.addId.length > 0">-->
+              <!--AND t.id NOT IN-->
+              <!--<foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">-->
+                <!--#{addId}-->
+              <!--</foreach>-->
+            <!--</if>-->
+          <!--</if>-->
+        <!--</if>-->
+      <!--<if test="paramMap.apiTerm == null">-->
+        <!--AND 1 &lt;&gt; 1-->
+      <!--</if>-->
+    <!--</if>-->
+    <!--&lt;!&ndash;                          已授权                 &ndash;&gt;-->
+    <!--<if test="paramMap.type != null and paramMap.type == '2'.toString()">-->
+      <!--&lt;!&ndash;     开放api     &ndash;&gt;-->
+      <!--<if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">-->
+        <!--<trim prefix="and (" suffix=")" suffixOverrides="OR">-->
+          <!--&lt;!&ndash;   已授权   &ndash;&gt;-->
+          <!--<if test="paramMap.apiTerm.contains('check5')">-->
+            <!--t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND LIMT_TYPE = 1 AND USERID = #{paramMap.userId}) OR-->
+          <!--</if>-->
+        <!--</trim>-->
+        <!--&lt;!&ndash;   已授权   &ndash;&gt;-->
+        <!--<if test="paramMap.apiTerm.contains('check5') != true">-->
+          <!--AND 1 &lt;&gt; 1-->
+          <!--&lt;!&ndash;t.id NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND USERID = #{userId}) &ndash;&gt;-->
+        <!--</if>-->
+      <!--</if>-->
+      <!--<if test="paramMap.apiTerm == null">-->
+        <!--AND 1 &lt;&gt; 1-->
+      <!--</if>-->
+        <!--&lt;!&ndash;and t.id IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 AND USERID = #{userId}) &ndash;&gt;-->
+    <!--</if>-->
+    <!--&lt;!&ndash;                          已加入                 &ndash;&gt;-->
+    <!--<if test="paramMap.type != null and paramMap.type == '3'.toString()">-->
+      <!--<if test="paramMap.apiTerm != null and paramMap.apiTerm.size() > 0">-->
+        <!--<if test="paramMap.apiTerm.contains('check3')">-->
+          <!--<if test="paramMap.addId != null and paramMap.addId.length > 0">-->
+            <!--AND t.id IN-->
+            <!--<foreach collection="paramMap.addId" item="addId" index="index" open="(" close=")" separator=",">-->
+              <!--#{addId}-->
+            <!--</foreach>-->
+          <!--</if>-->
+          <!--<if test="paramMap.addId == null">-->
+            <!--AND 1 &lt;&gt; 1-->
+          <!--</if>-->
+        <!--</if>-->
+        <!--<if test="paramMap.apiTerm.contains('check3') != true">-->
+          <!--AND 1 &lt;&gt; 1-->
+        <!--</if>-->
+        <!--<if test="paramMap.apiTerm.contains('check4') != true">-->
+          <!--AND t.SHARE_LEVEL &lt;&gt; 0-->
+        <!--</if>-->
+      <!--</if>-->
+      <!--<if test="paramMap.apiTerm == null">-->
+        <!--AND 1 &lt;&gt; 1-->
+      <!--</if>-->
+    <!--</if>-->
+    <!--<if test="paramMap.categoryId != null and paramMap.categoryId != ''">-->
+      <!--and INSTR(t.CATEGORY_ID,#{paramMap.categoryId}) > 0-->
+    <!--</if>-->
+    <!--<if test="paramMap.name != null and paramMap.name != ''">-->
+      <!--and t.API_NAME like CONCAT ('%',#{paramMap.name},'%')-->
+    <!--</if>-->
+    <!--<if test="paramMap.desc != null and paramMap.desc != ''">-->
+      <!--and t.DESCRIPTION like CONCAT ('%',#{paramMap.desc},'%')-->
+    <!--</if>-->
+    <!--<if test="paramMap.code != null and paramMap.code != ''">-->
+      <!--and t.API_CODE like CONCAT ('%',#{paramMap.code},'%')-->
+    <!--</if>-->
+    <!--<if test="paramMap.rc2 != null and paramMap.rc2 != ''">-->
+      <!--and (t.API_NAME like CONCAT ('%',#{paramMap.rc2},'%') or t.DESCRIPTION like CONCAT ('%',#{paramMap.rc2},'%'))-->
+    <!--</if>-->
+    <!--<if test="paramMap.shareLevel != null and paramMap.shareLevel != ''">-->
+      <!--and t.SHARE_LEVEL = #{paramMap.shareLevel}-->
+    <!--</if>-->
+    <!--<if test="paramMap.shareLevel == null or paramMap.shareLevel == ''">-->
+      <!--and t.SHARE_LEVEL &lt;&gt; 2-->
+    <!--</if>-->
+    <!--) tt LEFT JOIN DC_API_NUM_LIMT l ON tt.ID = l.APIID AND l.USERID = #{paramMap.userId}-->
+    <!--ORDER BY tt.IDT DESC-->
+    <!--<include refid="MySqlDialectSuffix" />-->
+  <!--</select>-->
+
+  <select id="getConsumerApiById"  resultType="com.gla.datacenter.model.ApiManagerModel">
+    select ID,API_NAME,API_CODE,CONCAT_WS('/',CASE WHEN API_TYPE = 3 THEN #{forwardUrl} WHEN API_TYPE &lt;&gt; 3 THEN #{url} END,API_CODE,#{apikey}) URL,(CASE WHEN API_TYPE = 3 THEN REQUEST_TYPE WHEN API_TYPE &lt;&gt; 3 THEN 0 END) as REQUEST_TYPE,API_TYPE,API_STATUS,PRODUCER_ID,PRODUCER_ORG_ID,CATEGORY_ID,DESCRIPTION,SHARE_LEVEL,
+    CHECK_STATUS,PARMS_FLAG,EXPIRE_FLAG,EXPIRE_TIME FROM DC_INFORMATION_API WHERE ID = #{id}
+  </select>
+
+  <!--        生产者获取api正常、异常、总数量          -->
+  <select id="countApiStatusAndNum" resultType="java.util.HashMap">
+    SELECT SUM(CASE WHEN T.API_STATUS = 0 and (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL) THEN 1 ELSE 0 END ) useCount,
+           SUM(CASE WHEN T.API_STATUS = 1 and (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL) THEN 1 ELSE 0 END ) errorCount,
+           (SELECT COUNT(1) FROM DC_INFORMATION_API WHERE EXPIRE_TIME &lt; NOW() AND DELETE_FLAG = 0 and PRODUCER_ID = #{userId}) AS expireCount,
+           COUNT(1) COUNT FROM DC_INFORMATION_API T WHERE T.DELETE_FLAG = 0 and PRODUCER_ID = #{userId}
+  </select>
+
+  <!--        v2获取消费者api总数、未申请、申请中、开放、已授权个数          -->
+  <select id="countConsumerApi" resultType="java.util.HashMap">
+    SELECT SUM(CASE WHEN t.SHARE_LEVEL != 2 AND t.delete_flag = 0 THEN 1 ELSE 0 END) as count,
+            (SELECT count(1) FROM DC_INFORMATION_API WHERE SHARE_LEVEL = 0 AND DELETE_FLAG = 0 AND ID NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE LIMT_TYPE = 1 AND USERID = #{userId})) open,
+           <!--SUM(CASE WHEN t.SHARE_LEVEL = 0 THEN 1 ELSE 0 END) as open,-->
+           (SELECT count(1) FROM DC_INFORMATION_API WHERE SHARE_LEVEL != 2 AND DELETE_FLAG = 0 AND SHARE_LEVEL != 0 AND (ID NOT IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE LIMT_TYPE = 1 AND USERID = #{userId}) or id in (SELECT
+    APIID
+    FROM
+    DC_API_NUM_LIMT
+    WHERE
+    USERID = #{userId} and AUDIT_STATUS = 4 AND LIMT_TYPE = 1))) as noapply,
+           (SELECT count(1) FROM DC_INFORMATION_API WHERE SHARE_LEVEL != 2 AND DELETE_FLAG = 0 AND ID IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 3 and LIMT_TYPE = 1 AND USERID = #{userId})) as applying,
+           (SELECT count(1) FROM DC_INFORMATION_API WHERE SHARE_LEVEL != 2 AND DELETE_FLAG = 0 AND ID IN (SELECT APIID FROM DC_API_NUM_LIMT WHERE AUDIT_STATUS = 1 and LIMT_TYPE = 1 AND USERID = #{userId})) as empower
+    FROM DC_INFORMATION_API t
+  </select>
+
+  <!--        根据apicode获取api基本信息          -->
+  <select id="getApiInformationByCode" resultType="java.util.HashMap">
+      select * from DC_INFORMATION_API where delete_flag = 0 and API_CODE = #{code} order by idt desc limit 1
+  </select>
+
+  <!--       定时任务监控api过期时间并且更新EXPIRE_FLAG      -->
+  <update id="updateApiExpireStatus" >
+    UPDATE DC_INFORMATION_API SET EXPIRE_FLAG = 1 WHERE DELETE_FLAG = 0 AND EXPIRE_TIME &lt; NOW()
+  </update>
+  <!--     2.0统计管理者下委办局和各委办局下api数量和部门数量      -->
+  <select id="countDeptAndApi" resultType="java.util.HashMap">
+
+  </select>
+
+  <select id="countApiByCode" resultType="java.lang.Integer">
+    select count(1) from dc_information_api t where t.PRODUCER_ORG_ID in (SELECT id deptId FROM (SELECT t1.*,IF (find_in_set(parent_id, @pids) > 0,@pids := concat(@pids, ',', code),'0') AS ischild
+    FROM (SELECT * FROM lp_dept t where t.state = 1 ORDER BY parent_id,code ) t1,(SELECT @pids := #{code}) t2 ) t3 WHERE ischild != '0' union all select id deptId from lp_dept where code = #{code}) and t.delete_flag = 0 and t.share_level &lt;&gt; 2
+  </select>
+  
+  <select id="checkOpenApi" resultType="java.lang.String">
+    select id from dc_information_api where share_level = 0 and id IN 
+    <foreach collection="lowStr" index="index" item="lowStr" open="(" separator="," close=")">
+      #{lowStr}
+    </foreach>
+  </select>
+
+  <select id="getBatchInformationApi" resultMap="BaseResultMap">
+    select * from dc_information_api where 1=1 and delete_flag = 0 and id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  
+  <select id="getTestListByType" resultType="java.util.Map">
+      select
+      <if test="key != null and key != ''">
+        <if test="key == 'uses'.toString()">
+          api_code apiCode,api_name apiName from dc_information_api where API_STATUS = 0 and delete_flag = 0 and PRODUCER_ID = #{userId} and (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL)
+        </if>
+        <if test="key == 'error'.toString()">
+          api_code apiCode,api_name apiName from dc_information_api where API_STATUS = 1 and delete_flag = 0 and PRODUCER_ID = #{userId} and (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL)
+        </if>
+        <if test="key == 'expire'.toString()">
+          api_code apiCode,api_name apiName from dc_information_api WHERE EXPIRE_TIME &lt; NOW() AND DELETE_FLAG = 0 and PRODUCER_ID = #{userId}
+        </if>
+        <!-- 调用失败列表 近一周每日失败次数-->
+        <if test="key == 'callfail'.toString()">
+          rq.xq as date,IFNULL(l.count,0) count from(
+            SELECT curdate() AS xq UNION ALL SELECT date_sub(curdate(), INTERVAL 1 DAY) AS xq UNION ALL
+             SELECT date_sub(curdate(), INTERVAL 2 DAY) AS xq UNION ALL
+             SELECT date_sub(curdate(), INTERVAL 3 DAY) AS xq UNION ALL
+             SELECT date_sub(curdate(), INTERVAL 4 DAY) AS xq UNION ALL
+             SELECT date_sub(curdate(), INTERVAL 5 DAY) AS xq UNION ALL
+             SELECT date_sub(curdate(), INTERVAL 6 DAY) AS xq) rq LEFT JOIN
+          (select date(idt) as datetime,count(1) as count from lp_order_info where RC6 = '1' AND SERVICE_ID
+          in (select id from dc_information_api where delete_flag = 0 and PRODUCER_ID = #{userId}) and STATUS = 2 GROUP BY date(idt)) l
+          on rq.xq = l.datetime order by rq.xq
+        </if>
+        <if test="key == 'calls'.toString()">
+          rq.xq as date,IFNULL(l.count,0) count from(
+          SELECT curdate() AS xq UNION ALL SELECT date_sub(curdate(), INTERVAL 1 DAY) AS xq UNION ALL
+          SELECT date_sub(curdate(), INTERVAL 2 DAY) AS xq UNION ALL
+          SELECT date_sub(curdate(), INTERVAL 3 DAY) AS xq UNION ALL
+          SELECT date_sub(curdate(), INTERVAL 4 DAY) AS xq UNION ALL
+          SELECT date_sub(curdate(), INTERVAL 5 DAY) AS xq UNION ALL
+          SELECT date_sub(curdate(), INTERVAL 6 DAY) AS xq) rq LEFT JOIN
+          (select date(idt) as datetime,count(1) as count from lp_order_info where RC6 = '1' AND SERVICE_ID
+          in (select id from dc_information_api where delete_flag = 0 and PRODUCER_ID = #{userId}) GROUP BY date(idt)) l
+          on rq.xq = l.datetime order by rq.xq
+        </if>
+      </if>
+  </select>
+
+  <select id="countMonitorData" resultType="java.util.HashMap">
+    SELECT SUM(CASE WHEN T.API_STATUS = 0 and (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL) THEN 1 ELSE 0 END ) as uses,
+    SUM(CASE WHEN T.API_STATUS = 1 and (EXPIRE_TIME > NOW() OR EXPIRE_TIME IS NULL) THEN 1 ELSE 0 END ) error,
+    (SELECT COUNT(1) FROM DC_INFORMATION_API WHERE EXPIRE_TIME &lt; NOW() AND DELETE_FLAG = 0 and PRODUCER_ID = #{userId}) AS expire,
+    (select count(1) from lp_order_info where RC6 = '1' AND SERVICE_ID in (select id from dc_information_api where delete_flag = 0 and PRODUCER_ID = #{userId}) and STATUS = 2) as callfail,
+    (select count(1) from lp_order_info where RC6 = '1' AND SERVICE_ID in (select id from dc_information_api where delete_flag = 0 and PRODUCER_ID = #{userId})) as calls,
+    (select FLOOR(AVG(RC8)) from lp_order_info where RC6 = '1' AND SERVICE_ID in (select id from dc_information_api where delete_flag = 0 and PRODUCER_ID = #{userId}) and STATUS != 2) as reptime
+    FROM DC_INFORMATION_API T WHERE T.DELETE_FLAG = 0 and PRODUCER_ID = #{userId}
+  </select>
+  
+  <select id="checkJoinApi" resultMap="BaseResultMap">
+      select id,API_NAME,API_CODE from dc_information_api where DELETE_FLAG = 0 and id IN
+      <foreach collection="apis" index="index" item="apis" open="(" separator="," close=")">
+        #{apis}
+      </foreach>
+  </select>
+
+  <!--根据主键查询api的部分信息-->
+  <select id="getApiInformationByApis" resultType="java.util.Map">
+    SELECT id,API_NAME apiName,API_CODE apiCode,DELETE_FLAG deleteFlag FROM dc_information_api WHERE ID IN
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <!--获取app包含api详情-->
+  <select id="getAppDetailByAppId" resultMap="BaseResultMap">
+    SELECT t.id,t.API_NAME,t.API_CODE,t.REQUEST_TYPE,t.DELETE_FLAG,t.URL,t.SHARE_LEVEL FROM DC_APP_API_MAP m LEFT JOIN DC_INFORMATION_API t on m.APIID = t.id WHERE APPID = #{id}
+  </select>
+
+  <!--根据所选目录code获取api列表(分页)-->
+  <select id="getApiListByResourceCode" resultMap="BaseResultMap">
+    <include refid="MySqlDialectPrefix" />
+    select ID,API_NAME,API_CODE,DESCRIPTION FROM dc_information_api WHERE FIND_IN_SET(#{code},CATEGORY_ID) > 0 AND DELETE_FLAG = 0 AND SHARE_LEVEL &lt;&gt; 2
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--根据apiId集合查询总被调用次数-->
+  <select id="countOrderByApiId" resultType="int">
+    SELECT count(1) FROM lp_order_info WHERE SERVICE_ID IN
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <select id="getApiIdByDeptCode" resultMap="BaseResultMap">
+    select t.* from dc_information_api t where 1=1
+     <if test="deptCode != null and deptCode != ''">
+       and t.PRODUCER_ORG_ID in (SELECT id deptId FROM (SELECT t1.*,IF (find_in_set(parent_id, @pids) > 0,@pids := concat(@pids, ',', code),'0') AS ischild
+       FROM (SELECT * FROM lp_dept t where t.state = 1 ORDER BY parent_id,code ) t1,(SELECT @pids := #{deptCode}) t2 ) t3 WHERE ischild != '0' union all select id deptId from lp_dept where code = #{deptCode})
+     </if>
+      and t.delete_flag = 0 and t.share_level &lt;&gt; 2
+  </select>
+
+</mapper>

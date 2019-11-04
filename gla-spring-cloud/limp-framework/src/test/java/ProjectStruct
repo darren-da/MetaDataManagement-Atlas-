@@ -1,0 +1,63 @@
+架构设计：
+
+limp-framework:设计原则必须遵循RESTful Api原则
+   1、 RESTful架构，是目前最流行的一种互联网软件架构。它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用
+   2、 REST的名称"表现层状态转化"中，省略了主语。"表现层"其实指的是"资源"（Resources）的"表现层"。
+    资源：所谓"资源"，就是网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，
+     总之就是一个具体的实在。你可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的URI。要获取这个资源，访问它的URI就可以，因此URI就成了每一个资源的地址或独一无二的识别符
+   3、表现层："资源"是一种信息实体，它可以有多种外在表现形式。我们把"资源"具体呈现出来的形式，叫做它的"表现
+   4、状态转化：访问一个网站，就代表了客户端和服务器的一个互动过程。在这个过程中，势必涉及到数据和状态的变化。
+          互联网通信协议HTTP协议，是一个无状态协议。这意味着，所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生"状态转化"（State Transfer）。而这种转化是建立在表现层之上的，所以就是"表现层状态转化"。
+          客户端用到的手段，只能是HTTP协议。具体来说，就是HTTP协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：GET用来获取资源，POST用来新建资源（也可以用于更新资源），PUT用来更新资源，DELETE用来删除资源。
+   5、  综述
+     综合上面的解释，我们总结一下什么是RESTful架构：
+     　　（1）每一个URI代表一种资源；
+     　　（2）客户端和服务器之间，传递这种资源的某种表现层；
+     　　（3）客户端通过四个HTTP动词，对服务器端资源进行操作，实现"表现层状态转化
+   6、、误区
+     RESTful架构有一些典型的设计误区。
+     最常见的一种设计错误，就是URI包含动词。因为"资源"表示一种实体，所以应该是名词，URI不应该有动词，动词应该放在HTTP协议中。
+     举例来说，某个URI是/posts/show/1，其中show是动词，这个URI就设计错了，正确的写法应该是/posts/1，然后用GET方法表示show。
+     如果某些动作是HTTP动词表示不了的，你就应该把动作做成一种资源。比如网上汇款，从账户1向账户2汇款500元，错误的URI是：
+     　　POST /accounts/1/transfer/500/to/2
+     正确的写法是把动词transfer改成名词transaction，资源不能是动词，但是可以是一种服务：
+     　　POST /transaction HTTP/1.1
+     　　Host: 127.0.0.1
+     　　
+     　　from=1&to=2&amount=500.00
+     另一个设计误区，就是在URI中加入版本号：
+
+     　　http://www.example.com/app/1.0/foo
+
+     　　http://www.example.com/app/1.1/foo
+
+     　　http://www.example.com/app/2.0/foo
+
+     　　因为不同的版本，可以理解成同一种资源的不同表现形式，所以应该采用同一个URI。版本号可以在HTTP请求头信息的Accept字段中进行区分（参见Versioning REST Services）：
+
+     　　Accept: vnd.example-com.foo+json; version=1.0
+
+     　　Accept: vnd.example-com.foo+json; version=1.1
+
+     　　Accept: vnd.example-com.foo+json; version=2.0
+     原文：https://blog.csdn.net/garfielder007/article/details/54695272
+
+   7、常用设计
+     使用HTTP动词表示增删改查资源， GET：查询，  POST：新增，PUT：更新，DELETE：删除
+     返回结果必须使用JSON
+     HTTP状态码，在REST中都有特定的意义：200，201,202,204,400,401,403,500。比如401表示用户身份认证失败，403表示你验证身份通过了，但这个资源你不能操作。
+
+     1）资源过滤
+     在获取资源的时候，有可能需要获取某些“过滤”后的资源，例如指定前10行数据
+     http://api.user.com/schools/grades/classes/boys?page=1&page-size=10
+
+    2） 下面是一些例子。
+
+     GET /zoos：列出所有动物园
+     POST /zoos：新建一个动物园
+     GET /zoos/ID：获取某个指定动物园的信息
+     PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）
+     PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）
+     DELETE /zoos/ID：删除某个动物园
+     GET /zoos/ID/animals：列出某个指定动物园的所有动物
+     DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物

@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+  com.gla.datacenter.initialize.JwtApplicationContextInitializer

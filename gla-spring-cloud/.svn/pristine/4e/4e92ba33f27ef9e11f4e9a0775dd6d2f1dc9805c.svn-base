@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.MonitorDataMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.MonitorData" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MONITOR_TYPE" property="monitorType" jdbcType="INTEGER" />
+    <result column="NUM" property="num" jdbcType="INTEGER" />
+    <result column="BATCH" property="batch" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="ROLE_TYPE" property="roleType" jdbcType="INTEGER" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="INTEGER" />
+    <result column="RC6" property="rc6" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gla.datacenter.domain.MonitorData" extends="BaseResultMap" >
+    <result column="RESULT" property="result" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MONITOR_TYPE, NUM, BATCH, USER_ID, ROLE_TYPE, IDT, RC1, RC2, RC3, RC4, RC5, RC6
+  </sql>
+  <sql id="Blob_Column_List" >
+    RESULT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gla.datacenter.domain.MonitorDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_monitor_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.MonitorDataExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_monitor_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.MonitorDataExample" >
+    delete from dc_monitor_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.MonitorData" >
+    insert into dc_monitor_data (ID, MONITOR_TYPE, NUM, 
+      BATCH, USER_ID, ROLE_TYPE, 
+      IDT, RC1, RC2, RC3, 
+      RC4, RC5, RC6, RESULT
+      )
+    values (#{id,jdbcType=VARCHAR}, #{monitorType,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{batch,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{roleType,jdbcType=INTEGER}, 
+      #{idt,jdbcType=TIMESTAMP}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR}, 
+      #{rc4,jdbcType=INTEGER}, #{rc5,jdbcType=INTEGER}, #{rc6,jdbcType=TIMESTAMP}, #{result,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.MonitorData" >
+    insert into dc_monitor_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="monitorType != null" >
+        MONITOR_TYPE,
+      </if>
+      <if test="num != null" >
+        NUM,
+      </if>
+      <if test="batch != null" >
+        BATCH,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="roleType != null" >
+        ROLE_TYPE,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        #{monitorType,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=INTEGER},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.MonitorDataExample" resultType="java.lang.Integer" >
+    select count(*) from dc_monitor_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_monitor_data
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorType != null" >
+        MONITOR_TYPE = #{record.monitorType,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null" >
+        NUM = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.batch != null" >
+        BATCH = #{record.batch,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleType != null" >
+        ROLE_TYPE = #{record.roleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.result != null" >
+        RESULT = #{record.result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dc_monitor_data
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MONITOR_TYPE = #{record.monitorType,jdbcType=INTEGER},
+      NUM = #{record.num,jdbcType=INTEGER},
+      BATCH = #{record.batch,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      ROLE_TYPE = #{record.roleType,jdbcType=INTEGER},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=INTEGER},
+      RC6 = #{record.rc6,jdbcType=TIMESTAMP},
+      RESULT = #{record.result,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_monitor_data
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MONITOR_TYPE = #{record.monitorType,jdbcType=INTEGER},
+      NUM = #{record.num,jdbcType=INTEGER},
+      BATCH = #{record.batch,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      ROLE_TYPE = #{record.roleType,jdbcType=INTEGER},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=INTEGER},
+      RC6 = #{record.rc6,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--        自定义sql开始      -->
+  <select id="getNewVersionByUserId" resultType="java.lang.Integer">
+    select BATCH from DC_MONITOR_DATA where USER_ID = #{userId} order by BATCH desc limit 1
+  </select>
+</mapper>

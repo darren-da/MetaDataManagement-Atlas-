@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>码表列表</title>
+	<!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/zTreeStyle/zTreeStyle.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">码表管理</a>
+        <a>
+          <cite>码表列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="codeTableMain">
+
+			<div style="padding: 20px; background-color: #F2F2F2;">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md3">
+						<div class="layui-card lpcard">
+							<div class="layui-card-header lpcard-head">码表管理<i class="layui-icon" style="line-height:30px">ဂ</i></div>
+							<div class="layui-card-body">
+								<div class="TreeDemoBackground left" style="height: 640px; overflow: auto;padding-left: 5px;">
+									<ul id="treeDemo" class="ztree"></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-md9">
+						<div class="layui-card">
+							<div class="layui-card-header">码表列表</div>
+							<div class="layui-card-body">
+
+								<div class="layui-row table-search">
+
+									<div class="layui-form layui-col-md12 we-search">
+
+										<div class="layui-inline">
+											<input type="text" id="perms_serach_code" placeholder="请输入码表编号" autocomplete="off" class="layui-input">
+										</div>
+
+										<div class="layui-inline">
+											<input type="text" id="perms_serach_name" placeholder="请输入码表名称" autocomplete="off" class="layui-input">
+										</div>
+
+										<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+									</div>
+								</div>
+
+								<!--测试区域-->
+								<div class="weadmin-block table-tools">
+									<!--<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>-->
+									<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+									<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+								</div>
+								<table class="layui-form layui-table" id="codeTable">
+
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!--*********************模板部分**begin************************-->
+		<script type="text/template" id="tkAddCode">
+			<div class="weadmin-body">
+				<form class="layui-form lpform-2clo" lay-filter="addFilter">
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							<span class="lp-red">*</span>码表名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="dictdataName"  lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							上级码表编号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="dictdataPvalue"  readonly="readonly"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							码表编号
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="dictdataValue"   autocomplete="off" class="layui-input">
+						</div>
+
+						<label  class="layui-form-label">
+							码表介绍
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="dictIntro"   autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item" style="float: right;">
+						<input type="hidden" name="id" />
+						<input type="hidden" id="fId" name="parentId" value=""/>
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+
+
+				</form>
+			</div>
+		</script>
+
+
+
+		<!--*********************模板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_code.js}"></script>
+
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.core.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.excheck.js}"></script>
+		<script  th:src="@{/systemsite/plug/ztree/js/jquery.ztree.exedit.js}"></script>
+
+	</body>
+
+
+
+</html>

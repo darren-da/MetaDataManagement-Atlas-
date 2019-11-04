@@ -1,0 +1,36 @@
+﻿@charset "UTF-8";
+
+#foraspcn{width: 80.5% !important;z-index:999;    position: absolute;  top: 50px!important;  left: 15px !important;list-style:none;display:none;    border-top: 0;    margin-left: 41px;
+    background:#F8F8F8;font-size: 14px;    border: 3px solid #3194c8; width:90%;text-align: left;}
+#foraspcn li{padding-right:0px;cursor:default;padding-left:25px;line-height: 29px;width:99.5% !important;}
+#foraspcn li:first-child{padding-top: 5px;    border-radius: 10px;}
+
+#foraspcn1{width: 80.5% !important;z-index:999;    position: absolute;  top: 50px!important;  left: 15px !important;list-style:none;display:none;    border-top: 0;    margin-left: 41px;
+    background:#F8F8F8;font-size: 14px;    border: 3px solid #3194c8; width:90%;text-align: left;}
+#foraspcn1 li{padding-right:0px;cursor:default;padding-left:25px;line-height: 29px;width:99.5% !important;}
+#foraspcn1 li:first-child{padding-top: 5px;    border-radius: 10px;}
+
+#foraspcn2{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn2 li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn3{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn3 li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn4{z-index:999;list-style:none;display:none; background:#F8F8F8;    border-radius: 10px;}
+#foraspcn4 li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn5{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn5 li{padding-right:0px;cursor:default;padding-left:5px;}
+
+#foraspcn6{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn6 li{padding-right:0px;cursor:default;padding-left:5px;}
+
+#foraspcn_index{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn_index li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn_index1{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn_index1 li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn_index2{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn_index2 li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn_index3{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn_index3 li{padding-right:0px;cursor:default;padding-left:5px;}
+#foraspcn_index4{z-index:999;list-style:none;display:none; background:#F8F8F8;}
+#foraspcn_index4 li{padding-right:0px;cursor:default;padding-left:5px;}
+
+

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.TagsLibMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.TagsLib" >
+    <id column="LTL_KEY" property="key" jdbcType="VARCHAR" />
+    <result column="LTL_PKEY" property="pkey" jdbcType="VARCHAR" />
+    <result column="LTL_INTRO" property="intro" jdbcType="VARCHAR" />
+    <result column="LTL_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="LTL_TYPE" property="type" jdbcType="INTEGER" />
+    <result column="LTL_TAGNUM" property="tagnum" jdbcType="INTEGER" />
+    <result column="LTL_ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+    <result column="LTL_STATE" property="state" jdbcType="INTEGER" />
+    <result column="LTL_AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="LTL_LV" property="lv" jdbcType="INTEGER" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC6" property="rc6" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="LTL_HREF" property="href" jdbcType="VARCHAR" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="LTL_FOCNUM" property="focnum" jdbcType="INTEGER" />
+    <result column="LTL_READNUM" property="readnum" jdbcType="INTEGER" />
+    <result column="LTL_IMGSRC" property="imgsrc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LTL_KEY, LTL_PKEY, LTL_INTRO, LTL_NAME, LTL_TYPE, LTL_TAGNUM, LTL_ORDER_NO, LTL_STATE,
+    LTL_AUTHOR, IDT, LTL_LV, RC1, RC2, RC6, RC5, RC4, RC3, LTL_HREF, UDT, LTL_FOCNUM,
+    LTL_READNUM, LTL_IMGSRC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.TagsLibExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_tags_lib
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from lp_tags_lib
+    where LTL_KEY = #{key,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_tags_lib
+    where LTL_KEY = #{key,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.TagsLibExample" >
+    delete from lp_tags_lib
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.TagsLib" >
+    insert into lp_tags_lib (LTL_KEY, LTL_PKEY, LTL_INTRO,
+    LTL_NAME, LTL_TYPE, LTL_TAGNUM,
+    LTL_ORDER_NO, LTL_STATE, LTL_AUTHOR,
+    IDT, LTL_LV, RC1, RC2,
+    RC6, RC5, RC4, RC3,
+    LTL_HREF, UDT, LTL_FOCNUM,
+    LTL_READNUM, LTL_IMGSRC)
+    values (#{key,jdbcType=VARCHAR}, #{pkey,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR},
+    #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{tagnum,jdbcType=INTEGER},
+    #{orderNo,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR},
+    #{idt,jdbcType=TIMESTAMP}, #{lv,jdbcType=INTEGER}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR},
+    #{rc6,jdbcType=INTEGER}, #{rc5,jdbcType=VARCHAR}, #{rc4,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR},
+    #{href,jdbcType=VARCHAR}, #{udt,jdbcType=TIMESTAMP}, #{focnum,jdbcType=INTEGER},
+    #{readnum,jdbcType=INTEGER}, #{imgsrc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.TagsLib" >
+    insert into lp_tags_lib
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="key != null" >
+        LTL_KEY,
+      </if>
+      <if test="pkey != null" >
+        LTL_PKEY,
+      </if>
+      <if test="intro != null" >
+        LTL_INTRO,
+      </if>
+      <if test="name != null" >
+        LTL_NAME,
+      </if>
+      <if test="type != null" >
+        LTL_TYPE,
+      </if>
+      <if test="tagnum != null" >
+        LTL_TAGNUM,
+      </if>
+      <if test="orderNo != null" >
+        LTL_ORDER_NO,
+      </if>
+      <if test="state != null" >
+        LTL_STATE,
+      </if>
+      <if test="author != null" >
+        LTL_AUTHOR,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="lv != null" >
+        LTL_LV,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="href != null" >
+        LTL_HREF,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="focnum != null" >
+        LTL_FOCNUM,
+      </if>
+      <if test="readnum != null" >
+        LTL_READNUM,
+      </if>
+      <if test="imgsrc != null" >
+        LTL_IMGSRC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="key != null" >
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="pkey != null" >
+        #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="tagnum != null" >
+        #{tagnum,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lv != null" >
+        #{lv,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="focnum != null" >
+        #{focnum,jdbcType=INTEGER},
+      </if>
+      <if test="readnum != null" >
+        #{readnum,jdbcType=INTEGER},
+      </if>
+      <if test="imgsrc != null" >
+        #{imgsrc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.TagsLibExample" resultType="java.lang.Integer" >
+    select count(*) from lp_tags_lib
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_tags_lib
+    <set >
+      <if test="record.key != null" >
+        LTL_KEY = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pkey != null" >
+        LTL_PKEY = #{record.pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intro != null" >
+        LTL_INTRO = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        LTL_NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        LTL_TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.tagnum != null" >
+        LTL_TAGNUM = #{record.tagnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNo != null" >
+        LTL_ORDER_NO = #{record.orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        LTL_STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null" >
+        LTL_AUTHOR = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lv != null" >
+        LTL_LV = #{record.lv,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.href != null" >
+        LTL_HREF = #{record.href,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.focnum != null" >
+        LTL_FOCNUM = #{record.focnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.readnum != null" >
+        LTL_READNUM = #{record.readnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgsrc != null" >
+        LTL_IMGSRC = #{record.imgsrc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_tags_lib
+    set LTL_KEY = #{record.key,jdbcType=VARCHAR},
+    LTL_PKEY = #{record.pkey,jdbcType=VARCHAR},
+    LTL_INTRO = #{record.intro,jdbcType=VARCHAR},
+    LTL_NAME = #{record.name,jdbcType=VARCHAR},
+    LTL_TYPE = #{record.type,jdbcType=INTEGER},
+    LTL_TAGNUM = #{record.tagnum,jdbcType=INTEGER},
+    LTL_ORDER_NO = #{record.orderNo,jdbcType=INTEGER},
+    LTL_STATE = #{record.state,jdbcType=INTEGER},
+    LTL_AUTHOR = #{record.author,jdbcType=VARCHAR},
+    IDT = #{record.idt,jdbcType=TIMESTAMP},
+    LTL_LV = #{record.lv,jdbcType=INTEGER},
+    RC1 = #{record.rc1,jdbcType=VARCHAR},
+    RC2 = #{record.rc2,jdbcType=VARCHAR},
+    RC6 = #{record.rc6,jdbcType=INTEGER},
+    RC5 = #{record.rc5,jdbcType=VARCHAR},
+    RC4 = #{record.rc4,jdbcType=VARCHAR},
+    RC3 = #{record.rc3,jdbcType=VARCHAR},
+    LTL_HREF = #{record.href,jdbcType=VARCHAR},
+    UDT = #{record.udt,jdbcType=TIMESTAMP},
+    LTL_FOCNUM = #{record.focnum,jdbcType=INTEGER},
+    LTL_READNUM = #{record.readnum,jdbcType=INTEGER},
+    LTL_IMGSRC = #{record.imgsrc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limp.framework.boss.domain.TagsLib" >
+    update lp_tags_lib
+    <set >
+      <if test="pkey != null" >
+        LTL_PKEY = #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        LTL_INTRO = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        LTL_NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        LTL_TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="tagnum != null" >
+        LTL_TAGNUM = #{tagnum,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        LTL_ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        LTL_STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        LTL_AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lv != null" >
+        LTL_LV = #{lv,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        RC6 = #{rc6,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        RC5 = #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        LTL_HREF = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="focnum != null" >
+        LTL_FOCNUM = #{focnum,jdbcType=INTEGER},
+      </if>
+      <if test="readnum != null" >
+        LTL_READNUM = #{readnum,jdbcType=INTEGER},
+      </if>
+      <if test="imgsrc != null" >
+        LTL_IMGSRC = #{imgsrc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LTL_KEY = #{key,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limp.framework.boss.domain.TagsLib" >
+    update lp_tags_lib
+    set LTL_PKEY = #{pkey,jdbcType=VARCHAR},
+    LTL_INTRO = #{intro,jdbcType=VARCHAR},
+    LTL_NAME = #{name,jdbcType=VARCHAR},
+    LTL_TYPE = #{type,jdbcType=INTEGER},
+    LTL_TAGNUM = #{tagnum,jdbcType=INTEGER},
+    LTL_ORDER_NO = #{orderNo,jdbcType=INTEGER},
+    LTL_STATE = #{state,jdbcType=INTEGER},
+    LTL_AUTHOR = #{author,jdbcType=VARCHAR},
+    IDT = #{idt,jdbcType=TIMESTAMP},
+    LTL_LV = #{lv,jdbcType=INTEGER},
+    RC1 = #{rc1,jdbcType=VARCHAR},
+    RC2 = #{rc2,jdbcType=VARCHAR},
+    RC6 = #{rc6,jdbcType=INTEGER},
+    RC5 = #{rc5,jdbcType=VARCHAR},
+    RC4 = #{rc4,jdbcType=VARCHAR},
+    RC3 = #{rc3,jdbcType=VARCHAR},
+    LTL_HREF = #{href,jdbcType=VARCHAR},
+    UDT = #{udt,jdbcType=TIMESTAMP},
+    LTL_FOCNUM = #{focnum,jdbcType=INTEGER},
+    LTL_READNUM = #{readnum,jdbcType=INTEGER},
+    LTL_IMGSRC = #{imgsrc,jdbcType=VARCHAR}
+    where LTL_KEY = #{key,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

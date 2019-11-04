@@ -1,0 +1,6 @@
+#指定日志级别
+logging:
+  level:
+    com.gla.datacenter: debug
+#redis配置
+

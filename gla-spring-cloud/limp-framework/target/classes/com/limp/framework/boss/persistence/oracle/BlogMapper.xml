@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.BlogMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.Blog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="INTRO" property="intro" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="ORDERNO" property="orderno" jdbcType="INTEGER" />
+    <result column="TAGS" property="tags" jdbcType="VARCHAR" />
+    <result column="CATANAME" property="cataname" jdbcType="VARCHAR" />
+    <result column="TITLEMD5" property="titlemd5" jdbcType="VARCHAR" />
+    <result column="BLOG_TYPE" property="blogType" jdbcType="INTEGER" />
+    <result column="SOURCE_URL" property="sourceUrl" jdbcType="VARCHAR" />
+    <result column="SOURCE_AUTHOR" property="sourceAuthor" jdbcType="VARCHAR" />
+    <result column="SOURCE_READNO" property="sourceReadno" jdbcType="INTEGER" />
+    <result column="COVER_IMG_PATH" property="coverImgPath" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="VARCHAR" />
+    <result column="RC6" property="rc6" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.limp.framework.boss.domain.Blog" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, TITLE, INTRO, USERID, IDT, UDT, STATE, ORDERNO, TAGS, CATANAME, TITLEMD5, BLOG_TYPE, 
+    SOURCE_URL, SOURCE_AUTHOR, SOURCE_READNO, COVER_IMG_PATH, RC1, RC2, RC3, RC4, RC5, 
+    RC6
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.limp.framework.boss.domain.BlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lp_blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.BlogExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lp_blog
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_blog
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.BlogExample" >
+    delete from lp_blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.Blog" >
+    insert into lp_blog (ID, TITLE, INTRO, 
+      USERID, IDT, UDT, 
+      STATE, ORDERNO, TAGS, 
+      CATANAME, TITLEMD5, BLOG_TYPE, 
+      SOURCE_URL, SOURCE_AUTHOR, SOURCE_READNO, 
+      COVER_IMG_PATH, RC1, RC2, 
+      RC3, RC4, RC5, RC6, 
+      CONTENT)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, #{udt,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{orderno,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR}, 
+      #{cataname,jdbcType=VARCHAR}, #{titlemd5,jdbcType=VARCHAR}, #{blogType,jdbcType=INTEGER}, 
+      #{sourceUrl,jdbcType=VARCHAR}, #{sourceAuthor,jdbcType=VARCHAR}, #{sourceReadno,jdbcType=INTEGER}, 
+      #{coverImgPath,jdbcType=VARCHAR}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, 
+      #{rc3,jdbcType=VARCHAR}, #{rc4,jdbcType=INTEGER}, #{rc5,jdbcType=VARCHAR}, #{rc6,jdbcType=DATE}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.Blog" >
+    insert into lp_blog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="intro != null" >
+        INTRO,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="orderno != null" >
+        ORDERNO,
+      </if>
+      <if test="tags != null" >
+        TAGS,
+      </if>
+      <if test="cataname != null" >
+        CATANAME,
+      </if>
+      <if test="titlemd5 != null" >
+        TITLEMD5,
+      </if>
+      <if test="blogType != null" >
+        BLOG_TYPE,
+      </if>
+      <if test="sourceUrl != null" >
+        SOURCE_URL,
+      </if>
+      <if test="sourceAuthor != null" >
+        SOURCE_AUTHOR,
+      </if>
+      <if test="sourceReadno != null" >
+        SOURCE_READNO,
+      </if>
+      <if test="coverImgPath != null" >
+        COVER_IMG_PATH,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=INTEGER},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="cataname != null" >
+        #{cataname,jdbcType=VARCHAR},
+      </if>
+      <if test="titlemd5 != null" >
+        #{titlemd5,jdbcType=VARCHAR},
+      </if>
+      <if test="blogType != null" >
+        #{blogType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceUrl != null" >
+        #{sourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceAuthor != null" >
+        #{sourceAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceReadno != null" >
+        #{sourceReadno,jdbcType=INTEGER},
+      </if>
+      <if test="coverImgPath != null" >
+        #{coverImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=DATE},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.BlogExample" resultType="java.lang.Integer" >
+    select count(*) from lp_blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_blog
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intro != null" >
+        INTRO = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderno != null" >
+        ORDERNO = #{record.orderno,jdbcType=INTEGER},
+      </if>
+      <if test="record.tags != null" >
+        TAGS = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cataname != null" >
+        CATANAME = #{record.cataname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titlemd5 != null" >
+        TITLEMD5 = #{record.titlemd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogType != null" >
+        BLOG_TYPE = #{record.blogType,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceUrl != null" >
+        SOURCE_URL = #{record.sourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceAuthor != null" >
+        SOURCE_AUTHOR = #{record.sourceAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceReadno != null" >
+        SOURCE_READNO = #{record.sourceReadno,jdbcType=INTEGER},
+      </if>
+      <if test="record.coverImgPath != null" >
+        COVER_IMG_PATH = #{record.coverImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=DATE},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update lp_blog
+    set ID = #{record.id,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      INTRO = #{record.intro,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      STATE = #{record.state,jdbcType=INTEGER},
+      ORDERNO = #{record.orderno,jdbcType=INTEGER},
+      TAGS = #{record.tags,jdbcType=VARCHAR},
+      CATANAME = #{record.cataname,jdbcType=VARCHAR},
+      TITLEMD5 = #{record.titlemd5,jdbcType=VARCHAR},
+      BLOG_TYPE = #{record.blogType,jdbcType=INTEGER},
+      SOURCE_URL = #{record.sourceUrl,jdbcType=VARCHAR},
+      SOURCE_AUTHOR = #{record.sourceAuthor,jdbcType=VARCHAR},
+      SOURCE_READNO = #{record.sourceReadno,jdbcType=INTEGER},
+      COVER_IMG_PATH = #{record.coverImgPath,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=VARCHAR},
+      RC6 = #{record.rc6,jdbcType=DATE},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_blog
+    set ID = #{record.id,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      INTRO = #{record.intro,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      STATE = #{record.state,jdbcType=INTEGER},
+      ORDERNO = #{record.orderno,jdbcType=INTEGER},
+      TAGS = #{record.tags,jdbcType=VARCHAR},
+      CATANAME = #{record.cataname,jdbcType=VARCHAR},
+      TITLEMD5 = #{record.titlemd5,jdbcType=VARCHAR},
+      BLOG_TYPE = #{record.blogType,jdbcType=INTEGER},
+      SOURCE_URL = #{record.sourceUrl,jdbcType=VARCHAR},
+      SOURCE_AUTHOR = #{record.sourceAuthor,jdbcType=VARCHAR},
+      SOURCE_READNO = #{record.sourceReadno,jdbcType=INTEGER},
+      COVER_IMG_PATH = #{record.coverImgPath,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=VARCHAR},
+      RC6 = #{record.rc6,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limp.framework.boss.domain.Blog" >
+    update lp_blog
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        INTRO = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        ORDERNO = #{orderno,jdbcType=INTEGER},
+      </if>
+      <if test="tags != null" >
+        TAGS = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="cataname != null" >
+        CATANAME = #{cataname,jdbcType=VARCHAR},
+      </if>
+      <if test="titlemd5 != null" >
+        TITLEMD5 = #{titlemd5,jdbcType=VARCHAR},
+      </if>
+      <if test="blogType != null" >
+        BLOG_TYPE = #{blogType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceUrl != null" >
+        SOURCE_URL = #{sourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceAuthor != null" >
+        SOURCE_AUTHOR = #{sourceAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceReadno != null" >
+        SOURCE_READNO = #{sourceReadno,jdbcType=INTEGER},
+      </if>
+      <if test="coverImgPath != null" >
+        COVER_IMG_PATH = #{coverImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        RC5 = #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        RC6 = #{rc6,jdbcType=DATE},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.limp.framework.boss.domain.Blog" >
+    update lp_blog
+    set TITLE = #{title,jdbcType=VARCHAR},
+      INTRO = #{intro,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=INTEGER},
+      ORDERNO = #{orderno,jdbcType=INTEGER},
+      TAGS = #{tags,jdbcType=VARCHAR},
+      CATANAME = #{cataname,jdbcType=VARCHAR},
+      TITLEMD5 = #{titlemd5,jdbcType=VARCHAR},
+      BLOG_TYPE = #{blogType,jdbcType=INTEGER},
+      SOURCE_URL = #{sourceUrl,jdbcType=VARCHAR},
+      SOURCE_AUTHOR = #{sourceAuthor,jdbcType=VARCHAR},
+      SOURCE_READNO = #{sourceReadno,jdbcType=INTEGER},
+      COVER_IMG_PATH = #{coverImgPath,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR},
+      RC4 = #{rc4,jdbcType=INTEGER},
+      RC5 = #{rc5,jdbcType=VARCHAR},
+      RC6 = #{rc6,jdbcType=DATE},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limp.framework.boss.domain.Blog" >
+    update lp_blog
+    set TITLE = #{title,jdbcType=VARCHAR},
+      INTRO = #{intro,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=INTEGER},
+      ORDERNO = #{orderno,jdbcType=INTEGER},
+      TAGS = #{tags,jdbcType=VARCHAR},
+      CATANAME = #{cataname,jdbcType=VARCHAR},
+      TITLEMD5 = #{titlemd5,jdbcType=VARCHAR},
+      BLOG_TYPE = #{blogType,jdbcType=INTEGER},
+      SOURCE_URL = #{sourceUrl,jdbcType=VARCHAR},
+      SOURCE_AUTHOR = #{sourceAuthor,jdbcType=VARCHAR},
+      SOURCE_READNO = #{sourceReadno,jdbcType=INTEGER},
+      COVER_IMG_PATH = #{coverImgPath,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR},
+      RC4 = #{rc4,jdbcType=INTEGER},
+      RC5 = #{rc5,jdbcType=VARCHAR},
+      RC6 = #{rc6,jdbcType=DATE}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

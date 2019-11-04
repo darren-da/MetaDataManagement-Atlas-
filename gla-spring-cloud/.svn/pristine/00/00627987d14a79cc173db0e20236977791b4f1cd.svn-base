@@ -1,0 +1,37 @@
+1、前端向后端传入时间字段格式，后端接口报错；
+   在Domain增加时间时间转化即可；（是否有通用方法）
+2、动态生成的表格弹框等，layerui样式和效果不显示
+  需要重新生成下
+
+
+3、新增用戶：验证用户是否存在resultapi 风格如何写
+
+4、consumer不使用中间件 ！！！！！
+是springmvc项目web部署方式
+
+5、tamp":"2018-07-06T04:58:08.157+0000","status":405,"error":"Method Not Allowed","message":"Request method 'DELETE' not supported","path":"/system/user"}
+ 解决方案：ajax请求type类型错误，需要指定该链接正确的type类型；1、确定请求链接即url地址（重要！重要！重要！），restful风格 2、确定ajax type类型
+
+6、Layui Layer在open弹出层中异步加载数据和form表单radio、checkbox、select不渲染，不可点击的解决办法
+
+7、mybatis自动生成代码插件
+架构规范：采用rest规范
+
+https://blog.csdn.net/shunzi1046/article/details/77816941
+
+Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback LoggerContext but Logback is on the classpath. Either remove Logback or the competing implementation (class org.apache.logging.slf4j.Log4jLoggerFactory loaded from file:/E:/mavenRep/org/apache/logging/log4j/log4j-slf4j-impl/2.7/log4j-slf4j-impl-2.7.jar). If you are using WebLogic you will need to add 'org.slf4j' to prefer-application-packages in WEB-INF/weblogic.xml: org.apache.logging.slf4j.Log4jLoggerFactory
+	at org.springframework.util.Assert.instanceCheckFailed(Assert.java:389)
+	at org.springframework.util.Assert.isInstanceOf(Assert.java:327)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.getLoggerContext(LogbackLoggingSystem.java:274)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.beforeInitialize(LogbackLoggingSystem.java:98)
+	at org.springframework.boot.logging.LoggingApplicationListener.onApplicationStartingEvent(LoggingApplicationListener.java:230)
+	at org.springframework.boot.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:209)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:122)
+	at org.springframework.boot.context.event.EventPublishingRunListener.starting(EventPublishingRunListener.java:69)
+	at org.springframework.boot.SpringApplicationRunListeners.starting(SpringApplicationRunListeners.java:48)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:292)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)

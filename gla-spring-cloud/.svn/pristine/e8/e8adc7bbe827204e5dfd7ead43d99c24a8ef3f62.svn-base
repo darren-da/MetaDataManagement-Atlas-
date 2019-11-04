@@ -1,0 +1,34 @@
+package com.gla.datacenter.service;
+
+import com.gla.datacenter.domain.Command;
+import com.limp.framework.core.abs.AbstractService;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author:shinians email:shiniandate@163.com
+ * @description:
+ * @date:Created in 13:40 2018/8/18
+ * @modified By:
+ */
+public interface CommandService extends AbstractService<Command> {
+
+    List<Map<String,Object>> runCommand(String code, Map<String, String> param);
+
+    /**
+     * 获取格式之后的sql
+     * @param code
+     * @param param
+     * @return
+     */
+    public String  getFormatSqlByCode(String code, Map<String, String> param);
+
+    /**
+     * 预览sql
+     * @param sql
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> runTestSQL(String sql, Map<String, String> param);
+}

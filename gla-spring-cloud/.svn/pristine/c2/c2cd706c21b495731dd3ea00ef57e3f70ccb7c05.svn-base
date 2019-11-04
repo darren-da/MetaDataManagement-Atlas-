@@ -1,0 +1,374 @@
+package com.gla.datacenter.consumer.controller;
+
+import com.gla.datacenter.domain.DataModelManager;
+import com.gla.datacenter.domain.MasterDataManager;
+import com.gla.datacenter.domain.ModelField;
+import com.gla.datacenter.model.MDMDataModelModels;
+import com.gla.datacenter.model.ModelFieldModel;
+import com.gla.datacenter.service.MDMClientService;
+import com.limp.framework.core.annotation.Access;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @Author: zhangbo
+ * @Date: 2019/6/18 14:54
+ * @Description:
+ */
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping(value = "/mdm")
+public class MDMControllerFeign {
+
+    private Logger logger = LoggerFactory.getLogger(MDMControllerFeign.class);
+
+    @Autowired
+    private MDMClientService mdmClientService;
+
+    @Access(login = true)
+    @RequestMapping(value = "/test")
+    public String getTest(){
+        return mdmClientService.getTest();
+    }
+
+    /**
+     *
+     * 功能描述: 分页查询数据模型列表(条件查询)
+     *
+     * @param: 
+     * @param dataModelManager
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/21 11:27
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/model/list")
+    public String getDataModelListPager(DataModelManager dataModelManager){
+        return mdmClientService.getDataModelListPager(dataModelManager);
+    }
+
+    /**
+     *
+     * 功能描述: 修改数据模型
+     *
+     * @param: 
+     * @param dataModelManager
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/21 11:47
+     */
+    @Access(login = true)
+    @PutMapping(value = "/model/edit")
+    public String editDataModel(@RequestBody DataModelManager dataModelManager){
+        return mdmClientService.editDataModel(dataModelManager);
+    }
+
+    /**
+     *
+     * 功能描述: 查询数据模型详情
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/5 10:15
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/model/details/{id}")
+    public String getDataModelDetails(@PathVariable("id") String id){
+        return mdmClientService.getDataModelDetails(id);
+    }
+
+    /**
+     *
+     * 功能描述: 删除数据模型
+     *
+     * @param:
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/21 13:49
+     */
+    @Access(login = true)
+    @DeleteMapping(value = "/model/delete/{id}")
+    public String deleteDataModel(@PathVariable(value = "id") String id){
+        return mdmClientService.deleteDataModel(id);
+    }
+
+    /**
+     *
+     * 功能描述: 添加数据模型
+     *
+     * @param: 
+     * @param mdmDataModelModels
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/21 14:09
+     */
+    @Access(login = true)
+    @PostMapping(value = "/model/add")
+    public String addDataModel(@RequestBody MDMDataModelModels mdmDataModelModels){
+        return mdmClientService.addDataModel(mdmDataModelModels);
+    }
+
+    /**
+     *
+     * 功能描述: 查看数据模型草稿
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/5 13:53
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/model/draft")
+    public String getDataModelDraft(){
+        return mdmClientService.getDataModelDraft();
+    }
+
+    /**
+     *
+     * 功能描述: 查看模型包含的字段
+     *
+     * @param: 
+     * @param modelFieldModel
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/24 9:37
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/field/list")
+    public String findDataModelField(ModelFieldModel modelFieldModel){
+        return mdmClientService.findDataModelField(modelFieldModel);
+    }
+
+    /**
+     *
+     * 功能描述: 删除模型字段
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/24 10:57
+     */
+    @Access(login = true)
+    @DeleteMapping(value = "/field/delete")
+    public String deleteDataModelField(ModelField modelField){
+        return mdmClientService.deleteDataModelField(modelField);
+    }
+
+    /**
+     *
+     * 功能描述: 查询数据模型可用字段
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/5 18:39
+     */
+    @Access
+    @RequestMapping(value = "/field/canuse")
+    public String getDataModelCanUseFieldByModelId(@RequestParam("modelId") String modelId){
+
+
+        return mdmClientService.getDataModelCanUseFieldByModelId(modelId);
+    }
+
+    /**
+     *
+     * 功能描述: 更改模型字段
+     *
+     * @param: 
+     * @param modelField
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/24 11:23
+     */
+    @Access(login = true)
+    @PutMapping(value = "/field/update")
+    public String updateDataModelField(ModelField modelField){
+        return mdmClientService.updateDataModelField(modelField);
+    }
+
+    /**
+     *
+     * 功能描述: 新增模型字段
+     *
+     * @param: 
+     * @param modelField
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/24 11:54
+     */
+    @Access(login = true)
+    @PostMapping(value = "/field/add")
+    public String addDataModelField(@RequestBody ModelField modelField){
+        return mdmClientService.addDataModelField(modelField);
+    }
+
+    /**
+     *
+     * 功能描述: 主数据管理列表
+     *
+     * @param:
+     * @param masterDataManager
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/24 15:52
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/data/list")
+    public String getMDMDataListByPage(MasterDataManager masterDataManager){
+        return mdmClientService.getMDMDataListByPage(masterDataManager);
+    }
+
+    /**
+     *
+     * 功能描述: 主数据添加采集
+     *
+     * @param: 
+     * @param masterDataManager
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/25 9:13
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/data/add")
+    public String addMDMData(@RequestBody MasterDataManager masterDataManager){
+        return mdmClientService.addMDMData(masterDataManager);
+    }
+
+    /**
+     *
+     * 功能描述: 修改主数据
+     *
+     * @param: 
+     * @param masterDataManager
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/8 13:39
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/data/edit")
+    public String editMDMData(@RequestBody MasterDataManager masterDataManager){
+        return mdmClientService.editMDMData(masterDataManager);
+    }
+
+    /**
+     *
+     * 功能描述: 删除主数据管理
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/6/25 14:45
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/data/delete/{id}")
+    public String deleteMDMDate(@PathVariable("id") String id){
+        return mdmClientService.deleteMDMDate(id);
+    }
+
+    /**
+     *
+     * 功能描述: 主数据管理结果列表
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/8 9:57
+     */
+    @RequestMapping(value = "/data/data/{id}")
+    public String findMDMDate(@RequestBody Map<String, Object> map, @PathVariable("id") String id) {
+        if(map.isEmpty()){
+            map = new HashMap<>();
+        }
+        return mdmClientService.findMDMDate(id,map);
+    }
+
+    /**
+     *
+     * 功能描述: 根据模型id查询主数据包含字段
+     *
+     * @param: 
+     * @param id
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/8 10:19
+     */
+    @RequestMapping(value = "/data/field/{id}")
+    public String findMDMField(@PathVariable("id") String id){
+        return mdmClientService.findMDMField(id);
+    }
+
+    /**
+     *
+     * 功能描述: 查询元数据表列表
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/5 10:48
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/table/list")
+    public String getTableNameList(@RequestParam(value = "database",required = false) String database){
+        return mdmClientService.getTableNameList(database);
+    }
+
+    /**
+     *
+     * 功能描述: 根据表明查询所有字段
+     *
+     * @param: 
+     * @param name
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/5 11:21
+     */
+    @Access(login = true)
+    @RequestMapping(value = "/table/field")
+    public String getFieldByTableName(@RequestParam(value = "database",required = false) String database,@RequestParam("name") String name){
+        return mdmClientService.getFieldByTableName(database,name);
+    }
+
+    /**
+     *
+     * 功能描述: 获取当前数据库连接所有的库(排除默认的库)
+     *
+     * @param:
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/9 16:21
+     */
+    @RequestMapping(value = "/database/list")
+    public String getDatabaseByDB(){
+        return mdmClientService.getDatabaseByDB();
+    }
+
+    /**
+     *
+     * 功能描述: 根据数据库名称和表名称查询表数据
+     *
+     * @param: 
+     * @param database
+     * @param table
+     * @param map
+     * @return: java.lang.String
+     * @author: zhangbo
+     * @date: 2019/7/10 10:30
+     */
+    @RequestMapping(value = "/database/table/data")
+    public String getTableDataByDatabaseNameAndTableName(@RequestParam("database") String database, @RequestParam("table") String table, @RequestBody Map<String, Object> map){
+        return mdmClientService.getTableDataByDatabaseNameAndTableName(database,table,map);
+    }
+
+
+}

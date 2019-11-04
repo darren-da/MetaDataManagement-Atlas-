@@ -1,0 +1,98 @@
+server: 
+  port: 8100
+  session-timeout: 18000
+  tomcat:
+    uri-encoding: utf-8
+ 
+spring: 
+  application:
+    name: datacenter-gateway
+
+logging:
+  level:
+    com.gla.datacenter: debug
+ 
+zuul:
+ # sensitive-headers: "Cookie", "Set-Cookie", "Authorization"
+  #前缀datacenter
+#  prefix: /
+  #ignored-services: provider-cloud  忽略某个微服务，*忽略说是有的微服务原地址
+  ignored-services: "*"
+  routes: 
+    provider-sys:
+      path: /api0/**
+      serviceId: provider-sys
+    provider-order:
+      path: /api1/**
+      serviceId: provider-order
+    provider-analysis:
+      path: /api2/**
+      serviceId: provider-analysis
+    provider-message:
+      path: /api3/**
+      serviceId: provider-message
+    provider-core:
+      path: /api4/**
+      serviceId: provider-core
+    plug-cache:
+      path: /api5/**
+      serviceId: plug-cache
+    provider-api-manager:
+      path: /api6/**
+      serviceId: provider-api-manager
+    provider-api:
+      path: /api7/**
+      serviceId: provider-api
+    provider-resource-catalog:
+      path: /api8/**
+      serviceId: provider-resource-catalog
+    provider-mdm:
+          path: /api9/**
+          serviceId: provider-mdm
+    demo:
+       path: /datacenter/**
+       url: http://www.webxml.com.cn
+     #  url: http://192.168.26.113:8001
+    #order.path: /provider/**
+    webservice:
+       path: /api/center/v1/**
+       #url: http://192.168.26.113:8001
+       url: http://192.168.26.112:8001
+    local:
+       path: /demo
+       url: 127.0.0.1:2181
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  ribbon:
+    eager-load:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+
+
+info:
+  app.name: datacenter
+  app.model: datacenter-zuul-gateway
+  app.desc: 数据交换平台
+  company.name: 西藏国路安科技股份有限公司
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+

@@ -1,0 +1,11 @@
+ #环境切换
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+
+#指定日志级别
+logging:
+  level:
+    com.gla.datacenter: debug

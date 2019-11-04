@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>模板列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/systemsite/plug/ztree/css/metroStyle/metroStyle.css}"/>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">模板管理</a>
+        <a>
+          <cite>模板列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="modelContentTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-inline">
+						<input type="text" id="modelContent_serach_title" placeholder="请输入模板标题" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" id="modelContent_serach_code" placeholder="请输入模板编码" autocomplete="off" class="layui-input">
+					</div>
+					<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+				</div>
+
+			</div>
+
+			<!--测试区域-->
+			<div class="weadmin-block table-tools">
+				<button class="layui-btn layui-btn-danger" @click="handleDelDomains"><i class="layui-icon"></i>批量删除</button>
+				<button class="layui-btn"  id="addF" @click="handleSaveDomain"><i class="layui-icon"></i>添加</button>
+				<span class="fr" style="line-height:40px">工具栏&nbsp;&nbsp;&nbsp;</span>
+			</div>
+			<table class="layui-form layui-table" id="modelContentTable">
+
+			</table>
+
+			<!--测试区域-->
+		</div>
+		<!--*********************魔板部分**begin************************-->
+		<script type="text/template" id="tkAddModelContent" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="addFilter">
+
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<span class="lp-red">*</span>标题
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="title" lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="code" lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							类型
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="modelType"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							排序
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="modelSort"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							参数说明
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="param"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							内容
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="content"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="lp_remarks" class="layui-form-label">
+							描述
+						</label>
+						<div class="layui-input-inline">
+							<textarea id="lp_remarks" name="intro"placeholder="请输入内容" class="layui-textarea"></textarea>
+							<!--<input type="text"  autocomplete="off" class="layui-input">-->
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<!--修改模板-->
+		<script type="text/template" id="tkUpdateModelContent" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="updateFilter">
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<span class="lp-red">*</span>标题
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="title" lay-verify="required"  autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							编码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="code" lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							类型
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="modelType"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							排序
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="modelSort"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">状态</label>
+						<div class="layui-input-inline">
+
+							<select name="status" >
+								<option value="1">正常</option>
+								<option value="-1">删除</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							参数说明
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="param"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							内容
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="content"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							描述
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="intro"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<input type="hidden"  name="id"  class="layui-input">
+
+						<label class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="updateFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+		<!--<script type="text/template" id="setModelContentPermsWin" >-->
+			<!--<div>-->
+				<!--<div class="zTreeDemoBackground  left">-->
+					<!--<ul id="treeAuthModelContent" class="ztree"></ul>-->
+				<!--</div>-->
+				<!--<input type="hidden" name="id" id="modelContentId" />-->
+			<!--</div>-->
+		<!--</script>-->
+
+		<!--*********************魔板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/systemsite/assets/static/js/sys_modelContent.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

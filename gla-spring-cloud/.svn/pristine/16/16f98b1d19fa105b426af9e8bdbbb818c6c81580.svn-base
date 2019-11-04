@@ -1,0 +1,20 @@
+server:
+  port: 8300
+
+#redis配置
+
+# application.name 很重要 eureka
+spring:
+  application:
+    name: plug-cache
+
+
+ 
+info: 
+  app.name: datacenter
+  app.model: plug-cache
+  app.desc: 数据交换平台-缓存插件
+  company.name: 西藏国路安科技股份有限公司
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+

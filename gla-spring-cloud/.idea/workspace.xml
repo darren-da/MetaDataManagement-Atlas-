@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b3acd4dd-35b9-4665-9755-bedb7bd3e6ed" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/datacenter-cloud-gateway/datacenter-cloud-gateway.iml" beforeDir="false" afterPath="$PROJECT_DIR$/datacenter-cloud-gateway/datacenter-cloud-gateway.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datacenter-provider-metadata/datacenter-provider-metadata.iml" beforeDir="false" afterPath="$PROJECT_DIR$/datacenter-provider-metadata/datacenter-provider-metadata.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datacenter-provider-resource-catalog/datacenter-provider-resource-catalog.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/limp-framework-manager/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/limp-framework-manager/src/main/resources/application-dev.yml" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/datacenter-plug-dynamic-call-api/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-cloud-api/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-cloud-eureka/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-auth-jwt-core/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-message/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-cloud-zuul-gateway/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-auth-server-jwt/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-core/target/" />
+    <ignored path="$PROJECT_DIR$/limp-framework-manager/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-cloud-core/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-metadata-manager/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-cloud-gateway/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-config-server/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-api-manager/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-metadata/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-order/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-plug-cache/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-sys-provider/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-resource-catalog/target/" />
+    <ignored path="$PROJECT_DIR$/limp-framework/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-analysis/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-mdm/target/" />
+    <ignored path="$PROJECT_DIR$/limp-framework-core/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-provider-api/target/" />
+    <ignored path="$PROJECT_DIR$/datacenter-cloud-consumer/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/db-mysql-dev.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/limp-framework-manager/src/main/java/com/limp/framework/boss/run/LpFrameStart.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="17" column="17" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/limp-framework/src/main/java/com/limp/framework/boss/service/impl/BlogServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/limp-framework-manager/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/limp-framework-manager/src/main/resources/application-dev.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datacenter-provider-metadata-solr/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/mdm-mysql-dev.yml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/rcs-mysql-dev.yml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/common-dev.yml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datacenter-provider-api-manager/src/main/resources/mybatis/mybatis.cfg.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/limp-framework-manager/src/main/resources/application-dev.yml" />
+      </list>
+    </option>
+  </component>
+  <component name="JRebelWorkspace">
+    <option name="jrebelEnabledAutocompile" value="true" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\file\mavenRep" />
+        <option name="mavenHome" value="D:/SoftWare/Maven/apache-maven-3.3.3" />
+        <option name="userSettingsFile" value="C:\Users\admin\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="datacenter-config-server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="datacenter-config-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="datacenter-config-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="datacenter-config-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="datacenter-config-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="properties" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="boss" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="boss" type="462c0819:PsiDirectoryNode" />
+              <item name="run" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gla-spring-cloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gla-spring-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="limp-framework-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FirstDemo" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.LpFrameStart">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnalysisProvider" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-analysis" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.AnalysisProvider" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-config-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.ConfigServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataCenterConsumer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-cloud-consumer" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.consumer.DataCenterConsumer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataCenterZuulApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-cloud-zuul-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.zuul.DataCenterZuulApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServerApp7001" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-cloud-eureka" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.server.EurekaServerApp7001" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GateWayRouter8100" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-cloud-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.GateWayRouter8100" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LpFrameStart" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="limp-framework-manager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.limp.framework.boss.run.LpFrameStart" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageProvider" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-message" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.MessageProvider" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MetaDataManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-metadata-manager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.MetaDataManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderProvider" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-order" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.OrderProvider" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlugCache" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-plug-cache" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.PlugCache" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProviderApi8010" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.ProviderApi8010" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProviderApiManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-api-manager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.ProviderApiManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProviderCore" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-core" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.ProviderCore" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProviderMDM" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-mdm" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.ProviderMDM" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProviderResourceCatalog" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-provider-resource-catalog" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gla.datacenter.ProviderResourceCatalog" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SysManagerProvider" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="datacenter-sys-provider" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.limp.framework.boss.SysManagerProvider" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.PlugCache" />
+      <item itemvalue="Spring Boot.ConfigServerApplication" />
+      <item itemvalue="Spring Boot.MessageProvider" />
+      <item itemvalue="Spring Boot.ProviderApiManager" />
+      <item itemvalue="Spring Boot.LpFrameStart" />
+      <item itemvalue="Spring Boot.OrderProvider" />
+      <item itemvalue="Spring Boot.DataCenterConsumer" />
+      <item itemvalue="Spring Boot.DataCenterZuulApp" />
+      <item itemvalue="Spring Boot.AnalysisProvider" />
+      <item itemvalue="Spring Boot.SysManagerProvider" />
+      <item itemvalue="Spring Boot.ProviderMDM" />
+      <item itemvalue="Spring Boot.GateWayRouter8100" />
+      <item itemvalue="Spring Boot.ProviderResourceCatalog" />
+      <item itemvalue="Spring Boot.MetaDataManager" />
+      <item itemvalue="Spring Boot.EurekaServerApp7001" />
+      <item itemvalue="Spring Boot.ProviderCore" />
+      <item itemvalue="Spring Boot.ProviderApi8010" />
+    </list>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\admin\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-auth-jwt-core" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-auth-jwt-core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-auth-server-jwt" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-auth-server-jwt" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-api" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-api" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-consumer" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-consumer" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-core" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-eureka" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-eureka" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-gateway" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-gateway" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-zuul-gateway" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-cloud-zuul-gateway" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-config-server" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-config-server" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-plug-cache" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-plug-cache" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-plug-dynamic-call-api" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-plug-dynamic-call-api" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-analysis" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-analysis" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-api" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-api" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-api-manager" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-api-manager" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-core" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-mdm" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-mdm" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-message" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-message" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-metadata" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-metadata" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-metadata-manager" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-metadata-manager" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-order" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-order" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-resource-catalog" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-provider-resource-catalog" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-sys-provider" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\datacenter-sys-provider" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\limp-framework" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\limp-framework" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\limp-framework-core" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\limp-framework-core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud\limp-framework-manager" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud\limp-framework-manager" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\IedaProject\gla-spring-cloud" />
+          <option name="myCopyRoot" value="D:\IedaProject\gla-spring-cloud" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b3acd4dd-35b9-4665-9755-bedb7bd3e6ed" name="Default" comment="" />
+      <created>1562656022039</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1562656022039</updated>
+      <workItem from="1562656023331" duration="975000" />
+      <workItem from="1562667959667" duration="576000" />
+      <workItem from="1562732458445" duration="2797000" />
+      <workItem from="1563151326393" duration="1524000" />
+      <workItem from="1564458202474" duration="1991000" />
+      <workItem from="1564467585999" duration="598000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="8461000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info id="JRebel" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Spring" order="10" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" />
+      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Problems" order="14" />
+      <window_info anchor="bottom" id="JRebel Executor" order="15" weight="0.32936078" />
+      <window_info anchor="bottom" id="JRebel Console" order="16" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="17" weight="0.32936078" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+      <window_info anchor="right" id="Maven" order="10" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-eureka/src/main/java/com/gla/datacenter/server/EurekaServerApp7001.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2179">
+          <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-consumer/src/main/java/com/gla/datacenter/consumer/utils/VerifyCodeUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3727">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-consumer/src/main/java/com/gla/datacenter/consumer/filter/AdminExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="40" column="52" selection-start-line="40" selection-start-column="52" selection-end-line="40" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-consumer/src/main/java/com/gla/datacenter/consumer/config/Swagger2Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-zuul-gateway/src/main/java/com/gla/datacenter/zuul/config/DynamicZuulConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-zuul-gateway/src/main/java/com/gla/datacenter/zuul/controller/ErrorHandlerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-message/src/main/java/com/gla/datacenter/MessageProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="11" column="32" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-message/src/main/java/com/gla/datacenter/config/MailConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-zuul-gateway/src/main/java/com/gla/datacenter/zuul/domain/ZuulRouteEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-317">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-message/src/main/resources/bootstrap.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-gateway/src/main/java/com/gla/datacenter/GateWayRouter8100.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-gateway/src/main/java/com/gla/datacenter/config/ErrorHandlerConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-97">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-api/src/main/java/com/gla/datacenter/config/RestTemplateConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-sys-provider/src/main/java/com/limp/framework/boss/controller/TestSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework/src/main/resources/com/limp/framework/boss/persistence/oracle/AreaCodeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1562655548873" expanded="true" signature="3989:4013" ph="delete from " />
+            <marker date="1562655548873" expanded="true" signature="4203:4577" ph="insert into lp_area_code... " />
+            <marker date="1562655548873" expanded="true" signature="6330:6363" ph="select count... lp_area_code" />
+            <marker date="1562655548873" expanded="true" signature="7724:8193" ph="update lp_ar... " />
+            <marker date="1562655548873" expanded="true" signature="8379:8399" ph="select row_.... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-cloud-core/src/main/java/com/gla/datacenter/core/utils/TimerUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-mdm/src/main/java/com/gla/datacenter/controller/CommondController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-154">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-auth-jwt-core/datacenter-auth-jwt-core.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1020" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-auth-jwt-core/src/main/java/com/gla/auth/jwt/filter/JwtUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework/src/test/java/ProjectStruct">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework/src/main/java/com/limp/framework/boss/utils/ConvertUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework/src/main/java/com/limp/framework/boss/exception/BaseException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework/src/main/java/com/limp/framework/boss/exception/ExceptionEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-api-manager/src/main/resources/bootstrap.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-api-manager/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/db-mysql-dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework-manager/src/main/java/com/limp/framework/boss/run/LpFrameStart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework-manager/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework-manager/src/main/resources/application-dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-metadata-solr/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/mdm-mysql-dev.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/rcs-mysql-dev.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-config-server/src/main/resources/properties/common-dev.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacenter-provider-api-manager/src/main/resources/mybatis/mybatis.cfg.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/limp-framework/src/main/java/com/limp/framework/boss/service/impl/BlogServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>datacenter-cloud-core</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -1,0 +1,25 @@
+启动相关参数：
+java -Xms512m -Xmx1024m -jar  --spring.profiles.active=dev
+java -jar datacenter-cloud-eureka-1.0-SNAPSHOT.jar --server.port=8081  --spring.profiles.active=one
+mybatis打印日志
+
+
+
+#启动登陆 报错 无此用户
+xml配置文件需要修正，目前暂且放在同一个包中
+
+demo:java方式发布，参照limp-framework-manager模块
+
+日志模块：面向aspect可参照 clouddo-common模块和之前limp日志反射进行扩展
+
+spring config:本地文件部署
+
+
+
+
+1、cmd java命令无法编译运行导致 java -jar XXX无法创建启动给一个微服务
+D:\test>java
+Error: missing `server' JVM at `D:\Program Files\Java\jre1.8.0_121\bin\server\jvm.dll'.
+Please install or use the JRE or JDK that contains these missing components.
+
+方案：环境变量配置校验，配置JAVA_HOME ,配置PATH：（注意点：需要将java path的路径上移（可能会有其他变量影响，如C:\ProgramData\Oracle\Java\javapath））

@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.AppServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.AppService" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+    <result column="APP_CODE" property="appCode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SHARE_TYPE" property="shareType" jdbcType="INTEGER" />
+    <result column="APP_TYPE" property="appType" jdbcType="INTEGER" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, APP_NAME, APP_CODE, DESCRIPTION, SHARE_TYPE, APP_TYPE, IDT, UDT, CREATE_USER_ID, 
+    STATUS, RC1, RC2, RC3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.AppServiceExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_app_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_app_service
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_app_service
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.AppServiceExample" >
+    delete from dc_app_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.AppService" >
+    insert into dc_app_service (ID, APP_NAME, APP_CODE, 
+      DESCRIPTION, SHARE_TYPE, APP_TYPE, 
+      IDT, UDT, CREATE_USER_ID, 
+      STATUS, RC1, RC2, RC3
+      )
+    values (#{id,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{appCode,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{shareType,jdbcType=INTEGER}, #{appType,jdbcType=INTEGER}, 
+      #{idt,jdbcType=TIMESTAMP}, #{udt,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.AppService" >
+    insert into dc_app_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="appName != null" >
+        APP_NAME,
+      </if>
+      <if test="appCode != null" >
+        APP_CODE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="shareType != null" >
+        SHARE_TYPE,
+      </if>
+      <if test="appType != null" >
+        APP_TYPE,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appCode != null" >
+        #{appCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="shareType != null" >
+        #{shareType,jdbcType=INTEGER},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.AppServiceExample" resultType="java.lang.Integer" >
+    select count(*) from dc_app_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_app_service
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appName != null" >
+        APP_NAME = #{record.appName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appCode != null" >
+        APP_CODE = #{record.appCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareType != null" >
+        SHARE_TYPE = #{record.shareType,jdbcType=INTEGER},
+      </if>
+      <if test="record.appType != null" >
+        APP_TYPE = #{record.appType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUserId != null" >
+        CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_app_service
+    set ID = #{record.id,jdbcType=VARCHAR},
+      APP_NAME = #{record.appName,jdbcType=VARCHAR},
+      APP_CODE = #{record.appCode,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      SHARE_TYPE = #{record.shareType,jdbcType=INTEGER},
+      APP_TYPE = #{record.appType,jdbcType=INTEGER},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.AppService" >
+    update dc_app_service
+    <set >
+      <if test="appName != null" >
+        APP_NAME = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appCode != null" >
+        APP_CODE = #{appCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="shareType != null" >
+        SHARE_TYPE = #{shareType,jdbcType=INTEGER},
+      </if>
+      <if test="appType != null" >
+        APP_TYPE = #{appType,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.AppService" >
+    update dc_app_service
+    set APP_NAME = #{appName,jdbcType=VARCHAR},
+      APP_CODE = #{appCode,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      SHARE_TYPE = #{shareType,jdbcType=INTEGER},
+      APP_TYPE = #{appType,jdbcType=INTEGER},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <update id="deleteAppService">
+    UPDATE DC_APP_SERVICE SET STATUS = -1 WHERE ID IN
+    <foreach collection="ids" item="ids" open="(" close=")" separator=",">
+      #{ids}
+    </foreach>
+  </update>
+
+  <!--消费者查询app应用列表(分页)-->
+  <select id="getAppListByConsumer" parameterType="hashmap" resultType="com.gla.datacenter.model.AppResponseModel">
+    <include refid="MySqlDialectPrefix" />
+    select tt.*,(CASE WHEN tt.shareType is null THEN 0 ELSE l.APPLY_STATUS END) checkStatus from (select t.ID,t.APP_NAME as appName,t.APP_CODE AS appCode
+    ,t.DESCRIPTION as description,t.IDT,t.SHARE_TYPE as shareType
+    from DC_APP_SERVICE t where t.STATUS = 1
+
+    <if test="paramMap.type == ''">
+      <trim prefix="and (" suffix=")" suffixOverrides="OR">
+        <!--   未申请   -->
+        <if test="paramMap.appTerm.contains('check1')">
+          (t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId}) or t.id in (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId} AND APPLY_STATUS = 4)) AND t.share_type &lt;&gt; 2 OR
+        </if>
+        <!--   申请中   -->
+        <if test="paramMap.appTerm.contains('check2')">
+          t.id IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS &lt;&gt; 1 AND APPLY_STATUS &lt;&gt; 4 AND USERID = #{paramMap.userId}) OR
+        </if>
+        <!--   已加入   -->
+        <if test="paramMap.appTerm.contains('check3')">
+          <if test="paramMap.appTerm.size() == 1">
+            <if test="paramMap.appJoin == null">
+              1 &lt;&gt; 1
+            </if>
+          </if>
+          <if test="paramMap.appJoin != null and paramMap.appJoin.length > 0">
+            t.id IN
+            <foreach collection="paramMap.appJoin" item="appJoin" index="index" open="(" close=")" separator=",">
+              #{appJoin}
+            </foreach>
+            OR
+          </if>
+        </if>
+        <!--   开放   -->
+        <if test="paramMap.appTerm.contains('check4')">
+          (t.SHARE_TYPE = 0 AND t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 1 AND USERID = #{paramMap.userId})) OR
+        </if>
+        <!--   已授权   -->
+        <if test="paramMap.appTerm.contains('check5')">
+          (t.id IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 1 AND USERID = #{paramMap.userId}) OR (t.share_type is null)) OR
+        </if>
+      </trim>
+      <if test="paramMap.appTerm.contains('check1') != true">
+      </if>
+      <if test="paramMap.appTerm.contains('check2') != true">
+        AND (t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId} AND APPLY_STATUS = 2) OR t.id IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId} AND APPLY_STATUS = 4))
+      </if>
+      <if test="paramMap.appTerm.contains('check4') != true">
+        AND (t.SHARE_TYPE &lt;&gt; 0 OR t.SHARE_TYPE is NULL OR (t.SHARE_TYPE = 0 AND t.id IN (select APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS &lt;&gt; 4 AND USERID = #{paramMap.userId})))
+      </if>
+      <if test="paramMap.appTerm.contains('check3') != true">
+        <if test="paramMap.appJoin != null and paramMap.appJoin.length > 0">
+          AND t.id NOT IN
+          <foreach collection="paramMap.appJoin" item="appJoin" index="index" open="(" close=")" separator=",">
+            #{appJoin}
+          </foreach>
+        </if>
+      </if>
+    </if>
+
+    <!--   未授权列表   -->
+    <if test="paramMap.type != null and paramMap.type == '1'.toString()">
+      AND t.SHARE_TYPE &lt;&gt; 2
+      <if test="paramMap.appTerm != null and paramMap.appTerm.size() > 0">
+        <trim prefix="and (" suffix=")" suffixOverrides="OR">
+          <!--   未申请   -->
+          <if test="paramMap.appTerm.contains('check1')">
+            (t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId}) OR t.id in (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId} AND APPLY_STATUS = 4)
+            ) OR
+          </if>
+          <!--   申请中   -->
+          <if test="paramMap.appTerm.contains('check2')">
+            t.id IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS &lt;&gt; 1 AND APPLY_STATUS &lt;&gt; 4 AND USERID = #{paramMap.userId}) OR
+          </if>
+          <!--   已加入   -->
+          <if test="paramMap.appTerm.contains('check3')">
+            <if test="paramMap.appJoin != null and paramMap.appJoin.length > 0">
+              t.id IN
+              <foreach collection="paramMap.appJoin" item="appJoin" index="index" open="(" close=")" separator=",">
+                #{appJoin}
+              </foreach>
+              OR
+            </if>
+          </if>
+          <!--   开放   -->
+          <if test="paramMap.appTerm.contains('check4')">
+            (t.SHARE_TYPE = 0 AND t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 1 AND USERID = #{paramMap.userId})) OR
+          </if>
+          <!--   已授权   -->
+          <if test="paramMap.appTerm.contains('check5')">
+            t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 1 AND USERID = #{paramMap.userId} ) OR
+          </if>
+        </trim>
+
+        <if test="paramMap.appTerm.contains('check1') != true">
+        </if>
+        <if test="paramMap.appTerm.contains('check2') != true">
+          AND (t.id NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId}) OR t.id IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{paramMap.userId} AND APPLY_STATUS = 4))
+        </if>
+        <if test="paramMap.appTerm.contains('check4') != true">
+          AND (t.SHARE_TYPE &lt;&gt; 0 OR t.SHARE_TYPE is NULL OR (t.SHARE_TYPE = 0 AND t.id IN (select APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS &lt;&gt; 1 AND USERID = #{paramMap.userId})))
+        </if>
+        <if test="paramMap.appTerm.contains('check3') != true">
+          <if test="paramMap.appJoin != null and paramMap.appJoin.length > 0">
+            AND t.id NOT IN
+            <foreach collection="paramMap.appJoin" item="appJoin" index="index" open="(" close=")" separator=",">
+              #{appJoin}
+            </foreach>
+          </if>
+        </if>
+      </if>
+      <if test="paramMap.appTerm == null">
+        AND 1 &lt;&gt; 1
+      </if>
+      AND t.id NOT IN (SELECT ID from dc_app_service WHERE CREATE_USER_ID = #{paramMap.userId} AND STATUS = 1 AND APP_TYPE = 2)
+    </if>
+    <!--                          已授权                 -->
+    <if test="paramMap.type != null and paramMap.type == '2'.toString()">
+      AND (t.SHARE_TYPE &lt;&gt; 2 OR t.SHARE_TYPE IS NULL )
+      <!--     开放api     -->
+      <if test="paramMap.appTerm != null and paramMap.appTerm.size() > 0">
+        <trim prefix="and (" suffix=")" suffixOverrides="OR">
+          <!--   已授权   -->
+          <if test="paramMap.appTerm.contains('check5')">
+            (t.id IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 1 AND USERID = #{paramMap.userId}) OR
+            t.id in (SELECT id FROM DC_APP_SERVICE WHERE APP_TYPE = 2 and STATUS = 1 and CREATE_USER_ID = #{paramMap.userId})) OR
+          </if>
+        </trim>
+        <!--   已授权   -->
+        <if test="paramMap.appTerm.contains('check5') != true">
+          AND 1 &lt;&gt; 1
+        </if>
+      </if>
+      <if test="paramMap.appTerm == null">
+        AND 1 &lt;&gt; 1
+      </if>
+    </if>
+    <!--                          已加入                 -->
+    <if test="paramMap.type != null and paramMap.type == '3'.toString()">
+      AND t.SHARE_TYPE &lt;&gt; 2
+      <if test="paramMap.appTerm != null and paramMap.appTerm.size() > 0">
+        <if test="paramMap.appTerm.contains('check3')">
+          <if test="paramMap.appJoin != null and paramMap.appJoin.length > 0">
+            AND t.id IN
+            <foreach collection="paramMap.appJoin" item="appJoin" index="index" open="(" close=")" separator=",">
+              #{appJoin}
+            </foreach>
+          </if>
+          <if test="paramMap.appJoin == null">
+            AND 1 &lt;&gt; 1
+          </if>
+        </if>
+        <if test="paramMap.appTerm.contains('check3') != true">
+          AND 1 &lt;&gt; 1
+        </if>
+        <if test="paramMap.appTerm.contains('check4') != true">
+          AND t.SHARE_TYPE &lt;&gt; 0
+        </if>
+      </if>
+      <if test="paramMap.appTerm == null">
+        AND 1 &lt;&gt; 1
+      </if>
+    </if>
+    <if test="paramMap.name != null and paramMap.name != ''">
+      and t.APP_NAME like CONCAT ('%',#{paramMap.name},'%')
+    </if>
+    <if test="paramMap.desc != null and paramMap.desc != ''">
+      and t.DESCRIPTION like CONCAT ('%',#{paramMap.desc},'%')
+    </if>
+    <if test="paramMap.code != null and paramMap.code != ''">
+      and t.APP_CODE like CONCAT ('%',#{paramMap.code},'%')
+    </if>
+    <if test="paramMap.rc2 != null and paramMap.rc2 != ''">
+      and (t.APP_NAME like CONCAT ('%',#{paramMap.rc2},'%') or t.DESCRIPTION like CONCAT ('%',#{paramMap.rc2},'%'))
+    </if>
+    <if test="paramMap.custom != null and paramMap.custom != ''">
+      and (t.APP_NAME like CONCAT ('%',#{paramMap.rc2},'%') or t.DESCRIPTION like CONCAT ('%',#{paramMap.rc2},'%')) AND t.CREATE_USER_ID = #{paramMap.userId} AND t.STATUS = 1 AND APP_TYPE = 2
+    </if>
+    ) tt LEFT JOIN DC_APP_USER_MAP l ON tt.ID = l.APPID AND l.USERID = #{paramMap.userId}
+    ORDER BY tt.IDT DESC
+    <include refid="MySqlDialectSuffix" />
+  </select>
+
+  <!--获取生产者app总数、全网app、需申请app、不共享个数-->
+  <select id="countProviderApp" resultType="java.util.Map">
+    SELECT SUM(CASE WHEN T.SHARE_TYPE = 0 THEN 1 ELSE 0 END ) open,
+           SUM(CASE WHEN T.SHARE_TYPE = 1 THEN 1 ELSE 0 END ) noapply,
+           SUM(CASE WHEN T.SHARE_TYPE = 2 THEN 1 ELSE 0 END ) noshare,
+           COUNT(1) count FROM DC_APP_SERVICE T WHERE T.STATUS = 1 and CREATE_USER_ID = #{userId} AND T.APP_TYPE = 1
+  </select>
+
+  <!--获取消费者app总数、未申请、申请中、开放、已授权个数-->
+  <select id="countConsumerApp" resultType="java.util.Map">
+    SELECT
+    SUM(CASE WHEN (t.SHARE_TYPE != 2 OR t.SHARE_TYPE IS NULL) AND t.STATUS = 1 THEN 1 ELSE 0 END) as count,
+    (SELECT count(1) FROM DC_APP_SERVICE WHERE SHARE_TYPE = 0 AND STATUS = 1 AND APP_TYPE = 1 AND ID NOT IN (SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{userId})) open,
+    (SELECT count(1) FROM DC_APP_SERVICE WHERE SHARE_TYPE != 2 AND STATUS = 1 AND SHARE_TYPE != 0 AND
+    (ID NOT IN ( SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{userId}) OR ID IN (
+    SELECT APPID FROM DC_APP_USER_MAP WHERE USERID = #{userId} and APPLY_STATUS = 4))) as noapply,
+    (SELECT count(1) FROM DC_APP_SERVICE WHERE SHARE_TYPE != 2 AND STATUS = 1 AND ID IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 3 AND USERID = #{userId})) as applying,
+    (SELECT count(1) FROM DC_APP_SERVICE WHERE (SHARE_TYPE != 2 OR SHARE_TYPE is NULL) AND STATUS = 1 AND ((CREATE_USER_ID = #{userId} AND APP_TYPE = 2) OR ID IN (SELECT APPID FROM DC_APP_USER_MAP WHERE APPLY_STATUS = 1 AND USERID = #{userId}))) as empower
+    FROM DC_APP_SERVICE t
+  </select>
+
+  <select id="getBatchInformationApi" resultMap="BaseResultMap">
+    select * from DC_APP_SERVICE where 1=1 and STATUS = 1 and APP_TYPE = 1 and id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <!--校验当前已加入的app是否存在，并返回存在的值-->
+  <select id="checkJoinApp" resultMap="BaseResultMap">
+    select id,APP_NAME,APP_CODE from DC_APP_SERVICE where STATUS = 1 and id IN
+    <foreach collection="apps" index="index" item="apps" open="(" separator="," close=")">
+      #{apps}
+    </foreach>
+  </select>
+
+  <!--根据appCode获取app详情-->
+  <select id="getAppByCode" resultMap="BaseResultMap">
+    SELECT * from dc_app_service where STATUS = 1 and APP_CODE = #{code}
+  </select>
+
+
+</mapper>

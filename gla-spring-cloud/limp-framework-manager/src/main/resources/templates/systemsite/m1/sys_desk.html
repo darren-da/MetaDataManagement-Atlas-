@@ -1,0 +1,226 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+    <title>工作桌面</title>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/systemsite/assets/static/css/font.css}"/>-->
+    <meta name="renderer" content="webkit">
+</head>
+<style>
+    .layui-card{
+        box-shadow:2px 2px 2px 2px rgba(0,0,0,.2);
+        border: 2px;
+        /*cursor: pointer;*/
+    }
+    .layui-card:hover{
+        box-shadow:4px 5px 4px 5px rgba(218,112,214,.2);
+        border: 2px;
+
+    }
+    .layui-card-header{
+        font-weight: 600;
+        color: rgba(218,112,214,.9);
+        cursor: pointer;
+    }
+    .layui-card-header:hover{
+        font-size: 16px;
+
+    }
+    .layui-card-body{
+        min-height: 200px;
+        padding: 21px 15px;
+        line-height: 32px;
+    }
+
+</style>
+<body >
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>工作桌面( 点击访问)</legend>
+</fieldset>
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <!---->
+            <div class="layui-card" >
+                <div class="layui-card-header">外网系统 </div>
+                <div class="layui-card-body" >
+                    <span class="layui-card-header"  onclick="window.open('http://58.132.200.5:20011/waiwang/')">1.DSB系统</span>
+                    <span class="layui-card-header"  onclick="window.open('http://58.132.200.5:20011/metadata-outer/')">2.元数据系统</span>
+                    <span class="layui-card-header"  onclick="window.open('http://58.132.200.5:20011/package-api-outer/')">3.API智能封装</span>
+                    <span class="layui-card-header"  onclick="window.open('http://58.132.200.5:20017/')">4.CDH大数据系统</span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="layui-col-md3">
+            <!---->
+            <div class="layui-card" >
+                <div class="layui-card-header" onclick="window.open('http://192.168.26.113:8888')" >数据服务总线 <span class="layui-badge">V1.0</span>(DSB) </div>
+                <div class="layui-card-body">
+                    该地址是“数据服务总线V1.0”的网址<br>
+                    用户访问地址：http://192.168.26.113:8888<br>
+                    web服务器部署地址：192.168.26.10<br>
+                    数据接口地址:http://192.168.26.113:8002/
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card" >
+                <div class="layui-card-header"onclick="window.open('http://192.168.26.113:8888/DSB2.0')" >数据服务总线 <span class="layui-badge layui-bg-orange">V2.0</span>(DSB) </div>
+                <div class="layui-card-body">
+                    该地址是“数据服务总线V2.0”的网址<br>
+                    用户访问地址：http://192.168.26.113:8888/DSB2.0<br>
+                    web服务器部署地址：192.168.26.10<br>
+                    数据接口地址:http://192.168.26.113:8889/service10
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card" >
+                <div class="layui-card-header" onclick="window.open('http://58.132.200.5:20011/waiwang/')">数据服务总线V2.0( <span class="layui-badge layui-bg-green">外网地址</span>) </div>
+                <div class="layui-card-body">
+                    “数据服务总线V2.0(外网地址)”的网址<br>
+                    访问地址：http://58.132.200.5:20011/waiwang/<br>
+                    web服务器部署地址：192.168.26.10<br>
+                    数据接口地址:http://58.132.200.5:20012/service10
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md3">
+            <div class="layui-card" >
+                <div class="layui-card-header" onclick="window.open('/system/nav/login')" >数据服务总线_<span class="layui-badge layui-bg-blue">单体应用系统 </span></div>
+                <div class="layui-card-body">
+                    “数据服务总线_单体应用系统”的网址<br>
+                    访问地址：http://192.168.26.113/system/nav/login<br>
+                    web服务器部署地址：192.168.26.113<br>
+                    数据接口地址:单体应用
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md3">
+            <div class="layui-card" >
+                <div class="layui-card-header" onclick="window.open('http://192.168.26.113:8888/test/')" >数据服务总线_<span class="layui-badge  layui-bg-gray">开发者测试用 </span></div>
+                <div class="layui-card-body">
+                    “数据服务总线_开发者测试用”网址<br>
+                    访问地址：http://192.168.26.113:8888/test/<br>
+                    web服务器部署地址：192.168.26.10<br>
+                    数据接口地址:分别对应192.168.26.10、192.168.26.12<br>
+                    线路1:http://192.168.26.113:8889/service10 ,线路2:http://192.168.26.113:8889/service12 (用此地址)
+
+                </div>
+            </div>
+        </div>
+      <!--  <div class="layui-col-md3">
+            <div class="layui-card" >
+                <div class="layui-card-header" onclick="window.open('http://192.168.26.113:8888/gla/')" ><span class="layui-badge  layui-bg-gray">产品介绍 </span></div>
+                <div class="layui-card-body">
+                    “产品介绍”网址<br>
+                    访问地址：http://192.168.26.113:8888/gla/<br>
+
+                </div>
+            </div>
+        </div>-->
+        <div class="layui-col-md3">
+            <div class="layui-card" >
+                <div class="layui-card-header" onclick="window.open('http://192.168.26.113:8888/package-api/')"><span class="layui-badge layui-bg-black">GateWay路由插件 </span></div>
+                <div class="layui-card-body">
+                    “数据服务总线_GateWay路由插件”的网址<br>
+                    访问地址：http://192.168.26.113:8888/package-api/<br>
+                    访问地址：http://192.168.26.113:8888/route/<br>
+                    web服务器部署地址：192.168.26.10<br>
+                    数据接口地址:http://192.168.26.113:8889<br>
+                    <hr/>
+                    DSB测试：<a href="http://192.168.26.113:8888/testgo/"> http://192.168.26.113:8888/testgo/</a><br>
+                    线路2:http://192.168.26.113:8889/service13
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="layui-col-md6">
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <div class="layui-card-header" onclick="window.open('http://192.168.26.113:8888/gla/')" ><span class="layui-badge  layui-bg-gray">0.产品介绍 </span></div>
+
+                    <div class="layui-card-header"  onclick="window.open('http://192.168.26.113:9999/system/nav/login')">1.元数据管理系统</div>
+                    <div class="layui-card-header"  onclick="window.open('http://192.168.26.113:8888/metadata/')">1.New元数据管理系统</div>
+                    <div class="layui-card-header"  onclick="window.open('http://192.168.26.113:8888/share/html/blog.html')">2.知识图谱</div>
+                    <div class="layui-card-header"  onclick="window.open('http://192.168.26.113:8888/file/')">3.文件共享系統</div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header"  onclick="window.open('http://192.168.26.113:9999/system/nav/login')">元数据管理系统</div>
+                <div class="layui-card-body">
+                    元数据管理系统<br>
+                    访问地址：http://192.168.26.113:9999/system/nav/login
+                    <br>
+                </div>
+
+            </div>
+        </div>-->
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">系统+</div>
+                <div class="layui-card-body">
+                    友情链接...<br>
+                    <span class="layui-badge layui-bg-green" onclick="window.open('http://192.168.26.40/')" title="admin/123456">小豹API</span>
+                    <span class="layui-badge layui-bg-green" onclick="window.open('http://www.webxml.com.cn/WebServices/WeatherWS.asmx')" title="webxml" >webxml天气接口</span>
+                    <span class="layui-badge layui-bg-green" onclick="window.open('http://192.168.26.113:8001/demo')" title="WebServiceDemo样例" >WebServiceDemo</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+    <script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>
+    <script type="text/javascript">
+        
+        	layui.extend({
+				admin: '{/}../../../systemsite/assets/static/js/admin'
+			});
+            layui.use(['form','admin'], function(){
+              var form = layui.form
+              	,admin = layui.admin;
+              //监听提交
+              form.on('submit(login)', function(data){
+                console.log(data.field);
+                  var params=data.field;
+                  params['type']=4;
+                  system.post("/system/user/login",params,function(data){
+                      console.log(data)
+                      if(data.code=="200"){
+                          window.location.href=data.result.url;
+                      }else{
+                          system.tip(data.msg,"0");
+                      }
+                  })
+                return false;
+              });
+            });
+
+            $(document).keypress(function(e) {
+               $(".layui-card").click(function(){
+                   $(this).addClass("layui-anim")
+               })
+            });
+    </script>  
+    <!-- 底部结束 -->
+</body>
+</html>

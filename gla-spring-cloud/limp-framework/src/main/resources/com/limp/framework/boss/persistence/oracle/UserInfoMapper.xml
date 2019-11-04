@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limp.framework.boss.mapper.oracle.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.limp.framework.boss.domain.UserInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="MAC" property="mac" jdbcType="VARCHAR" />
+    <result column="ISAUTOEXPIRE" property="isautoexpire" jdbcType="DECIMAL" />
+    <result column="ISBINDIP" property="isbindip" jdbcType="DECIMAL" />
+    <result column="ISBINDMAC" property="isbindmac" jdbcType="DECIMAL" />
+    <result column="LASTTIME" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="LASTIP" property="lastip" jdbcType="VARCHAR" />
+    <result column="LASTMAC" property="lastmac" jdbcType="VARCHAR" />
+    <result column="LOGINCOUNT" property="logincount" jdbcType="DECIMAL" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="ICN" property="icn" jdbcType="VARCHAR" />
+    <result column="UNITCODE" property="unitcode" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="UTYPE" property="utype" jdbcType="DECIMAL" />
+    <result column="UVERSION" property="uversion" jdbcType="DECIMAL" />
+    <result column="KEYPATH" property="keypath" jdbcType="VARCHAR" />
+    <result column="EXPIREDATE" property="expiredate" jdbcType="TIMESTAMP" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CONACCOUNT" property="conaccount" jdbcType="VARCHAR" />
+    <result column="APPTYPE" property="apptype" jdbcType="VARCHAR" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="DECIMAL" />
+    <result column="OPTACCOUNT" property="optaccount" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="VARCHAR" />
+    <result column="RC5" property="rc5" jdbcType="VARCHAR" />
+    <result column="RC6" property="rc6" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT, NAME, REMARKS, PASSWORD, IP, MAC, ISAUTOEXPIRE, ISBINDIP, ISBINDMAC, 
+    LASTTIME, LASTIP, LASTMAC, LOGINCOUNT, CREATEDATE, UPDATETIME, STATE, ICN, UNITCODE, 
+    PHONE, UTYPE, UVERSION, KEYPATH, EXPIREDATE, EMAIL, CONACCOUNT, APPTYPE, RC1, RC2, 
+    RC3, OPTACCOUNT, RC4, RC5, RC6
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.limp.framework.boss.domain.UserInfoExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lp_users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lp_users
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lp_users
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limp.framework.boss.domain.UserInfoExample" >
+    delete from lp_users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limp.framework.boss.domain.UserInfo" >
+    insert into lp_users (ID, ACCOUNT, NAME,
+      REMARKS, PASSWORD, IP, 
+      MAC, ISAUTOEXPIRE, ISBINDIP, 
+      ISBINDMAC, LASTTIME, LASTIP, 
+      LASTMAC, LOGINCOUNT, CREATEDATE, 
+      UPDATETIME, STATE, ICN, 
+      UNITCODE, PHONE, UTYPE, 
+      UVERSION, KEYPATH, EXPIREDATE, 
+      EMAIL, CONACCOUNT, APPTYPE, 
+      RC1, RC2, RC3, OPTACCOUNT, 
+      RC4, RC5, RC6)
+    values (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{mac,jdbcType=VARCHAR}, #{isautoexpire,jdbcType=DECIMAL}, #{isbindip,jdbcType=DECIMAL}, 
+      #{isbindmac,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP}, #{lastip,jdbcType=VARCHAR}, 
+      #{lastmac,jdbcType=VARCHAR}, #{logincount,jdbcType=DECIMAL}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{state,jdbcType=DECIMAL}, #{icn,jdbcType=VARCHAR}, 
+      #{unitcode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{utype,jdbcType=DECIMAL}, 
+      #{uversion,jdbcType=DECIMAL}, #{keypath,jdbcType=VARCHAR}, #{expiredate,jdbcType=TIMESTAMP}, 
+      #{email,jdbcType=VARCHAR}, #{conaccount,jdbcType=VARCHAR}, #{apptype,jdbcType=VARCHAR}, 
+      #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=DECIMAL}, #{optaccount,jdbcType=VARCHAR}, 
+      #{rc4,jdbcType=VARCHAR}, #{rc5,jdbcType=VARCHAR}, #{rc6,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.limp.framework.boss.domain.UserInfo" >
+    insert into lp_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="mac != null" >
+        MAC,
+      </if>
+      <if test="isautoexpire != null" >
+        ISAUTOEXPIRE,
+      </if>
+      <if test="isbindip != null" >
+        ISBINDIP,
+      </if>
+      <if test="isbindmac != null" >
+        ISBINDMAC,
+      </if>
+      <if test="lasttime != null" >
+        LASTTIME,
+      </if>
+      <if test="lastip != null" >
+        LASTIP,
+      </if>
+      <if test="lastmac != null" >
+        LASTMAC,
+      </if>
+      <if test="logincount != null" >
+        LOGINCOUNT,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="icn != null" >
+        ICN,
+      </if>
+      <if test="unitcode != null" >
+        UNITCODE,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="utype != null" >
+        UTYPE,
+      </if>
+      <if test="uversion != null" >
+        UVERSION,
+      </if>
+      <if test="keypath != null" >
+        KEYPATH,
+      </if>
+      <if test="expiredate != null" >
+        EXPIREDATE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="conaccount != null" >
+        CONACCOUNT,
+      </if>
+      <if test="apptype != null" >
+        APPTYPE,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="optaccount != null" >
+        OPTACCOUNT,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isautoexpire != null" >
+        #{isautoexpire,jdbcType=DECIMAL},
+      </if>
+      <if test="isbindip != null" >
+        #{isbindip,jdbcType=DECIMAL},
+      </if>
+      <if test="isbindmac != null" >
+        #{isbindmac,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null" >
+        #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmac != null" >
+        #{lastmac,jdbcType=VARCHAR},
+      </if>
+      <if test="logincount != null" >
+        #{logincount,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="icn != null" >
+        #{icn,jdbcType=VARCHAR},
+      </if>
+      <if test="unitcode != null" >
+        #{unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="utype != null" >
+        #{utype,jdbcType=DECIMAL},
+      </if>
+      <if test="uversion != null" >
+        #{uversion,jdbcType=DECIMAL},
+      </if>
+      <if test="keypath != null" >
+        #{keypath,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredate != null" >
+        #{expiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="conaccount != null" >
+        #{conaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="apptype != null" >
+        #{apptype,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=DECIMAL},
+      </if>
+      <if test="optaccount != null" >
+        #{optaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limp.framework.boss.domain.UserInfoExample" resultType="java.lang.Integer" >
+    select count(*) from lp_users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lp_users
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mac != null" >
+        MAC = #{record.mac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isautoexpire != null" >
+        ISAUTOEXPIRE = #{record.isautoexpire,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isbindip != null" >
+        ISBINDIP = #{record.isbindip,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isbindmac != null" >
+        ISBINDMAC = #{record.isbindmac,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null" >
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastip != null" >
+        LASTIP = #{record.lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastmac != null" >
+        LASTMAC = #{record.lastmac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logincount != null" >
+        LOGINCOUNT = #{record.logincount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdate != null" >
+        CREATEDATE = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+      <if test="record.icn != null" >
+        ICN = #{record.icn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitcode != null" >
+        UNITCODE = #{record.unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utype != null" >
+        UTYPE = #{record.utype,jdbcType=DECIMAL},
+      </if>
+      <if test="record.uversion != null" >
+        UVERSION = #{record.uversion,jdbcType=DECIMAL},
+      </if>
+      <if test="record.keypath != null" >
+        KEYPATH = #{record.keypath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expiredate != null" >
+        EXPIREDATE = #{record.expiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conaccount != null" >
+        CONACCOUNT = #{record.conaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apptype != null" >
+        APPTYPE = #{record.apptype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optaccount != null" >
+        OPTACCOUNT = #{record.optaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lp_users
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      MAC = #{record.mac,jdbcType=VARCHAR},
+      ISAUTOEXPIRE = #{record.isautoexpire,jdbcType=DECIMAL},
+      ISBINDIP = #{record.isbindip,jdbcType=DECIMAL},
+      ISBINDMAC = #{record.isbindmac,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      LASTIP = #{record.lastip,jdbcType=VARCHAR},
+      LASTMAC = #{record.lastmac,jdbcType=VARCHAR},
+      LOGINCOUNT = #{record.logincount,jdbcType=DECIMAL},
+      CREATEDATE = #{record.createdate,jdbcType=TIMESTAMP},
+      UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      STATE = #{record.state,jdbcType=DECIMAL},
+      ICN = #{record.icn,jdbcType=VARCHAR},
+      UNITCODE = #{record.unitcode,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      UTYPE = #{record.utype,jdbcType=DECIMAL},
+      UVERSION = #{record.uversion,jdbcType=DECIMAL},
+      KEYPATH = #{record.keypath,jdbcType=VARCHAR},
+      EXPIREDATE = #{record.expiredate,jdbcType=TIMESTAMP},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      CONACCOUNT = #{record.conaccount,jdbcType=VARCHAR},
+      APPTYPE = #{record.apptype,jdbcType=VARCHAR},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=DECIMAL},
+      OPTACCOUNT = #{record.optaccount,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=VARCHAR},
+      RC5 = #{record.rc5,jdbcType=VARCHAR},
+      RC6 = #{record.rc6,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limp.framework.boss.domain.UserInfo" >
+    update lp_users
+    <set >
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        MAC = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isautoexpire != null" >
+        ISAUTOEXPIRE = #{isautoexpire,jdbcType=DECIMAL},
+      </if>
+      <if test="isbindip != null" >
+        ISBINDIP = #{isbindip,jdbcType=DECIMAL},
+      </if>
+      <if test="isbindmac != null" >
+        ISBINDMAC = #{isbindmac,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null" >
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null" >
+        LASTIP = #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmac != null" >
+        LASTMAC = #{lastmac,jdbcType=VARCHAR},
+      </if>
+      <if test="logincount != null" >
+        LOGINCOUNT = #{logincount,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="icn != null" >
+        ICN = #{icn,jdbcType=VARCHAR},
+      </if>
+      <if test="unitcode != null" >
+        UNITCODE = #{unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="utype != null" >
+        UTYPE = #{utype,jdbcType=DECIMAL},
+      </if>
+      <if test="uversion != null" >
+        UVERSION = #{uversion,jdbcType=DECIMAL},
+      </if>
+      <if test="keypath != null" >
+        KEYPATH = #{keypath,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredate != null" >
+        EXPIREDATE = #{expiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="conaccount != null" >
+        CONACCOUNT = #{conaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="apptype != null" >
+        APPTYPE = #{apptype,jdbcType=VARCHAR},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=DECIMAL},
+      </if>
+      <if test="optaccount != null" >
+        OPTACCOUNT = #{optaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        RC4 = #{rc4,jdbcType=VARCHAR},
+      </if>
+      <if test="rc5 != null" >
+        RC5 = #{rc5,jdbcType=VARCHAR},
+      </if>
+      <if test="rc6 != null" >
+        RC6 = #{rc6,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limp.framework.boss.domain.UserInfo" >
+    update lp_users
+    set ACCOUNT = #{account,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      MAC = #{mac,jdbcType=VARCHAR},
+      ISAUTOEXPIRE = #{isautoexpire,jdbcType=DECIMAL},
+      ISBINDIP = #{isbindip,jdbcType=DECIMAL},
+      ISBINDMAC = #{isbindmac,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      LASTIP = #{lastip,jdbcType=VARCHAR},
+      LASTMAC = #{lastmac,jdbcType=VARCHAR},
+      LOGINCOUNT = #{logincount,jdbcType=DECIMAL},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=DECIMAL},
+      ICN = #{icn,jdbcType=VARCHAR},
+      UNITCODE = #{unitcode,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      UTYPE = #{utype,jdbcType=DECIMAL},
+      UVERSION = #{uversion,jdbcType=DECIMAL},
+      KEYPATH = #{keypath,jdbcType=VARCHAR},
+      EXPIREDATE = #{expiredate,jdbcType=TIMESTAMP},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CONACCOUNT = #{conaccount,jdbcType=VARCHAR},
+      APPTYPE = #{apptype,jdbcType=VARCHAR},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=DECIMAL},
+      OPTACCOUNT = #{optaccount,jdbcType=VARCHAR},
+      RC4 = #{rc4,jdbcType=VARCHAR},
+      RC5 = #{rc5,jdbcType=VARCHAR},
+      RC6 = #{rc6,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from (
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  LIMIT  #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

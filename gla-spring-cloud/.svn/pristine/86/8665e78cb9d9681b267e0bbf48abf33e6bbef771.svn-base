@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.ApiCatalogChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.ApiCatalogChange" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="api_code" property="apiCode" jdbcType="VARCHAR" />
+    <result column="api_cata_code" property="apiCataCode" jdbcType="VARCHAR" />
+    <result column="api_name" property="apiName" jdbcType="VARCHAR" />
+    <result column="cata_code" property="cataCode" jdbcType="VARCHAR" />
+    <result column="cata_name" property="cataName" jdbcType="VARCHAR" />
+    <result column="oper_account" property="operAccount" jdbcType="VARCHAR" />
+    <result column="operation" property="operation" jdbcType="VARCHAR" />
+    <result column="idt" property="idt" jdbcType="TIMESTAMP" />
+    <result column="udt" property="udt" jdbcType="TIMESTAMP" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+    <result column="RC4" property="rc4" jdbcType="INTEGER" />
+    <result column="RC5" property="rc5" jdbcType="INTEGER" />
+    <result column="RC6" property="rc6" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, api_code, api_cata_code, api_name, cata_code, cata_name, oper_account, operation, 
+    idt, udt, RC1, RC2, RC3, RC4, RC5, RC6
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.ApiCatalogChangeExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_api_catalog_change
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.ApiCatalogChangeExample" >
+    delete from dc_api_catalog_change
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.ApiCatalogChange" >
+    insert into dc_api_catalog_change (id, api_code, api_cata_code, 
+      api_name, cata_code, cata_name, 
+      oper_account, operation, idt, 
+      udt, RC1, RC2, RC3, 
+      RC4, RC5, RC6)
+    values (#{id,jdbcType=VARCHAR}, #{apiCode,jdbcType=VARCHAR}, #{apiCataCode,jdbcType=VARCHAR}, 
+      #{apiName,jdbcType=VARCHAR}, #{cataCode,jdbcType=VARCHAR}, #{cataName,jdbcType=VARCHAR}, 
+      #{operAccount,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, #{idt,jdbcType=TIMESTAMP}, 
+      #{udt,jdbcType=TIMESTAMP}, #{rc1,jdbcType=VARCHAR}, #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR}, 
+      #{rc4,jdbcType=INTEGER}, #{rc5,jdbcType=INTEGER}, #{rc6,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.ApiCatalogChange" >
+    insert into dc_api_catalog_change
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="apiCode != null" >
+        api_code,
+      </if>
+      <if test="apiCataCode != null" >
+        api_cata_code,
+      </if>
+      <if test="apiName != null" >
+        api_name,
+      </if>
+      <if test="cataCode != null" >
+        cata_code,
+      </if>
+      <if test="cataName != null" >
+        cata_name,
+      </if>
+      <if test="operAccount != null" >
+        oper_account,
+      </if>
+      <if test="operation != null" >
+        operation,
+      </if>
+      <if test="idt != null" >
+        idt,
+      </if>
+      <if test="udt != null" >
+        udt,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+      <if test="rc4 != null" >
+        RC4,
+      </if>
+      <if test="rc5 != null" >
+        RC5,
+      </if>
+      <if test="rc6 != null" >
+        RC6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null" >
+        #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCataCode != null" >
+        #{apiCataCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiName != null" >
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="cataCode != null" >
+        #{cataCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cataName != null" >
+        #{cataName,jdbcType=VARCHAR},
+      </if>
+      <if test="operAccount != null" >
+        #{operAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="rc4 != null" >
+        #{rc4,jdbcType=INTEGER},
+      </if>
+      <if test="rc5 != null" >
+        #{rc5,jdbcType=INTEGER},
+      </if>
+      <if test="rc6 != null" >
+        #{rc6,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.ApiCatalogChangeExample" resultType="java.lang.Integer" >
+    select count(*) from dc_api_catalog_change
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_api_catalog_change
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiCode != null" >
+        api_code = #{record.apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiCataCode != null" >
+        api_cata_code = #{record.apiCataCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiName != null" >
+        api_name = #{record.apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cataCode != null" >
+        cata_code = #{record.cataCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cataName != null" >
+        cata_name = #{record.cataName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operAccount != null" >
+        oper_account = #{record.operAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operation != null" >
+        operation = #{record.operation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idt != null" >
+        idt = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.udt != null" >
+        udt = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc4 != null" >
+        RC4 = #{record.rc4,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc5 != null" >
+        RC5 = #{record.rc5,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc6 != null" >
+        RC6 = #{record.rc6,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_api_catalog_change
+    set id = #{record.id,jdbcType=VARCHAR},
+      api_code = #{record.apiCode,jdbcType=VARCHAR},
+      api_cata_code = #{record.apiCataCode,jdbcType=VARCHAR},
+      api_name = #{record.apiName,jdbcType=VARCHAR},
+      cata_code = #{record.cataCode,jdbcType=VARCHAR},
+      cata_name = #{record.cataName,jdbcType=VARCHAR},
+      oper_account = #{record.operAccount,jdbcType=VARCHAR},
+      operation = #{record.operation,jdbcType=VARCHAR},
+      idt = #{record.idt,jdbcType=TIMESTAMP},
+      udt = #{record.udt,jdbcType=TIMESTAMP},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR},
+      RC4 = #{record.rc4,jdbcType=INTEGER},
+      RC5 = #{record.rc5,jdbcType=INTEGER},
+      RC6 = #{record.rc6,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+</mapper>

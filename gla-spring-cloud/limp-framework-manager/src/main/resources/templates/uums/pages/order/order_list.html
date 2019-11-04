@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="systemsite/m1/pages/common/sys_header_m1 :: sys_header(~{::title},~{},~{})">
+	<title>orders列表</title>
+	<meta name="renderer" content="webkit">
+</head>
+
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">orders管理</a>
+        <a>
+          <cite>orders列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+
+		<div class="weadmin-body " id="servicesTableMain">
+			<div class="layui-row table-search">
+
+				<div class="layui-form layui-col-md12 we-search">
+					<div class="layui-form layui-col-md12 we-search">
+						<div class="layui-inline">
+							<input type="text" id="order_method_name" placeholder="请输入方法名称" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-inline">
+							<input type="text" id="orderno" placeholder="请输入订单号" autocomplete="off" class="layui-input">
+						</div>
+						<button class="layui-btn"  @click="handleSeach"><i class="layui-icon">&#xe615;</i></button>
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<table class="layui-form layui-table" id="servicesTable">
+
+			</table>
+
+			<!--测试区域-->
+		</div>
+		<!--*********************魔板部分**begin************************-->
+		<script type="text/template" id="tkAddServices" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="addFilter">
+
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							<span class="lp-red">*</span>serviceMethod
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="serviceMethod" lay-verify="required|serviceMethod"  autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label   class="layui-form-label">
+							service名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="serviceName" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label   class="layui-form-label">
+							缓存时间(s)
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="rc1"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label   class="layui-form-label">
+							serviceBeanID
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="SERVICE_KEY"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<button class="layui-btn" lay-filter="addFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<!--修改魔板-->
+		<script type="text/template" id="tkUpdateService" >
+			<div class="weadmin-body">
+				<form class="layui-form" lay-filter="updateFilter">
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<span class="lp-red">*</span>Service方法
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="serviceMethod" lay-verify="required|serviceMethod" disabled autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							service名称
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="serviceName" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							缓存时间(s)
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" name="rc1"  lay-verify="required"  class="layui-input">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<label  class="layui-form-label">
+							serviceBeanID
+						</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="serviceKey"  autocomplete="" class="layui-input">
+						</div>
+					</div>
+
+
+
+					<div class="layui-form-item">
+						<input type="hidden"  name="id"  class="layui-input">
+
+						<label for="lp_repassword" class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="updateFilterSubmit" lay-submit="">确定</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<!--*********************魔板部分**end************************-->
+
+
+		<div th:replace="systemsite/m1/pages/common/sys_footer_m1 :: sys_footer"></div>
+		<!--<script  th:src="@{/systemsite/assets/lib/layui/layui.js}"></script>-->
+		<script  th:src="@{/systemsite/assets/static/js/eleDel.js}"></script>
+		<script  th:src="@{/scripts/uums/services/order_list.js}"></script>
+
+	</body>
+
+<script>
+
+</script>
+</html>

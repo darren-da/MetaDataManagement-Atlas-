@@ -1,0 +1,67 @@
+package com.gla.datacenter.consumer.controller;
+
+import com.gla.datacenter.core.constant.ConstantGla;
+import com.gla.datacenter.service.AuthClientService;
+import com.gla.datacenter.service.PlugCacheClientService;
+import com.limp.framework.core.annotation.Access;
+import com.limp.framework.core.bean.Result;
+import com.limp.framework.core.constant.ExceptionEnum;
+import com.limp.framework.core.constant.OPERATION;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * 权限相关cntroller
+ */
+@RestController
+@CrossOrigin
+public class AuthControllerFeign {
+    private Logger LOG = LoggerFactory.getLogger(AuthControllerFeign.class);
+
+//    @Autowired
+//    private HttpServletRequest httpServletRequest;
+    /**
+     * AuthClientService
+     */
+    @Autowired
+    private AuthClientService authClientService;
+
+    @Autowired
+    private PlugCacheClientService plugCacheClientService;
+
+    /**
+     * 用户登录功能
+     * @param request
+     * @param account 账号
+     * @param password 密码
+     * @param roleCode 角色Code
+     * @param validateCode 验证码
+     * @return
+     */
+    @ApiOperation(value = "权限相关：登陆接口")
+    @RequestMapping(value = "/auth/login")
+    @Access(login = false,operationLog = OPERATION.INSERT,operationIntro = "用户登陆")
+    public String login(HttpServletRequest request,String account, String password
+            , String roleCode, String validateCode) {
+
+        LOG.info("登陆获取sesisonId{}",request.getSession().getId());
+        //验证码判断
+        String code= plugCacheClientService.getCache(ConstantGla.YZM_IMAGECODE_PRE+request.getSession().getId());
+        //验证码验证（不区分大小写）
+        LOG.info("验证码是"+code);
+        LOG.info("验证码是"+ConstantGla.YZM_IMAGECODE_PRE+request.getSession().getId());
+        if (!code.equalsIgnoreCase(validateCode)){
+            return Result.getException(ExceptionEnum.UserTestVerifyCode).getJson();
+        }
+        LOG.debug("/***用户登录{}**/",account);
+        LOG.debug("/***session-->{}**/",request.getSession().getId());
+        //String obj= request.getHeader("Authorization");
+        return authClientService.login(request,account,password,roleCode,validateCode);
+    }
+}

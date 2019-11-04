@@ -1,0 +1,40 @@
+------------------------总体架构设计【2018.09.18】------------------------
+******
+shiro:
+ 讲解：https://blog.csdn.net/shuaicihai/article/details/58391481
+
+ 涉及到表和结构
+ 自定义登录密码加密策略
+ URL和方法级别权限控制
+ 注解无法起作用策略（https://blog.csdn.net/m0_37962779/article/details/78605478）
+
+ 限制并发人数登陆
+ https://www.cnblogs.com/caichaoqi/p/8900677.html
+
+ 动态更改权限实现
+ https://blog.csdn.net/qq_20954959/article/details/55260255
+
+  在前后端分离的SpringBoot项目中集成Shiro权限框架
+ https://blog.csdn.net/u013615903/article/details/78781166/
+******
+技术栈：
+  采用spring cloud分布式、前后端分离框架
+
+******
+目录结构设计：
+  1、整体架构设计依托LP框架进行扩展，共依托2个模块：
+        1.1 核心core包：主要包括工具类、抽象类、异常类、常用bean、静态常量类等汇总（剔除业务代码相关代码）
+        1.2 后台管理模块：主要用用spring boot构建后台管理模块(restful风格)，用于管理整个架构的后台操作
+           （独立出原因：供其他框架使用,避免重复编码工作，如dubbo相关框架、springboot相关框架、spring mvc框架等；）
+           <dependency>
+              <groupId>com.gla</groupId>
+              <artifactId>limp-framework</artifactId>
+              <version>2.0-RELEASE</version>
+           </dependency>
+            <dependency>
+               <groupId>com.gla</groupId>
+               <artifactId>limp-framework-manager</artifactId>
+               <version>2.0-RELEASE</version>
+            </dependency>
+  2、其它模块：api、provider、consumer、eureka、zuul等相关模块
+

@@ -1,0 +1,25 @@
+
+server:
+  port: 8010
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.gla.datacenter.domain    # 所有Entity别名类所在包
+  mapper-locations:
+  - classpath:com/gla/datacenter/persistence/mysql/**/*.xml                      # mapper映射文件
+# application.name 很重要 eureka
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: provider-api
+
+
+
+info:
+  app.name: provider-api
+  company.name: 国路安-limp
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+

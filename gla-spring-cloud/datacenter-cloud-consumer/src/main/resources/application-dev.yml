@@ -1,0 +1,43 @@
+server:
+  port: 8002
+  session-timeout: 18000
+  tomcat:
+    uri-encoding: utf-8
+
+#默认的请求时间为1秒，超过这个时间便超时异常，把timeoutInMilliseconds时间设长[todo:线上设置短些]
+#2、把超时发生异常属性关闭 enabled: false
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 65000
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+
+
+eureka:
+  client:
+
+    register-with-eureka: false
+    service-url: 
+      defaultZone: http://localhost:7001/eureka
+      #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+#  Ribbon:
+#    eureka:
+#      enabled: false
+#    #
+#    #请求处理的超时时间
+#    #请求连接的超时时间
+#    ReadTimeout: 120000
+#    ConnectTimeout: 30000

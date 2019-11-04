@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gla.datacenter.mapper.mysql.ApiNumLimtMapper" >
+  <resultMap id="BaseResultMap" type="com.gla.datacenter.domain.ApiNumLimt" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APIID" property="apiid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="INTEGER" />
+    <result column="NUM_FLAG" property="numFlag" jdbcType="INTEGER" />
+    <result column="TOTALNUM" property="totalnum" jdbcType="INTEGER" />
+    <result column="LEAVELNUM" property="leavelnum" jdbcType="INTEGER" />
+    <result column="USEDNUM" property="usednum" jdbcType="INTEGER" />
+    <result column="IDT" property="idt" jdbcType="TIMESTAMP" />
+    <result column="UDT" property="udt" jdbcType="TIMESTAMP" />
+    <result column="CATEID" property="cateid" jdbcType="VARCHAR" />
+    <result column="DEPTID" property="deptid" jdbcType="VARCHAR" />
+    <result column="LIMT_TYPE" property="limtType" jdbcType="INTEGER" />
+    <result column="RC1" property="rc1" jdbcType="VARCHAR" />
+    <result column="RC2" property="rc2" jdbcType="VARCHAR" />
+    <result column="RC3" property="rc3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, APIID, USERID, ACCOUNT, AUDIT_STATUS, NUM_FLAG, TOTALNUM, LEAVELNUM, USEDNUM, 
+    IDT, UDT, CATEID, DEPTID, LIMT_TYPE, RC1, RC2, RC3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gla.datacenter.domain.ApiNumLimtExample" >
+    <include refid="MySqlDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_api_num_limt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MySqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_api_num_limt
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_api_num_limt
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gla.datacenter.domain.ApiNumLimtExample" >
+    delete from dc_api_num_limt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gla.datacenter.domain.ApiNumLimt" >
+    insert into dc_api_num_limt (ID, APIID, USERID, 
+      ACCOUNT, AUDIT_STATUS, NUM_FLAG, 
+      TOTALNUM, LEAVELNUM, USEDNUM, 
+      IDT, UDT, CATEID, 
+      DEPTID, LIMT_TYPE, RC1, 
+      RC2, RC3)
+    values (#{id,jdbcType=VARCHAR}, #{apiid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{account,jdbcType=VARCHAR}, #{auditStatus,jdbcType=INTEGER}, #{numFlag,jdbcType=INTEGER}, 
+      #{totalnum,jdbcType=INTEGER}, #{leavelnum,jdbcType=INTEGER}, #{usednum,jdbcType=INTEGER}, 
+      #{idt,jdbcType=TIMESTAMP}, #{udt,jdbcType=TIMESTAMP}, #{cateid,jdbcType=VARCHAR}, 
+      #{deptid,jdbcType=VARCHAR}, #{limtType,jdbcType=INTEGER}, #{rc1,jdbcType=VARCHAR}, 
+      #{rc2,jdbcType=VARCHAR}, #{rc3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gla.datacenter.domain.ApiNumLimt" >
+    insert into dc_api_num_limt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiid != null" >
+        APIID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS,
+      </if>
+      <if test="numFlag != null" >
+        NUM_FLAG,
+      </if>
+      <if test="totalnum != null" >
+        TOTALNUM,
+      </if>
+      <if test="leavelnum != null" >
+        LEAVELNUM,
+      </if>
+      <if test="usednum != null" >
+        USEDNUM,
+      </if>
+      <if test="idt != null" >
+        IDT,
+      </if>
+      <if test="udt != null" >
+        UDT,
+      </if>
+      <if test="cateid != null" >
+        CATEID,
+      </if>
+      <if test="deptid != null" >
+        DEPTID,
+      </if>
+      <if test="limtType != null" >
+        LIMT_TYPE,
+      </if>
+      <if test="rc1 != null" >
+        RC1,
+      </if>
+      <if test="rc2 != null" >
+        RC2,
+      </if>
+      <if test="rc3 != null" >
+        RC3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="apiid != null" >
+        #{apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="numFlag != null" >
+        #{numFlag,jdbcType=INTEGER},
+      </if>
+      <if test="totalnum != null" >
+        #{totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="leavelnum != null" >
+        #{leavelnum,jdbcType=INTEGER},
+      </if>
+      <if test="usednum != null" >
+        #{usednum,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cateid != null" >
+        #{cateid,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null" >
+        #{deptid,jdbcType=VARCHAR},
+      </if>
+      <if test="limtType != null" >
+        #{limtType,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        #{rc3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gla.datacenter.domain.ApiNumLimtExample" resultType="java.lang.Integer" >
+    select count(*) from dc_api_num_limt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_api_num_limt
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiid != null" >
+        APIID = #{record.apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null" >
+        AUDIT_STATUS = #{record.auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.numFlag != null" >
+        NUM_FLAG = #{record.numFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalnum != null" >
+        TOTALNUM = #{record.totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.leavelnum != null" >
+        LEAVELNUM = #{record.leavelnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.usednum != null" >
+        USEDNUM = #{record.usednum,jdbcType=INTEGER},
+      </if>
+      <if test="record.idt != null" >
+        IDT = #{record.idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.udt != null" >
+        UDT = #{record.udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cateid != null" >
+        CATEID = #{record.cateid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptid != null" >
+        DEPTID = #{record.deptid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limtType != null" >
+        LIMT_TYPE = #{record.limtType,jdbcType=INTEGER},
+      </if>
+      <if test="record.rc1 != null" >
+        RC1 = #{record.rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc2 != null" >
+        RC2 = #{record.rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rc3 != null" >
+        RC3 = #{record.rc3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_api_num_limt
+    set ID = #{record.id,jdbcType=VARCHAR},
+      APIID = #{record.apiid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      AUDIT_STATUS = #{record.auditStatus,jdbcType=INTEGER},
+      NUM_FLAG = #{record.numFlag,jdbcType=INTEGER},
+      TOTALNUM = #{record.totalnum,jdbcType=INTEGER},
+      LEAVELNUM = #{record.leavelnum,jdbcType=INTEGER},
+      USEDNUM = #{record.usednum,jdbcType=INTEGER},
+      IDT = #{record.idt,jdbcType=TIMESTAMP},
+      UDT = #{record.udt,jdbcType=TIMESTAMP},
+      CATEID = #{record.cateid,jdbcType=VARCHAR},
+      DEPTID = #{record.deptid,jdbcType=VARCHAR},
+      LIMT_TYPE = #{record.limtType,jdbcType=INTEGER},
+      RC1 = #{record.rc1,jdbcType=VARCHAR},
+      RC2 = #{record.rc2,jdbcType=VARCHAR},
+      RC3 = #{record.rc3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gla.datacenter.domain.ApiNumLimt" >
+    update dc_api_num_limt
+    <set >
+      <if test="apiid != null" >
+        APIID = #{apiid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="numFlag != null" >
+        NUM_FLAG = #{numFlag,jdbcType=INTEGER},
+      </if>
+      <if test="totalnum != null" >
+        TOTALNUM = #{totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="leavelnum != null" >
+        LEAVELNUM = #{leavelnum,jdbcType=INTEGER},
+      </if>
+      <if test="usednum != null" >
+        USEDNUM = #{usednum,jdbcType=INTEGER},
+      </if>
+      <if test="idt != null" >
+        IDT = #{idt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udt != null" >
+        UDT = #{udt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cateid != null" >
+        CATEID = #{cateid,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null" >
+        DEPTID = #{deptid,jdbcType=VARCHAR},
+      </if>
+      <if test="limtType != null" >
+        LIMT_TYPE = #{limtType,jdbcType=INTEGER},
+      </if>
+      <if test="rc1 != null" >
+        RC1 = #{rc1,jdbcType=VARCHAR},
+      </if>
+      <if test="rc2 != null" >
+        RC2 = #{rc2,jdbcType=VARCHAR},
+      </if>
+      <if test="rc3 != null" >
+        RC3 = #{rc3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gla.datacenter.domain.ApiNumLimt" >
+    update dc_api_num_limt
+    set APIID = #{apiid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      ACCOUNT = #{account,jdbcType=VARCHAR},
+      AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      NUM_FLAG = #{numFlag,jdbcType=INTEGER},
+      TOTALNUM = #{totalnum,jdbcType=INTEGER},
+      LEAVELNUM = #{leavelnum,jdbcType=INTEGER},
+      USEDNUM = #{usednum,jdbcType=INTEGER},
+      IDT = #{idt,jdbcType=TIMESTAMP},
+      UDT = #{udt,jdbcType=TIMESTAMP},
+      CATEID = #{cateid,jdbcType=VARCHAR},
+      DEPTID = #{deptid,jdbcType=VARCHAR},
+      LIMT_TYPE = #{limtType,jdbcType=INTEGER},
+      RC1 = #{rc1,jdbcType=VARCHAR},
+      RC2 = #{rc2,jdbcType=VARCHAR},
+      RC3 = #{rc3,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="MySqlDialectPrefix" >
+    <if test="page != null" >
+      select row_.* from ( 
+    </if>
+  </sql>
+  <sql id="MySqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_  limit #{page.start} , #{page.rows} ]]>
+    </if>
+  </sql>
+
+  <!--             自定义sql开始               -->
+  <select id="checkIsFlag" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1) from dc_api_num_limt where FIND_IN_SET(#{str},dc_api_num_limt.USERID) > 0 and APIID = #{apiid}
+  </select>
+
+  <select id="getApiAuditStatus" resultMap="BaseResultMap">
+    select * from dc_api_num_limt where APIID = #{apiId} and USERID = #{userId}
+  </select>
+</mapper>
